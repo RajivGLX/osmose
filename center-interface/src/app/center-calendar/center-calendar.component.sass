@@ -1,0 +1,241 @@
+@use '../../variables' as *
+
+.wrapper-component
+    display: flex
+    flex-direction: column
+    gap: 40px
+    padding: 20px
+
+    .header-calendar
+        display: flex
+        justify-content: space-evenly
+        align-items: center
+        padding: 15px 20px 0 20px!important
+        .change-month.disabled
+            cursor: not-allowed
+            opacity: 0.5
+        .change-month
+            display: flex
+            justify-content: center
+            align-items: center
+            background: $bg-gris
+            border: none
+            width: 40px
+            height: 40px
+            border-radius: 8px
+            cursor: pointer
+            width: 25%
+        .change-month:hover
+            background: $bg-bleu-gris
+        .next-month
+            rotate: 180deg
+        h4
+            margin-bottom: 0
+            width: 50%
+            text-align: center
+
+    .container-calendar
+        background-color: #fff
+        border-radius: 15px
+
+    .header-calendar, .main-calendar
+        // border-bottom: 2px solid $bg-gris
+        align-content: center
+
+    .main-calendar
+        padding: 15px 20px 20px 20px
+
+        table
+            width: 100%
+            border-collapse: collapse
+
+            thead
+                background-color: $bg-gris
+                th
+                    padding-left: 10px
+                    border: 1px solid #ccc
+
+            tbody
+                // height: 90vh
+                background-image: repeating-linear-gradient(45deg, #c7c7c7a4, #c7c7c7a4 10px, rgba(255,255,255,.5) 10px, rgba(255,255,255,.5) 20px)
+
+                tr
+                    background-color: transparent
+                th, td
+                    border: 1px solid $bg-gris
+                    padding: 10px
+                    text-align: center
+                th
+                    background-color: $bg-gris
+                    font-weight: bold
+
+                td
+                    position: relative
+                    width: 14.285714%
+                    height: 105px
+                    padding: 0
+                    background-color: #fff
+                    border: 1px solid #1559798c
+                    span.day
+                        position: absolute
+                        top: 0
+                        right: 0
+                        width: 25px
+                        height: 20px
+                        background-color: $bg-bleu-gris
+                        border-end-start-radius: 5px
+                        font-size: 0.8em
+
+                .past-day
+                    background-color: transparent
+                    
+                .outside-month
+                    background-color: #f0f0f0
+                    border: 1px solid #ccc
+                .current-day
+                    background-color: $main-blue
+                    color: #fff
+
+    td div.input-bloc:last-child
+        // border-bottom: 0
+        padding: 3px 20px 0 10px 
+    td div.input-bloc:nth-child(2) 
+        padding: 0 20px 3px 10px   
+    td div.checked
+        background-color: $bg-bleu-gris
+    .input-bloc
+        display: flex
+        position: relative
+        // border-bottom: 1px solid $bg-bleu-gris
+        padding: 3px 20px 3px 10px 
+        height: 35px
+        box-sizing: border-box
+        &::after
+            content: ''
+            position: absolute
+            bottom: 0
+            left: 20px
+            right: 20px
+            height: 0.1rem
+            background-color: $bg-bleu-gris
+        &:last-child::after
+            display: none
+        .number-bloc
+            display: flex
+            align-items: center
+            .input-number
+                width: 20%
+                height: 75%
+                padding: 0
+                vertical-align: top
+                text-align: center
+                outline: none
+            .input-number, .input-number-decrement, .input-number-increment
+                border: 1px solid #ccc
+                user-select: none
+            .input-number-decrement, .input-number-increment
+                display: flex
+                align-items: center
+                justify-content: space-evenly
+                width: 15%
+                height: 75%
+                background: #f1f1f1
+                color: #444
+                font-weight: bold
+                cursor: pointer
+            .input-number-decrement
+                border-right: none
+                border-radius: 4px 0 0 4px
+            .input-number-increment
+                border-left: none
+                border-radius: 0 4px 4px 0
+            .input-number-decrement:active, .input-number-increment:active
+                background: #ddd
+        .booking-badge
+            display: flex
+            align-items: center
+            justify-content: center
+            min-width: 15px
+            height: 15px
+            background-color: $main-dore
+            color: white
+            border-radius: 50%
+            font-size: 12px
+            font-weight: bold
+            position: absolute
+            right: calc(50% - 7.5px)
+            top: calc(50% - 7.5px)
+        .switch-bloc
+            display: flex
+            flex-direction: column
+            align-items: flex-start
+            justify-content: center
+            width: 40%
+            gap: 10px
+
+            .notif-input, .email-input
+                min-width: 220px
+                display: flex
+
+            .switch
+                position: relative
+                display: inline-block
+                width: 35px
+                height: 15px
+                margin-right: 10px
+
+                input
+                    opacity: 0
+                    width: 0
+                    height: 0
+
+                .slider
+                    position: absolute
+                    cursor: pointer
+                    top: 0
+                    left: 0
+                    right: 0
+                    bottom: 0
+                    background-color: $text-color-gris
+                    -webkit-transition: .4s
+                    transition: .4s
+
+                .slider:before
+                    position: absolute
+                    content: ""
+                    height: 10.5px
+                    width: 10.5px
+                    left: 2.5px
+                    bottom: 2.5px
+                    background-color: white
+                    -webkit-transition: .4s
+                    transition: .4s
+
+                input:checked + .slider
+                    background-color: $main-blue
+
+                input:focus + .slider
+                    box-shadow: 0 0 1px $main-blue
+
+                input:checked + .slider:before
+                    -webkit-transform: translateX(19px)
+                    -ms-transform: translateX(19px)
+                    transform: translateX(19px)
+
+                .slider.round
+                    border-radius: 34px
+
+                .slider.round:before
+                    border-radius: 50%
+    .footer-calendar
+        display: flex
+        justify-content: space-between
+        padding: 20px
+        .booking-badge:after
+            content: ''
+            display: inline-block
+            width: 15px
+            height: 15px
+            background-color: $main-dore
+            color: white
+            border-radius: 50%

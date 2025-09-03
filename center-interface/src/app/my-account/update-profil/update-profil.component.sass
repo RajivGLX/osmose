@@ -1,0 +1,53 @@
+@use '../../../variables' as *
+
+.wrapper-component
+    display: flex
+    flex-direction: column
+    gap: 40px
+    .container-informations
+        background-color: #fff
+        border-radius: 15px
+        padding: 25px
+
+        .header-informations
+            display: flex
+            align-items: center
+            margin-bottom: 25px
+            padding-bottom: 25px
+            border-bottom: 2px solid $bg-gris
+            margin-bottom: 25px
+
+            .undertitle
+                color: $text-color-gris-light
+
+        .form-line
+            gap: 25px
+            .wrapper-input
+                width: 50%
+                &.full
+                    width: 100%
+                ::ng-deep mat-form-field
+                    width: 100%
+        .form-line.first
+            .wrapper-input
+                width: 50%
+
+        .custom-error
+            p
+                color: $error-color
+
+.container-form-user,.container-form-etude
+    position: relative
+form.visibility-off
+    visibility: hidden
+    .switch
+        display: none
+
+.loader-form
+    height: 100%
+    width: 100%
+    position: absolute
+    top: calc(50% - 40px)
+    z-index: 1000
+
+

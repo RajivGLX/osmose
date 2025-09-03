@@ -1,0 +1,45 @@
+<div class="container-center-list">
+    @if(switchView == 'centerList'){
+        <div class="wrapper-center-list d-flex flex-column">
+            <section class="wrapper-filter">
+                <div class="container-search">
+                    <img src="/assets/pictos/messagerie/search.svg" alt="">
+                    <input type="text" placeholder="Rechercher..." [formControl]="searchCtrl" id="filter-text-box"
+                        (input)="onFilterTextBoxChanged($event)">
+                </div>
+                <div class="create-center">
+                    <button class="btn custom-btn secondary" (click)="newCenter()">Créer un centre</button>
+                </div>
+            </section>
+
+            <div class="container-center-tab">
+                <ag-grid-angular 
+                    class="ag-theme-alpine" 
+                    style="height: 80vh; width: auto;" 
+                    [columnDefs]="colDefs"
+                    [defaultColDef]="defaultColDef" 
+                    [rowData]="rowData" 
+                    [animateRows]="true"
+                    [pagination]="true" 
+                    [rowHeight]="60" 
+                    [localeText]="localeTextFr" 
+                    [gridOptions]="gridOptions" 
+                    (gridReady)="onGridReady($event)"
+                    (rowDoubleClicked)="rowDoubleClicked($event)" 
+                    (firstDataRendered)="firstDataRendered($event)" 
+                />
+                @if (loaderAgGrid$ | async) {
+                    <div class="mat-spinner">
+                        <mat-spinner/>
+                    </div>
+                }
+            </div>
+        </div>
+    }@else if(switchView == 'centerForm') {
+        <app-center-form [center]="centerSelect" (closeVueDetaillee)="changeView('centerList')" />
+    }@else if(switchView == 'centerCalendar') {
+        <app-center-calendar [center]="centerSelect" (closeVueDetaillee)="changeView('centerList')"/>
+    }@else if (switchView == 'centerCreate') {
+        <app-center-create (closeVueDetaillee)="changeView('centerList')" />
+    }
+</div>

@@ -1,0 +1,92 @@
+<div class="wrapper-component">
+    <div class="container-calendar" *ngIf="formInitialized">
+        <div class="header-calendar d-flex">
+            <div class="change-month previous-month" [ngClass]="{'disabled': isFirstMonthReached()}" (click)="prevMonth()">
+                <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M9.2625 13.5078L3.5375 7.9998L9.2625 2.4918L7.5 0.799805L0 7.9998L7.5 15.1998L9.2625 13.5078Z"
+                        fill="#202224" />
+                </svg>
+            </div>
+            <h4 class="title-calendar">{{ getFormattedMonth() | uppercase }}</h4>
+            <div class="change-month next-month" [ngClass]="{'disabled': isLastMonthReached()}" (click)="nextMonth()">
+                <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M9.2625 13.5078L3.5375 7.9998L9.2625 2.4918L7.5 0.799805L0 7.9998L7.5 15.1998L9.2625 13.5078Z"
+                        fill="#202224" />
+                </svg>
+            </div>
+        </div>
+        <div class="main-calendar" [formGroup]="calendarForm">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Lundi</th>
+                        <th>Mardi</th>
+                        <th>Mercredi</th>
+                        <th>Jeudi</th>
+                        <th>Vendredi</th>
+                        <th>Samedi</th>
+                        <th>Dimanche</th>
+                    </tr>
+                </thead>
+
+                <tbody [formGroupName]="generateMonthKey(currentMonth)">
+                    @for (week of weeks; track trackByIndex) {
+                        <tr>
+                            @for (day of week; track day) {
+                                @if (day && day.getMonth() == currentMonth.getMonth() && day > today){
+                                    <td [formGroupName]="generateDateKey(day)">
+                                        <span class="day">{{ day.getDate() }}</span>
+                                        <!-- <div class="wrapper-day"> -->
+                                            @for (slot of slots; track trackByPeriod) {
+                                                <div class="input-bloc" [formGroupName]="slot" [ngClass]="{'checked': getSlotChecked(day, slot)}">
+                                                    <div class="number-bloc">
+                                                        <span (click)="decrement(slot, day)" class="input-number-decrement">–</span>
+                                                        <input (input)="onInputChange($event, slot, day)" [formControlName]="'qty'" id="{{day.getDate()}}-{{slot}}-qty"
+                                                            class="input-number" type="text" min="1" max="15">
+                                                        <span (click)="increment(slot, day)" class="input-number-increment">+</span>
+                                                    </div>
+                                                    <div class="booking-badge" *ngIf="getBookingValue(day, slot) > 0">
+                                                        {{ getBookingValue(day, slot) }}
+                                                    </div>
+                                                    <div class="switch-bloc">
+                                                        <label class="switch" for="{{ generateDateKey(day) }}-{{slot}}">
+                                                            <input (change)="onCheckboxChange($event, slot, day)" [formControlName]="'check'"
+                                                                id="{{ generateDateKey(day) }}-{{slot}}" type="checkbox">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            }
+                                        <!-- </div> -->
+                                    </td>
+                                }@else if (day && day.getDate() === today.getDate() && day.getMonth() === currentMonth.getMonth()){
+                                    <td class="current-day"></td>
+                                }@else if (day && day < today && day.getMonth() === currentMonth.getMonth()){
+                                    <td class="past-day"></td>
+                                }@else{
+                                    <td class="outside-month"></td>
+                                }
+                            }
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+        <div class="footer-calendar">
+            <div class="switch-bloc-general">
+                <label class="switch" for="checkAll">
+                    <input (change)="toggleAllCheckboxes($event)" type="checkbox" id="checkAll" [checked]="areAllChecked()">
+                    <span class="slider round"></span>
+                </label>
+                <span>Tout sélectionner</span>
+                <p class="mb-0 mt-2">
+                    * <span class="booking-badge"></span> Nombre de demande(s) en cours sur le créneau
+                </p>
+            </div>
+            <button class="btn custom-btn" (click)="openRecap()">Sauvegarder</button>
+        </div>
+    </div>
+</div>

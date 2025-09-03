@@ -1,0 +1,35 @@
+<div class="d-flex align-items-center gap-3">
+    @if (params.data.isLoading) {
+        <mat-spinner color="" diameter="30"></mat-spinner>
+    }@else {
+        <!-- Bouton Update -->
+        <button class="btn btn-primary" (click)="onEdit()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square"
+                viewBox="0 0 16 16">
+                <path
+                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                <path fill-rule="evenodd"
+                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+            </svg>
+        </button>
+        
+        <!-- Bouton Calendar -->
+        <button class="btn btn-secondary" (click)="onCalendar()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar"
+                viewBox="0 0 16 16">
+                <path
+                    d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+            </svg>
+        </button>
+        
+        <!-- Switch pour le statut -->
+        <div class="notif-input">
+            <label class="switch">
+                <input type="checkbox" [checked]="params.data.active" (change)="onStatusChange($event, params.data)"
+                    [disabled]="params.data.isLoading">
+                <span class="slider round"></span>
+            </label>
+            <!-- <label>{{ params.data.active ? 'Actif' : 'Inactif' }}</label> -->
+        </div>
+    }
+</div>

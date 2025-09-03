@@ -1,0 +1,18 @@
+
+<div class="content">
+
+    <div class="verif-mail-container">
+        <div class="group">
+        <img alt="inscription validee" width="56px" height="56px" src="/assets/divers/puce-check-bleue.svg" />
+        <div class="texts-container">
+        @if(message != "") {
+            <p class="register-thanks">Merci pour votre inscription</p>
+            <p  class="verify-mail">{{message}}</p>
+            <button class="custom-btn"  routerLink="/login">Vous pouvez vous connecter</button>
+        } @else {
+            <p>Veuillez patienter</p>
+        }
+    </div>
+    </div>
+    </div>
+</div>

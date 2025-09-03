@@ -1,0 +1,125 @@
+@use '../../variables' as *
+
+.container-admin-list
+    padding: 40px
+
+    .wrapper-admin-list
+        gap: 15px
+
+        .wrapper-filter
+            display: flex
+            justify-content: space-between
+            .container-search
+                position: relative
+                width: 50%
+                padding: 5px
+                background-color: #fff
+                border-radius: 15px
+
+                img
+                    width: 15px
+                    height: 15px
+                    position: absolute
+                    z-index: 999
+                    left: 15px
+                    top: 50%
+                    transform: translateY(-50%)
+                input
+                    background-color: #fff
+                    border: none
+                    width: 100%
+                    height: 40px
+                    border-radius: 500px
+                    padding-left: 40px
+                    position: relative
+
+                    &:focus-visible
+                        outline: none !important
+
+            .container-btn-choix
+                label
+                    padding: 8px 25px
+                    border: 2px solid $main-blue
+                    cursor: pointer
+                    color: $main-blue
+                    font-weight: 700
+                label.past
+                    border-top-left-radius: 25px
+                    border-bottom-left-radius: 25px
+                    border-right: none
+                label.futur
+                    border-top-right-radius: 25px
+                    border-bottom-right-radius: 25px
+                    border-left: none
+
+                input:checked + .custom-radio-label
+                    background-color: $main-blue
+                    color: #fff            
+
+        .container-admin-tab
+            position: relative
+
+            .mat-spinner
+                position: absolute
+                top: 25%
+                left: calc(50% - 50px)
+
+            ::ng-deep .custom-header-last .ag-header-cell-resize
+                display: none
+
+            ::ng-deep .ag-header
+                border-color: $border-input
+                background: $main-blue
+
+                .ag-header-cell
+                    background: $main-blue
+                    color: #fff
+
+                    .ag-icon
+                        color: #fff
+
+            ::ng-deep .ag-root-wrapper.ag-layout-normal
+                border-radius: 15px
+                border-color: $border-input
+
+            ::ng-deep .ag-paging-panel
+                border-top: none
+
+            ::ng-deep .ag-cell-value
+                display: flex
+                align-items: center
+                .notif-input
+                    display: flex
+                    align-items: center
+
+            ::ng-deep .ag-row-hover:before
+                background: $bg-gris
+
+            ::ng-deep .ag-body-viewport,
+            ::ng-deep .ag-body-vertical-scroll-viewport
+                scrollbar-color: $main-blue #f0f0f0
+                border-radius: 10px    
+
+    ::ng-deep .ag-cell-value
+        .edit
+            width: 45px
+            height: 45px
+            background-color: $bg-gris
+            display: flex
+            justify-content: center
+            align-items: center
+            border-radius: 8px
+            cursor: pointer
+
+            &.small
+                width: 30px
+                height: 30px
+                svg
+                    width: 15px
+                    height: 15px
+
+            svg
+                width: 18px
+                height: 18px
+                fill: $text-color-gris
+

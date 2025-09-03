@@ -1,0 +1,249 @@
+@use '../../variables' as *
+
+button.fake-inscription
+    position: relative
+    z-index: 10
+
+.container-register-form
+    display: flex
+    justify-content: center
+    align-items: center
+    background-image: url("/assets/bg/bg-connexion.jpg")
+    min-height: 100vh
+    position: relative
+    padding: 50px 0
+    background-position: center center
+
+    &::before
+        content: ''
+        width: 100%
+        height: 100%
+        position: absolute
+        left: 0
+        top: 0
+        background-color: rgba(31, 109, 147,0.78)
+
+    .content
+        z-index: 10
+        background-color: #fff
+        max-width: 750px
+        min-width: 700px
+
+        padding: 30px
+        border-radius: 25px
+
+        ::ng-deep .mat-horizontal-content-container
+            padding: 0
+
+        .wrapper-registerForm .row
+            padding-bottom: 15px
+
+        .wrapper-title-progress-bar
+            align-items: center
+            justify-content: space-between
+            margin-bottom: 20px
+
+        .register-text-undertitle
+            margin-bottom: 5px
+
+        .register-text-champs-obligatoire
+            em
+                color: #b6b5b5
+                font-size: 14px
+
+        .acceptation-cgu
+            color: $main-blue
+
+        .custom-error
+            text-align: center
+            margin-top: -15px
+
+        .doublon-crpcen
+
+            .alerte-doublon-crpcen
+                color: $main-blue
+                font-weight: bold
+                padding-left: 30px
+                position: relative
+
+                &::before
+                    content: ''
+                    width: 25px
+                    height: 25px
+                    position: absolute
+                    left: 0
+                    top: 50%
+                    transform: translateY(-50%)
+                    background-image: url('/assets/pictos/ampoule.png')
+                    background-size: contain
+                    background-position: center center
+            ul
+                padding-left: 0
+                li
+                    font-size: 10px
+
+        .wrapper-inputs
+            display: flex
+            gap: 40px
+            justify-content: center
+
+            &.radio
+                padding-left: 40px
+
+            .custom-label
+                min-width: 150px
+                padding: 10px 15px
+                color: $main-blue
+                border-radius: 5px
+                border: 1px solid $main-blue
+                cursor: pointer
+
+            input:checked+.custom-radio-label:after
+                content: ''
+                width: 16px
+                height: 16px
+                display: block
+                position: absolute
+                border-radius: 500px
+                top: 50%
+                transform: translate(5px, -50%)
+                left: -30px
+                background: $main-blue !important
+
+            .custom-radio-label
+                position: relative
+                margin-right: 40px
+                cursor: pointer
+
+            .custom-radio-label:before
+                content: ''
+                width: 26px
+                height: 26px
+                border-radius: 500px
+                top: 50%
+                transform: translateY(-50%)
+                left: -30px
+                position: absolute
+                border: 1px solid #D5D5D5
+                cursor: pointer
+
+    ::ng-deep .mat-horizontal-stepper-header-container
+        display: none
+
+    .progress-bar
+        width: 100%
+        background-color: $bg-input
+        height: 32px
+        border-radius: 60px
+
+        .progress
+            background-color: $main-dore
+            height: 100%
+            border-radius: 60px
+            transition: 0.3s all
+            display: flex
+            justify-content: center
+            align-items: center
+            text-align: center
+
+            span.indication-step
+                color: #fff
+                font-weight: bold
+                font-size: 14px
+                text-align: center
+
+    .already-have-account
+        justify-content: space-between
+        align-items: center
+        button
+            min-width: 190px !important
+            height: 42px !important
+        .have-account
+            margin-bottom: 0
+            a
+                color: $main-blue
+                text-decoration: underline
+                font-weight: bold
+                margin-left: 15px
+    .mat-stepper-next,
+    .mat-stepper-previous
+        min-width: 190px
+        height: 42px
+
+// .wrapper-horaires
+
+//     position: relative
+//     padding: 40px 20px 10px
+//     border: 1px solid rgba(0,0,0,0.16)
+//     border-radius: 5px
+//     margin-bottom: 30px
+
+//     .jour-cool-semaine
+//         font-weight: bold
+//         text-transform: uppercase
+//         position: absolute
+//         top: -10px
+//         left: 30px
+//         background: #fff
+//         width: 10%
+//         text-align: center
+
+//     .container-horaires
+//         display: flex
+//         justify-content: space-between
+//         flex-wrap: wrap
+
+//         .periode-jour
+//             text-align: center
+//             font-weight: bold
+//             margin: 0
+//             width: 100%
+//             margin-top: 5px
+
+//         .horaires-matin
+//             width: 48%
+//             gap: 10px
+
+//             .container-matin
+//                 display: flex
+//                 gap: 15px
+
+//         .horaires-apres-midi
+//             width: 48%
+//             gap: 10px
+
+//             .container-apres-midi
+//                 display: flex
+//                 gap: 15px
+
+section
+    padding: 10px
+    border-radius: 5px
+    legend
+        font-size: 18px
+        font-weight: bold
+        margin-bottom: 10px
+.mat-icon
+    color: $main-blue
+
+// .container-jours-ouverture
+//     display: flex
+//     gap: 10px
+//     padding-left: 0
+//     .wrapper-jours-cool
+//         margin-bottom: 30px
+
+//         label
+//             min-width: 50px
+//             padding: 10px 15px
+//             color: $main-blue
+//             border-radius: 5px
+//             border: 1px solid $main-blue
+//             cursor: pointer
+
+//         input:checked+label
+//             background: $main-blue
+//             color: #fff
+
+mat-form-field.horaires
+    flex-direction: row

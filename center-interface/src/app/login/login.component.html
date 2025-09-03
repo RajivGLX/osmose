@@ -1,0 +1,52 @@
+<div class="content">
+    <div class="container-login-form">
+
+        <form [formGroup]="loginForm">
+
+            <img src="/assets/logo/logo-nota-risques-urba.png" alt="">
+
+            <h2>Se connecter</h2>
+            <p class="renseignez-credentials">Renseignez vos identifiants pour continuer</p>
+            <div class="wrapper-loginForm">
+                <div class="row">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Adresse mail</mat-label>
+                        <input matInput type="text" formControlName="username">
+                        <mat-icon matSuffix>
+                            mail
+                        </mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Mot de passe</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                        <mat-icon [class]="'visibility_password'" (click)="hide = !hide" matSuffix>
+                            {{hide ? 'visibility_off' : 'visibility'}}
+                        </mat-icon>
+                    </mat-form-field>
+                </div>
+            </div>
+            <a class="forgot-password" routerLink="/forgot-password">Mot de passe oublié ?</a>
+
+            <div class="btn-container">
+                @if(loading | async){
+                    <div class="mat-spinner">
+                        <mat-spinner class="mb-2" color="accent"></mat-spinner>
+                    </div>
+                }@else{
+                    @if(loginForm.status == 'VALID'){
+                        <button class="custom-btn" (click)="sendLoginForm()">Connexion</button>
+                    }@else {
+                        <button class="custom-btn btn-disabled" [disabled]="">Connexion</button>
+                    }
+                }
+
+                <p class="mt-3" class="create-account">
+                    Vous n’êtes pas client ? 
+                    <a routerLink="/register">Créer un compte</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>

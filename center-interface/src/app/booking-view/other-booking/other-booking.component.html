@@ -1,0 +1,45 @@
+<form [formGroup]="statusMultipleForm" (ngSubmit)="updateSelectedBookingsStatus()" class="container-status-update">
+    <div class="wrapper-box">
+        <span class="title">Changer les statuts des autres des autres demandes</span>
+        <mat-form-field appearance="outline">
+            <mat-label>Statut</mat-label>
+            <mat-select formControlName="idStatus">
+                @for (status of allStatus; track $index) {
+                    <mat-option [value]="status.id">{{status.name}}</mat-option>
+                }
+            </mat-select>
+            <mat-error *ngIf="statusMultipleForm.get('idStatus')?.hasError('required')">
+                Le statut est requis
+            </mat-error>
+        </mat-form-field>
+        <button class="btn custom-btn" [disabled]="statusMultipleForm.invalid">
+            Mettre à jour le(s) statut(s)
+        </button>
+    </div>
+</form>
+<div class="container-booking-tab">
+    <ag-grid-angular 
+        class="ag-theme-alpine" 
+        style="height: 80vh; width: auto;" 
+        [columnDefs]="colDefs"
+        [defaultColDef]="defaultColDef" 
+        [rowData]="rowData" 
+        [rowSelection]="'multiple'" 
+        [animateRows]="true"
+        [pagination]="true" 
+        [rowHeight]="60" 
+        [paginationPageSize]="paginationPageSize" 
+        [localeText]="localeTextFr" 
+        [gridOptions]="gridOptions"
+        (gridReady)="onGridReady($event)"
+        (firstDataRendered)="firstDataRendered($event)"
+    />
+    @if (loaderAllStatus$ | async) {
+        <div class="mat-spinner">
+            <mat-spinner/>
+        </div>
+    }
+    
+</div>
+
+

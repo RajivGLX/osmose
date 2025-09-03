@@ -1,0 +1,64 @@
+<div class="wrapper-edit-user d-flex flex-column">
+    <div class="wrapper-title-and-close-btn d-flex justify-content-between mb-3">
+        <h3>Modifier un utilisateur</h3>
+
+        <button class="cross-btn" (click)="closeModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24">
+                <path
+                    d="M18,6h0a1,1,0,0,0-1.414,0L12,10.586,7.414,6A1,1,0,0,0,6,6H6A1,1,0,0,0,6,7.414L10.586,12,6,16.586A1,1,0,0,0,6,18H6a1,1,0,0,0,1.414,0L12,13.414,16.586,18A1,1,0,0,0,18,18h0a1,1,0,0,0,0-1.414L13.414,12,18,7.414A1,1,0,0,0,18,6Z" />
+            </svg>
+        </button>
+    </div>
+    <p class="edit-user-champs-obligatoire">
+        <em>Les champs obligatoires sont marqués d’un astérisque (<span class="asterisque">*</span>)</em>
+    </p>
+    <form class="edit-user-form d-flex flex-column" [formGroup]="updateUserForm">
+
+        <div class=" d-flex flex-wrap input-group justify-content-between">
+            <mat-form-field class=" form-nom edit-user-input" appearance="outline">
+                <mat-label>Nom</mat-label>
+                <input matInput formControlName="nom" />
+                <mat-error >{{ messageErrors.nom }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-prenom edit-user-input" appearance="outline">
+                <mat-label>Prenom</mat-label>
+                <input matInput formControlName="prenom" >
+                <mat-error>{{ messageErrors.prenom}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class=" d-flex flex-wrap input-group">
+            <mat-form-field class="form-email w-100" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" >
+                <mat-error>{{ messageErrors.email}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class=" d-flex flex-wrap wrapper-radio">
+            <h6 class=" fw-bold col-12">Sélectionnez un rôle <span class="asterisque">*</span></h6>
+            <div class="d-flex flex-wrap wrapper-inputs radio justify-content-between">
+                @for (role of listeRoles; track $index) {
+                <input type="radio" class="d-none" name="userRole" id="{{role}}" value="{{role}}"
+                    (click)="addRole(role)" [checked]="user.roles.includes(role)" >
+                <label class="custom-radio-label" for="{{role}}">{{role | traductionRole}}</label>
+                }
+                <mat-error>{{ messageErrors.roles }}</mat-error>
+            </div>
+        </div>
+
+        @if (loading) {
+        <app-loader></app-loader>
+
+        } @else{
+        <div class="row wrapper-footer  justify-content-center">
+            @if(updateUserForm.valid) {
+            <button class="btn custom-btn w-50" (click)="submitUpdateForm()">Envoyer</button>
+            } @else {
+            <button class="btn custom-btn w-50" >Envoyer</button>
+            }
+        </div>
+        }
+
+
+    </form>
+</div>

@@ -1,0 +1,43 @@
+<div class="container-patient-list">
+    @if(switchView == 'patientList'){
+    <div class="wrapper-patient-list d-flex flex-column">
+        <section class="wrapper-filter">
+            <div class="container-search">
+                <img src="/assets/pictos/messagerie/search.svg" alt="">
+                <input type="text" placeholder="Rechercher..." [formControl]="searchCtrl" id="filter-text-box"
+                    (input)="onFilterTextBoxChanged($event)">
+            </div>
+            <div class="create-patient">
+                <button class="btn custom-btn secondary" (click)="newPatient()">Créer un patient</button>
+            </div>
+        </section>
+
+        <div class="container-patient-tab">
+            <ag-grid-angular 
+                class="ag-theme-alpine" 
+                style="height: 80vh; width: auto;" 
+                [columnDefs]="colDefs"
+                [defaultColDef]="defaultColDef" 
+                [rowData]="rowData" 
+                [animateRows]="true" 
+                [pagination]="true"
+                [rowHeight]="60" 
+                [localeText]="localeTextFr" 
+                [gridOptions]="gridOptions"
+                (gridReady)="onGridReady($event)" 
+                (rowDoubleClicked)="rowDoubleClicked($event)"
+                (firstDataRendered)="firstDataRendered($event)" 
+            />
+            @if (loaderAgGrid$ | async) {
+                <div class="mat-spinner">
+                    <mat-spinner />
+                </div>
+            }
+        </div>
+    </div>
+    }@else if(switchView == 'patientForm') {
+        <app-patient-form [userSelect]="userSelect" [view]="'update'" (closeVueDetaillee)="changeView('patientList')" />
+    }@else if (switchView == 'patientCreate') {
+        <app-patient-form [view]="'create'" (closeVueDetaillee)="changeView('patientList')" />
+    }
+</div>

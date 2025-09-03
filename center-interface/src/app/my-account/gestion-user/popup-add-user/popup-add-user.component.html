@@ -1,0 +1,83 @@
+<div class="wrapper-add-user d-flex flex-column">
+    <div class="wrapper-title-and-close-btn d-flex justify-content-between mb-3">
+        <h3>Ajouter un administrateur</h3>
+
+        <button class="cross-btn" (click)="closeModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24">
+                <path
+                    d="M18,6h0a1,1,0,0,0-1.414,0L12,10.586,7.414,6A1,1,0,0,0,6,6H6A1,1,0,0,0,6,7.414L10.586,12,6,16.586A1,1,0,0,0,6,18H6a1,1,0,0,0,1.414,0L12,13.414,16.586,18A1,1,0,0,0,18,18h0a1,1,0,0,0,0-1.414L13.414,12,18,7.414A1,1,0,0,0,18,6Z"/>
+            </svg>
+        </button>
+    </div>
+    <p class="add-user-champs-obligatoire">
+        <em>Les champs obligatoires sont marqués d’un astérisque (<span class="asterisque">*</span>)</em>
+    </p>
+    <form class="add-user-form d-flex flex-column" [formGroup]="popupAddUserService.addUserForm">
+
+        <div class="d-flex flex-wrap input-group justify-content-between">
+            <mat-form-field class=" form-nom add-user-input" appearance="outline">
+                <mat-label>Nom</mat-label>
+                <input matInput formControlName="lastname" />
+                <mat-error>{{errors.nom}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-prenom add-user-input" appearance="outline">
+                <mat-label>Prenom</mat-label>
+                <input matInput formControlName="firstname">
+                <mat-error>{{ errors.prenom }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="d-flex flex-wrap w-100" [formGroup]="popupAddUserService.emailForm">
+            <div class="d-flex input-group justify-content-between">
+                <mat-form-field  appearance="outline" class=" add-user-input">
+                    <mat-label>E-mail</mat-label>
+                    <input matInput formControlName="email">
+                    <mat-error>{{errors.email}}</mat-error>
+                </mat-form-field>
+                <mat-form-field  appearance="outline" class="add-user-input">
+                    <mat-label>Confirmation e-mail</mat-label>
+                    <input matInput formControlName="confirm_email"  >
+
+                    <mat-error>{{ errors.confirm_email }}</mat-error>
+                </mat-form-field>
+            </div>
+
+            @if (popupAddUserService.emailForm.hasError('confirmEqual') && popupAddUserService.emailForm.invalid) {
+                <div class="custom-error m-auto">
+                    <mat-error>{{errors.email}}</mat-error>
+                </div>
+            }
+        </div>
+
+        <div class="wrapper-attention-message mt-0 mb-0">
+            <p class="mb-0"> Le mot de passe de l'administrateur lui sera envoyé sur l'adresse mail renseignée</p>
+        </div>
+
+        <div [formGroup]="popupAddUserService.diversForm" class="wrapper-divers d-flex flex-column w-100">
+
+            <mat-checkbox formControlName="acceptation_cgu">
+                Je reconnais avoir lu et accepté les
+                <a routerLink="#" class="acceptation-cgu fw-bold">CGU</a>
+            </mat-checkbox>
+            <!-- Mat-error pour la checkbox -->
+            <mat-error *ngIf="popupAddUserService.diversForm.invalid &&
+                popupAddUserService.diversForm.get('acceptation_cgu')?.touched">
+                Vous devez accepter les CGU pour continuer.
+            </mat-error>
+
+        </div>
+
+
+        @if (loading) {
+            <app-loader></app-loader>
+        } @else {
+            <div class="row wrapper-footer  justify-content-center">
+                @if (popupAddUserService.addUserForm.valid) {
+                    <button class="btn custom-btn " (click)="submitAddForm()">Envoyer</button>
+                } @else {
+                    <button class="btn custom-btn" disabled>Envoyer</button>
+                }
+            </div>
+        }
+    </form>
+</div>

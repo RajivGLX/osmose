@@ -1,0 +1,308 @@
+/* You can add global styles to this file, and also import other style files */
+@use 'variables' as *
+@import "bootstrap/dist/css/bootstrap.css"
+@import 'ag-grid-community/styles/ag-grid.css'
+@import 'ag-grid-community/styles/ag-theme-alpine.css'
+@import "@ng-select/ng-select/themes/material.theme.css"
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap'
+
+*
+    font-family: "DM Sans", sans-serif
+    // -webkit-user-select: none
+    // -ms-user-select: none
+    // user-select: none
+
+html
+    &::-webkit-scrollbar
+        width: 12px
+
+    &::-webkit-scrollbar-thumb
+        background: $main-blue
+        border-radius: 10px
+
+    &::-webkit-scrollbar-track
+        background: #f0f0f0
+        border-radius: 10px
+
+body
+    margin: 0
+
+    #root
+        display: block
+        min-height: 100%
+
+    .main
+        min-height: 100vh
+
+    .custom-btn
+        cursor: pointer !important
+        background-color: $main-dore
+        height: 42px !important
+        padding: 5px 25px !important
+        color: #fff
+        appearance: none !important
+        border-style: none
+        font-size: 18px !important
+        border-radius: 60px !important
+        transition: all 0.3s !important
+        border: 1px solid $main-dore
+
+        &.outline
+            background-color: transparent !important
+            border-color: $main-blue !important
+            color: $main-blue !important
+
+            &:hover
+                background-color: $main-blue !important
+                color: #fff !important
+
+        &.secondary
+            background-color: $main-blue !important
+            border: 1px solid $main-blue
+
+            &:not(.btn-disabled):hover
+                background-color: $main-blue-hover !important
+                color: #fff !important
+
+        &:not(.btn-disabled):hover
+            background-color: $main-dore-hover
+            color: #fff !important
+    .btn-primary
+        background-color: $main-blue
+        color: #fff
+        border: 1px solid $main-blue
+
+        &:hover, &:active, &:focus
+            background-color: $main-blue-hover
+            color: #fff
+            border: 1px solid $main-blue-hover
+    .btn-secondary
+        background-color: $main-dore
+        color: #fff
+        border: 1px solid $main-dore
+
+        &:hover
+            background-color: $main-dore-hover
+            color: #fff
+            border: 1px solid $main-dore-hover               
+
+    .btn-disabled
+        min-width: 190px !important
+        background-color: rgba(83, 83, 83,0.1) !important
+        cursor: default !important
+        border-color: rgba(83, 83, 83,0.1) !important
+        color: rgba(87, 87, 87, 0.6) !important
+        border-radius: 60px
+
+        &.secondary
+            border-color: rgba(83, 83, 83,0.1) !important
+            background-color: rgba(83, 83, 83,0.1) !important
+            color: rgba(87, 87, 87, 0.6) !important
+
+    .mat-mdc-form-field-type-mat-select > div,
+    .mat-mdc-form-field > div
+        background-color: $bg-input !important
+
+    .mat-mdc-select-panel
+        background-color: $bg-input !important
+        box-shadow: none !important
+        border: solid 1px $border-input !important
+        border-radius: 8px !important
+        padding: 0 !important
+
+    .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading,
+    .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch,
+    .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing
+        border-color: $border-input
+
+    .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading
+        border-top-left-radius: $border-input-radius
+        border-bottom-left-radius: $border-input-radius
+
+    .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__trailing
+        border-top-right-radius: $border-input-radius
+        border-bottom-right-radius: $border-input-radius
+
+    .mdc-text-field
+        border-radius: $border-input-radius
+
+    .mat-step-icon
+        color: #fff
+        background-color: $main-blue
+    .mat-step-icon-selected
+        background-color: $main-dore
+
+    .mat-mdc-snack-bar-container.success
+        .mdc-snackbar__surface
+            background-color: $success-color
+    .mat-mdc-snack-bar-container.error
+        .mdc-snackbar__surface
+            background-color: $error-color
+    .snackbar-center 
+        display: flex
+        justify-content: center
+        align-items: center
+        text-align: center
+    .mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align
+        background-color: transparent !important
+
+    .mdc-text-field--filled
+        border-radius: 5px
+
+    .mat-stepper-previous
+        background-color: transparent
+        border: 1px solid $main-blue
+        color: $main-blue
+
+        &:hover
+            background-color: transparent !important
+    .mat-stepper-next
+        border: 1px solid $main-blue
+
+//-----------------MODAL-------------------//
+    .modal
+        .modal-content
+            top: 50px !important
+            .modal-header
+                background-color: $main-blue
+                color: #fff
+                .btn-close
+                    display: flex
+                    justify-content: center
+                    background: #fff
+                    position: relative
+                    &::after
+                        content: ''
+                        position: absolute
+                        left: 50%
+                        top: 50%
+                        transform: translate(-50%, -50%)
+                        width: 50%
+                        height: 50%
+                        background-image: url('/assets/pictos/close.svg')
+                        background-size: contain
+                        background-position: center center
+            ul
+                list-style: none
+                li
+                    margin-top: 30px
+//----------------Switch-------------------//
+.switch
+    position: relative
+    display: inline-block
+    width: 50px
+    height: 24px
+    margin-right: 20px
+
+    input
+        opacity: 0
+        width: 0
+        height: 0
+
+    .slider
+        position: absolute
+        cursor: pointer
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        background-color: $text-color-gris
+        -webkit-transition: .4s
+        transition: .4s
+
+    .slider:before
+        position: absolute
+        content: ""
+        height: 16px
+        width: 16px
+        left: 4px
+        bottom: 4px
+        background-color: white
+        -webkit-transition: .4s
+        transition: .4s
+
+    input:checked + .slider
+        background-color: $main-blue
+
+    input:focus + .slider
+        box-shadow: 0 0 1px $main-blue
+
+    input:checked + .slider:before
+        -webkit-transform: translateX(26px)
+        -ms-transform: translateX(26px)
+        transform: translateX(26px)
+
+    .slider.round
+        border-radius: 34px
+
+    .slider.round:before
+        border-radius: 50%  
+
+//-----------------Wrapper box-------------------//
+.wrapper-box
+    position: relative
+    padding: 25px
+    border: 2px solid $border-input
+    background-color: $bg-gris
+    border-radius: 15px
+    font-size: 14px
+    label
+        display: block
+        color: $text-color-gris
+        font-weight: bold
+    label + span
+        color: $main-blue
+    .title
+        position: absolute
+        top: -15px
+        left: 20px
+        color: $text-color-gris-light
+        padding: 0 10px
+        font-weight: bold
+        font-size: 18px
+        z-index: 3
+    .title::before
+        content: ''
+        position: absolute
+        top: 13px
+        left: 0
+        width: 100%
+        height: 2px
+        background-color: $bg-gris
+        z-index: -1
+//-----------------Goback-------------------//
+.go-back
+    display: flex
+    justify-content: center
+    align-items: center
+    background: $bg-gris
+    border: none
+    width: 40px
+    height: 40px
+    border-radius: 8px
+    cursor: pointer
+    margin-right: 25px
+.go-back:hover
+    background: $main-blue
+    color: #fff
+    svg
+        fill: #fff  
+//--------------Message----------------------//
+.wrapper-attention-message
+    margin: 20px auto
+    border: solid 1px rgb(255, 165, 0)
+    color: orange
+    border-radius: 15px
+    padding: 20px
+    background-color: #ffa5000d  
+
+
+//---------------Radio-----------------//
+::ng-deep .mdc-radio__outer-circle
+    border-color: $text-color-gris !important  
+
+//---------------ng select-----------------//
+    .ng-select .ng-select-container.ng-appearance-outline:hover:after
+        border-width: 1px  
+

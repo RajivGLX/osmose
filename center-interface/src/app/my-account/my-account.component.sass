@@ -1,0 +1,259 @@
+@use '../../variables' as *
+
+.container-compte
+    padding: 40px
+
+    .wrapper-compte
+        gap: 40px
+
+        .bloc-compte
+            background-color: #fff
+            padding: 25px
+            border-radius: 15px
+
+        .container-compte-infos
+            gap: 40px
+
+            .infos-user, .infos-etude
+                width: 50%
+                justify-content: space-between
+
+                .fisrt-bloc-infos
+                    gap: 40px
+
+                    .img-user, .img-etude
+                        width: 90px
+                        height: 90px
+                        padding: 25px
+                        background-color: $main-blue
+                        border-radius: 500px
+
+                        svg
+                            fill: #fff
+
+                    .user-name, .etude-name
+                        font-weight: bold
+                        margin-bottom: 15px
+
+        // .edit
+        //     width: 45px
+        //     height: 45px
+        //     background-color: $bg-gris
+        //     display: flex
+        //     justify-content: center
+        //     align-items: center
+        //     border-radius: 8px
+        //     cursor: pointer
+
+        //     &.small
+        //         width: 30px
+        //         height: 30px
+        //         svg
+        //             width: 15px
+        //             height: 15px
+
+        //     svg
+        //         width: 18px
+        //         height: 18px
+        //         fill: $text-color-gris
+
+        .container-onglet-categories
+            display: flex
+            .categories
+                padding: 5px
+                border: 1px solid $border-input
+                border-radius: 8px
+            ul
+                display: flex
+                list-style: none
+                padding-left: 0
+                margin-bottom: 0
+                gap: 5px
+
+                li
+
+                    border-radius: 4px
+                    padding: 10px 20px
+                    color: $main-blue
+                    cursor: pointer
+
+                    &.active
+                        background-color: $bg-bleu-gris
+
+        .container-horaires, .container-utilisateurs
+            background-color: #fff
+            border-radius: 15px
+
+        // .container-consommation
+        //     display: flex
+        //     gap: 40px
+
+        //     .wrapper-consommation
+        //         width: 75%
+        //         background-color: #fff
+        //         border-radius: 15px
+        //     .consommation-graphique
+        //         width: 25%
+        //         background-color: #fff
+        //         border-radius: 15px
+
+        // .container-factures
+        //     padding-bottom: 25px
+
+        // .header-utilisateurs
+        //     border-bottom: 2px solid $bg-gris
+        //     padding: 25px
+        //     align-items: center
+
+        .header-fisrt-bloc
+            gap: 40px
+            align-items: center
+
+            h4
+                margin: 0
+
+            .custom-btn
+                background-color: #fff !important
+                border-color: $main-blue !important
+                color: $main-blue !important
+
+        // .header-factures
+        //     justify-content: space-between
+
+        // .infos-abonnement
+        //     padding: 20px 25px
+        //     justify-content: space-between
+        //     align-items: center
+        //     border-bottom: 2px solid $bg-gris
+        //     font-size: 14px
+
+        //     .credits
+        //         gap: 15px
+
+        //         .img-abonnement
+        //             width: 29px
+        //             height: 29px
+
+        //             svg
+        //                 fill: $main-blue
+        .container-table
+            padding: 25px 25px 0 25px
+
+            td,th
+                border: none !important
+                padding: 16px 8px !important
+                vertical-align: middle
+                width: 20%
+
+            button.outline
+                background-color: transparent !important
+                border-color: $main-blue !important
+                color: $main-blue !important
+
+            // .liste-factures
+
+            //     .facture-infos
+            //         font-size: 14px
+
+            //         .etat-facture.payee, .etat-facture.non-payee
+            //             position: relative
+
+            //             &::before
+            //                 content: ''
+            //                 width: 16px
+            //                 height: 16px
+            //                 position: absolute
+            //                 left: -20px
+            //                 top: 50%
+            //                 transform: translateY(-50%)
+            //                 border-radius: 500px
+
+            //         .payee::before
+            //             background-color: #00B69B
+
+            //         .non-payee::before
+            //             background-color: #FE7163
+
+        .container-horaires
+            padding: 25px
+
+    .mat-mdc-form-field
+        min-width: 96px
+
+.container-jours-ouverture
+    display: flex
+    gap: 10px
+    padding-left: 0
+    .wrapper-jours-cool
+        margin-bottom: 30px
+
+        label
+            min-width: 50px
+            padding: 10px 15px
+            color: $main-blue
+            border-radius: 5px
+            border: 1px solid $main-blue
+            cursor: pointer
+
+        input:checked+label
+            background: $main-blue
+            color: #fff
+
+mat-form-field.horaires
+            flex-direction: row
+
+.wrapper-horaires
+
+    position: relative
+    padding: 40px 20px 10px
+    border: 1px solid rgba(0,0,0,0.16)
+    border-radius: 5px
+    margin-bottom: 30px
+
+    .jour-cool-semaine
+        font-weight: bold
+        text-transform: uppercase
+        position: absolute
+        top: -10px
+        left: 30px
+        background: #fff
+        width: 10%
+        text-align: center
+
+    .container-horaires
+        display: flex
+        justify-content: space-between
+        flex-wrap: wrap
+
+        .periode-jour
+            text-align: center
+            font-weight: bold
+            margin: 0
+            width: 100%
+            margin-top: 5px
+
+        .horaires-matin
+            width: 48%
+            gap: 10px
+
+            .container-matin
+                display: flex
+                gap: 15px
+
+        .horaires-apres-midi
+            width: 48%
+            gap: 10px
+
+            .container-apres-midi
+                display: flex
+                gap: 15px
+
+section
+    padding: 10px
+    border-radius: 5px
+    legend
+        font-size: 18px
+        font-weight: bold
+        margin-bottom: 10px
+.mat-icon
+    color: $main-blue

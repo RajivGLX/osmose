@@ -1,0 +1,5 @@
+@if (view == 'create') {
+    <app-patient-create (goBackEvent)="goBack()" />
+}@else {
+    <app-patient-update [patientToUpdate]="patientToUpdate" (goBackEvent)="goBack()" />
+}

@@ -1,0 +1,7 @@
+@if (view == 'create') {
+    <app-center-create/>
+}@else {
+    <app-center-update [allRegions]="allRegions" [idCenter]="idCenter" [currentUser]="currentUser" (goBackEvent)="goBack()"/>
+}
+
+

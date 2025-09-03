@@ -1,0 +1,338 @@
+<form [formGroup]="center_create_form" class="wrapper-component">
+    @if (loadingCreate()) {
+        <div class="loader-form">
+            <app-loader />
+        </div>
+    }@else {
+        <div class="header-wrapper">
+            <div class="go-back" (click)="goBack()">
+                <svg width="10" height="16" viewBox="0 0 10 16" fill="#155979" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.2625 13.5078L3.5375 7.9998L9.2625 2.4918L7.5 0.799805L0 7.9998L7.5 15.1998L9.2625 13.5078Z" />
+                </svg>
+            </div>
+            <div>
+                <h4 class="title-utilisateurs">Formulaire de création de compte</h4>
+            </div>
+        </div>
+        <div class="container-informations-compte">
+            <div class="header-informations-compte">
+                <h4 class="title-utilisateurs">Informations du compte</h4>
+                <span class="undertitle">Les champs obligatoires sont marqués d’un astérisque (*)</span>
+            </div>
+            <div class="container-form-user">
+                <div [ngClass]="loadingCreate() ? 'visibility-off' : ''">
+                    <div class="form-line d-flex mb-3">
+                        <div class="wrapper-input">
+                            <label class="switch">
+                                <input type="checkbox" formControlName="active">
+                                <span class="slider round"></span>
+                            </label>
+                            <label for="active">Activer le centre</label>
+                        </div>
+                    </div>
+                    <div class="form-line d-flex">
+                        <div class="wrapper-input">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Nom du centre</mat-label>
+                                <input type="text" matInput formControlName="name">
+                                <mat-error>{{ errors.name }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="wrapper-input">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Téléphone du centre</mat-label>
+                                <input type="text" matInput formControlName="phone">
+                                <mat-error>{{ errors.phone }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="wrapper-input">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Email du centre</mat-label>
+                                <input type="text" matInput formControlName="email">
+                                <mat-error>{{ errors.email }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="form-line d-flex">
+                        <div class="wrapper-input full">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Url du site web</mat-label>
+                                <input type="text" matInput formControlName="url">
+                                <mat-error>{{ errors.url }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="form-line d-flex">
+                        <div class="wrapper-input">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Groupe d'appartenance</mat-label>
+                                <input type="text" matInput formControlName="band">
+                                <mat-error>{{ errors.band }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="wrapper-input">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Nombre de place disponible par défaut (affichage calendrier)</mat-label>
+                                <input type="text" matInput formControlName="place_available">
+                                <mat-error>{{ errors.place_available }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="form-line d-flex">
+                        <div class="wrapper-input">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Région</mat-label>
+                                <mat-select formControlName="region_id">
+                                    @for (region of allRegions; track region.id) {
+                                        <mat-option [value]="region.id">{{ region.name }}</mat-option>
+                                    }
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="wrapper-input">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Latitude/Longitude</mat-label>
+                                <input type="text" matInput formControlName="latitude_longitude">
+                                <mat-error>{{ errors.place_available }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="form-line d-flex">
+                        <div class="wrapper-input full">
+                            <mat-form-field>
+                                <mat-label>Information du centre (déstiné aux patients)</mat-label>
+                                <textarea matInput formControlName="information"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="container-informations-compte">
+            <div class="header-informations-compte">
+                <h4 class="title-utilisateurs">Adresse du centre</h4>
+                <span class="undertitle">Les champs obligatoires sont marqués d’un astérisque (*)</span>
+            </div>
+            <div class="container-form-etude">
+                <div>
+                    <div class="form-line d-flex">
+                        <div class="wrapper-input full">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Adresse</mat-label>
+                                <input type="text" matInput formControlName="address">
+                                <mat-error>{{errors.address}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="form-line d-flex">
+                        <div class="wrapper-input quart">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Code postal</mat-label>
+                                <input type="text" matInput formControlName="zipcode">
+                                <mat-error>{{errors.zipcode}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="wrapper-input quart">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Ville</mat-label>
+                                <input type="text" matInput formControlName="city">
+                                <mat-error>{{errors.city}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="form-line d-flex mb-3">
+                        <div class="wrapper-input full">
+                            <label class="switch">
+                                <input type="checkbox" formControlName="different_facturation"
+                                    (click)="resetFacturationDifferent()">
+                                <span class="slider round"></span>
+                            </label>
+                            <label for="different_facturation">Adresse de facturation différente</label>
+                        </div>
+                    </div>
+                    @if(center_create_form.get('different_facturation')?.value){
+                    <div class="form-line d-flex">
+                        <div class="wrapper-input full">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Adresse de facturation</mat-label>
+                                <input type="text" matInput formControlName="address_facturation">
+                                <mat-error>{{errors.address_facturation}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    }
+                    <div *ngIf="center_create_form.get('different_facturation')?.value" class="form-line d-flex">
+                        <div class="wrapper-input quart">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Code postal de facturation</mat-label>
+                                <input type="text" matInput formControlName="zipcode_facturation">
+                                <mat-error>{{errors.zipcode_facturation}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="wrapper-input quart">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Ville de facturation</mat-label>
+                                <input type="text" matInput formControlName="city_facturation">
+                                <mat-error>{{errors.city_facturation}}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section>
+            <div class="content">
+                <form (keydown.enter)="$event.preventDefault()">
+                    <div class="bloc-slot">
+                        <div>
+                            <div class="header-slot d-flex justify-content-between">
+                                <h4 class="title-slot">Horaires</h4>
+                            </div>
+                            <div>
+                                @for(day of daysOfWeek; track day){
+                                    <div class="wrapper-slot" [formGroup]="$any(center_create_form.get('center_day')?.get(day))">
+                                        <p class="day-week">{{day}}</p>
+                                        <div class="container-slot d-flex align-items-stretch">
+                                            <div class="slot" [formGroup]="$any(center_create_form.get('center_day')?.get(day)?.get('morning'))">
+                                                    <p class="day-slot">Matin</p>
+                                                <div class="input-slot">
+                                                    @if(center_create_form.get('center_day')?.get(day)?.get('morning')?.value.closeSlot == false) {
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>Ouvert</mat-label>
+                                                            <input type="time" matInput formControlName="open">
+                                                            <mat-icon matSuffix>access_time_filled</mat-icon>
+                                                        </mat-form-field>
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>Fermé</mat-label>
+                                                            <input type="time" matInput formControlName="close">
+                                                            <mat-icon matSuffix>access_time_filled</mat-icon>
+                                                        </mat-form-field>
+                                                    }
+                                                </div>
+                                                <div class="wrapper-component-slot">
+                                                    <div class="container-preferences-compte">
+                                                        <div class="wrapper-lines">
+                                                            <div class="line">
+                                                                <div class="input-bloc">
+                                                                    <div class="ouverture-input">
+                                                                        <label class="switch">
+                                                                            <input type="checkbox" name=""
+                                                                                id="{{day}}-close-morning"
+                                                                                (change)="onCenterDayActiveChange($event, day, 'morning')"
+                                                                                [checked]="center_create_form.get('center_day')?.get(day)?.get('morning')?.value.closeSlot == true"
+                                                                                formControlName="closeSlot" />
+                                                                            <span class="slider round"></span>
+                                                                        </label>
+                                                                        <label for="{{day}}-close-morning">Fermé</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+            
+                                            <div class="slot" [formGroup]="$any(center_create_form.get('center_day')?.get(day)?.get('afternoon'))">
+                                                <p class="day-slot">Aprés-midi</p>
+                                                <div class="input-slot">
+                                                    @if(center_create_form.get('center_day')?.get(day)?.get('afternoon')?.value.closeSlot == false) {
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>Ouvert</mat-label>
+                                                            <input type="time" matInput formControlName="open">
+                                                            <mat-icon matSuffix>access_time_filled</mat-icon>
+                                                        </mat-form-field>
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>Fermé</mat-label>
+                                                            <input type="time" matInput formControlName="close">
+                                                            <mat-icon matSuffix>access_time_filled</mat-icon>
+                                                        </mat-form-field>
+                                                    }
+                                                </div>
+                                                <div class="wrapper-component-slot">
+                                                    <div class="container-preferences-compte">
+                                                        <div class="wrapper-lines">
+                                                            <div class="line">
+                                                                <div class="input-bloc">
+                                                                    <div class="ouverture-input">
+                                                                        <label class="switch">
+                                                                            <input type="checkbox" name=""
+                                                                                id="{{day}}-close-afternoon"
+                                                                                (change)="onCenterDayActiveChange($event, day, 'afternoon')"
+                                                                                [checked]="center_create_form.get('center_day')?.get(day)?.get('afternoon')?.value.closeSlot == true"
+                                                                                formControlName="closeSlot" />
+                                                                            <span class="slider round"></span>
+                                                                        </label>
+                                                                        <label for="{{day}}-close-afternoon">Fermé</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+            
+                                            <div class="slot" [formGroup]="$any(center_create_form.get('center_day')?.get(day)?.get('evening'))">
+                                                <p class="day-slot">Soirée</p>
+                                                <div class="input-slot">
+                                                    @if(center_create_form.get('center_day')?.get(day)?.get('evening')?.value.closeSlot == false) {
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>Ouvert</mat-label>
+                                                            <input type="time" matInput formControlName="open">
+                                                            <mat-icon matSuffix>access_time_filled</mat-icon>
+                                                        </mat-form-field>
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>Fermé</mat-label>
+                                                            <input type="time" matInput formControlName="close">
+                                                            <mat-icon matSuffix>access_time_filled</mat-icon>
+                                                        </mat-form-field>
+                                                    }
+                                                </div>
+                                                <div class="wrapper-component-slot">
+                                                    <div class="container-preferences-compte">
+                                                        <div class="wrapper-lines">
+                                                            <div class="line">
+                                                                <div class="input-bloc">
+                                                                    <div class="ouverture-input">
+                                                                        <label class="switch">
+                                                                            <input type="checkbox" name=""
+                                                                                id="{{day}}-close-evening"
+                                                                                (change)="onCenterDayActiveChange($event, day, 'evening')"
+                                                                                [checked]="center_create_form.get('center_day')?.get(day)?.get('evening')?.value.closeSlot == true"
+                                                                                formControlName="closeSlot" />
+                                                                            <span class="slider round"></span>
+                                                                        </label>
+                                                                        <label for="{{day}}-close-evening">Fermé</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        @if (center_create_form.valid) {
+            <div class="wrapper-btn d-flex justify-content-end">
+                <button class="btn custom-btn full" (click)="sendNewCenter()">
+                    Confirmer la création
+                </button>
+            </div>
+        } @else {
+            <div class="wrapper-btn d-flex justify-content-end mt-3">
+                <button class="btn custom-btn full disabled">
+                    Confirmer la création
+                </button>
+            </div>
+        }
+    }
+</form>

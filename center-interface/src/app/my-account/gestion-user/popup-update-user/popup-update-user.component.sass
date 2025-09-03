@@ -1,0 +1,97 @@
+@use '../../../../variables' as *
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface
+    border-radius: 15px
+    min-width: 554px
+    .wrapper-edit-user
+        padding: 40px
+        .wrapper-title-and-close-btn
+            align-items: center
+            .cross-btn
+                background-color: rgba(21, 89, 121, 0.13)
+                color: #155979
+                font-weight: bold
+                padding: 10px
+                border-radius: 8px
+                cursor: pointer
+                transition: 0.3s all
+                border: none
+                display: flex
+                justify-content: center
+                align-items: center
+
+                svg
+                    fill: $main-blue
+                    width: 25px
+                    height: 25px
+                    transition: 0.3s all
+
+                &:hover
+                    background-color: $error-color-hover
+
+                    & svg
+                        fill: $error-color
+        h3
+            font-size: 20px
+            font-weight: bold
+
+        .edit-user-champs-obligatoire
+            color: $text-color-gris
+        .asterisque
+            color: $error-color
+        .edit-user-form
+            gap: 25px
+            align-items: center
+            .edit-user-input
+                width: 48%
+
+            .input-group
+                gap: 15px
+
+            .custom-btn
+                min-width: 130px !important
+                font-size: 14px !important
+            .wrapper-inputs
+                display: flex
+                gap: 40px
+                justify-content: center
+
+                &.radio
+                    padding-left: 40px
+
+                .custom-label
+                    min-width: 150px
+                    padding: 10px 15px
+                    color: $main-blue
+                    border-radius: 5px
+                    border: 1px solid $main-blue
+                    cursor: pointer
+
+                input:checked+.custom-radio-label:after
+                    content: ''
+                    width: 16px
+                    height: 16px
+                    display: block
+                    position: absolute
+                    border-radius: 500px
+                    top: 50%
+                    transform: translate(5px, -50%)
+                    left: -30px
+                    background: $main-blue !important
+
+                .custom-radio-label
+                    position: relative
+                    margin-right: 40px
+                    cursor: pointer
+
+                .custom-radio-label:before
+                    content: ''
+                    width: 26px
+                    height: 26px
+                    border-radius: 500px
+                    top: 50%
+                    transform: translateY(-50%)
+                    left: -30px
+                    position: absolute
+                    border: 1px solid #D5D5D5
+                    cursor: pointer

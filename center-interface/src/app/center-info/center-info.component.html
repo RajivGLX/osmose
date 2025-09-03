@@ -1,0 +1,143 @@
+@if (currentCenter) {
+    @if(switchView == 'centerInfo'){
+        <section class="wrapper-component">
+            <div class="header-center">
+                <h1>{{ currentCenter.name }}</h1>
+                <button class="btn custom-btn " (click)="editCenter()">
+                    <svg xmlns="http://www.w3.org/2000/svg" id="Filled" viewBox="0 0 24 24">
+                        <path d="M1.172,19.119A4,4,0,0,0,0,21.947V24H2.053a4,4,0,0,0,2.828-1.172L18.224,9.485,14.515,5.776Z" />
+                        <path
+                            d="M23.145.855a2.622,2.622,0,0,0-3.71,0L15.929,4.362l3.709,3.709,3.507-3.506A2.622,2.622,0,0,0,23.145.855Z" />
+                    </svg>
+        
+                    Modifier
+                </button>
+            </div>
+            <div class="wrapper-box">
+                <span class="title">Information sur le centre</span>
+                <div class="row mb-4">
+                    <div class="col-4">
+                        <label>Nom du centre :</label>
+                        <span>{{ currentCenter.name }}</span>
+                    </div>
+                    <div class="col-4">
+                        <label>Téléphone :</label>
+                        <span>{{ currentCenter.phone }}</span>
+                    </div>
+                    <div class="col-4">
+                        <label>Email :</label>
+                        <span>{{ currentCenter.email }}</span>
+                    </div>
+                </div>
+        
+                <div class="row mb-4">
+                    <div class="col-4">
+                        <label>Site web :</label>
+                        <a href="{{ currentCenter.url }}" target="_blank">{{ currentCenter.url }}</a>
+                    </div>
+                    <div class="col-4">
+                        <label>Groupe d'appartenance :</label>
+                        <span>{{ currentCenter.band }}</span>
+                    </div>
+                    <div class="col-4">
+                        <label>Coordonnées GPS :</label>
+                        <span>{{ currentCenter.latitude_longitude }}</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label>Informations supplémentaires :</label>
+                        <span>{{ currentCenter.information }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wrapper-box">
+                <span class="title">Adresse du centre</span>
+                <div class="row mb-4">
+                    <div class="col-6">
+                        <label>Adresse :</label>
+                        <span>{{ currentCenter.address }}</span>
+                    </div>
+                    <div class="col-3">
+                        <label>Code postal :</label>
+                        <span>{{ currentCenter.zipcode }}</span>
+                    </div>
+                    <div class="col-3">
+                        <label>Ville :</label>
+                        <span>{{ currentCenter.city }}</span>
+                    </div>
+                </div>
+        
+                <div class="row">
+                    @if (currentCenter.different_facturation) {
+                    <div class="col-6">
+                        <label>Adresse de factauration :</label>
+                        <span>{{ currentCenter.address_facturation }}</span>
+                    </div>
+                    <div class="col-3">
+                        <label>Code postal de facturation :</label>
+                        <span>{{ currentCenter.zipcode_facturation }}</span>
+                    </div>
+                    <div class="col-3">
+                        <label>Ville de facturation :</label>
+                        <span>{{ currentCenter.city_facturation }}</span>
+                    </div>
+                    }@else {
+                    <div class="col-6">
+                        <label>Adresse de factauration :</label>
+                        <span>Identique à l'adresse du centre</span>
+                    </div>
+                    }
+                </div>
+        
+        
+            </div>
+        
+            <div class="wrapper-slot">
+                <span class="title">Horaires du centre :</span>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Matin</th>
+                            <th>Midi</th>
+                            <th>Soir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (day of currentCenter.center_day|keyvalue: compareDays; track $index) {
+                            <tr>
+                                <td class="day">{{ day.key }}</td>
+                                <td>
+                                    @if ($any(day.value).morning.open && $any(day.value).morning.close) {
+                                        {{ $any(day.value).morning.open }} - {{ $any(day.value).morning.close }}
+                                    }@else {
+                                        Fermé
+                                    }
+                                </td>
+                                <td>
+                                    @if ($any(day.value).afternoon.open && $any(day.value).afternoon.close) {
+                                        {{ $any(day.value).afternoon.open }} - {{ $any(day.value).afternoon.close }}
+                                    }@else {
+                                        Fermé
+                                    }
+                                </td>
+                                <td>
+                                    @if ($any(day.value).evening.open && $any(day.value).evening.close) {
+                                        {{ $any(day.value).evening.open }} - {{ $any(day.value).evening.close }}
+                                    }@else {
+                                        Fermé
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    }@else {
+        <app-center-form [center]="currentCenter" (closeVueDetaillee)="changeView('centerInfo')"/>
+    }
+}
+

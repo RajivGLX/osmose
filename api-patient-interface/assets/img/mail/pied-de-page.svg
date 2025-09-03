@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 104.88 27.06" preserveAspectRatio="xMinYMin meet" fill="#155979">
+    <defs>
+        <style>
+            .cls-1 { fill: #3679E4; }
+            .cls-2 { fill: none; }
+            .cls-3 { fill: #1e317f; }
+            .cls-4 { clip-path: url(#clippath); }
+        </style>
+        <clipPath id="clippath">
+            <rect class="cls-2" x="0" width="104.88" height="27.06" />
+        </clipPath>
+    </defs>
+    <g class="cls-4">
+        <path class="cls-1" d="M69.42,10.49l23,14.94c1.22.79,2.94.56,3.83-.52l1.39-1.68c.9-1.08.63-2.6-.59-3.39l-23-14.94c-1.22-.79-2.94-.56-3.83.52l-1.39,1.68c-.9,1.08-.63,2.6.59,3.4" />
+        <path class="cls-3" d="M104.88,27.06L69.74,4.28s-5.25-4.28-12.31-4.28H0v27.06h104.88Z" />
+    </g>
+</svg>

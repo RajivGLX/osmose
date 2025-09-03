@@ -1,0 +1,104 @@
+@use '../../../variables' as *
+
+.wrapper-component
+    display: flex
+    flex-direction: column
+    padding: 40px
+    gap: 40px
+    background-color: #fff
+    border-radius: 15px
+    .header-wrapper
+        text-align: center
+        position: relative
+        .go-back
+            position: absolute
+    .ouverture-input
+        .switch
+            margin-bottom: 20px
+        .switch + label
+            font-size: 14px  
+    .container-informations-compte
+        padding: 0
+
+        .header-informations-compte
+            padding-bottom: 25px
+            border-bottom: 2px solid $bg-gris
+            margin-bottom: 25px
+            .undertitle
+                color: $text-color-gris-light
+
+        .form-line
+            gap: 25px
+
+            .wrapper-input
+                width: 50%
+                &.full
+                    width: 100%
+
+                ::ng-deep mat-form-field
+                    width: 100%
+
+        .custom-error
+            p
+                color: $error-color
+
+    section
+        background-color: #fff
+        border-radius: 15px
+        padding: 25px
+
+        mat-form-field
+                    flex-direction: row
+        .header-slot
+            padding-bottom: 25px
+
+        .wrapper-slot
+            position: relative
+            padding: 20px 20px 10px
+            border: 1px solid rgba(0,0,0,0.16)
+            border-radius: 5px
+            margin-bottom: 30px
+
+            .day-week
+                font-weight: bold
+                text-transform: uppercase
+                position: absolute
+                top: -10px
+                left: 30px
+                background: #fff
+                width: 10%
+                text-align: center
+
+            .container-slot
+                display: flex
+                justify-content: space-between
+                flex-wrap: wrap
+
+                .day-slot
+                    text-align: center
+                    font-weight: bold
+                    margin: 0
+                    width: 100%
+                    margin-top: 5px
+
+                .slot
+                    display: flex
+                    flex-direction: row
+                    flex-wrap: wrap
+                    width: 30%
+                    gap: 10px
+
+                    .input-slot
+                        display: flex
+                        width: 100%
+                        gap: 15px
+
+                .wrapper-component-slot
+                    width: 100%
+                    align-self: flex-end
+                    padding-top: 20px
+                    .container-preferences-compte
+                        padding: 0
+
+                    .input-bloc
+                        width: 100%            

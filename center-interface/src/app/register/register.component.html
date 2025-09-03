@@ -1,0 +1,417 @@
+<div class="container-register-form gap-2">
+    <button class="btn custom-btn fake-inscription" (click)="genereFakeInscription()">Pré-remplir</button>
+    <!-- <button mat-button (click)="logCurrentStep()">Log Current Step</button> -->
+    <div class="content">
+
+        <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+                {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+            </button> -->
+        <div class="wrapper-title-progress-bar d-flex">
+            <div class="col-md-6">
+                <h2>Créer un compte</h2>
+            </div>
+            <div class="col-md-6">
+                <div class="progress-bar">
+                    <div class="progress" [ngStyle]="{'width': (currentStepPercentage$ | async) +'%'}">
+                        <span class="indication-step">
+                            Étape {{currentStep$ |async}} sur {{totalStep}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="register-text-undertitle">
+            Nota Risques Urba est un service réservé exclusivement aux études notariales
+        </p>
+        <p class="register-text-champs-obligatoire">
+            <em>Les champs obligatoires sont marqués d’un astérisque (*)</em>
+        </p>
+        <mat-stepper [linear]="isLinear" #stepper (selectionChange)="onStepChange($event)">
+            <mat-step [stepControl]="userForm" label="Étude">
+                <form [formGroup]="userForm">
+                    <div class="wrapper-registerForm">
+                        <section>
+                            <div class="row" [formGroup]="etudeForm">
+                                <mat-form-field appearance="outline" class="col-md-12">
+                                    <mat-label>CRPCEN</mat-label>
+                                    <input (blur)="log()" matInput formControlName="CRPCEN">
+
+                                    <mat-error>Ce champ est requis</mat-error>
+                                </mat-form-field>
+                            </div>
+                            @if(doublonCrpCen){
+                            <div class="row col-md-12 doublon-crpcen">
+
+                                <p class="alerte-doublon-crpcen">Numéro CRPCEN déjà enregistré</p>
+                                <ul>
+                                    <li>Pour rattacher votre compte à cette étude, veuillez nous contacter.</li>
+                                    <li>Pour créer un nouveau compte, poursuivez votre inscription</li>
+                                </ul>
+                            </div>
+                            }
+                            <div class="row">
+                                <!-- <div class="wrapper-label mb-2 text-start">
+                                    <label class="question">Civilité</label>
+                                </div> -->
+                                <div class="wrapper-inputs radio mb-3 justify-content-start">
+                                    <input type="radio" class="d-none" name="civilite_utilisateur" id="monsieur"
+                                        formControlName="civilite_utilisateur" value="1">
+                                    <label class="custom-radio-label" for="monsieur">Monsieur</label>
+                                    <input type="radio" class="d-none" name="civilite_utilisateur" id="madame"
+                                        formControlName="civilite_utilisateur" value="2">
+                                    <label class="custom-radio-label" for="madame">Madame</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <mat-form-field appearance="outline" class="col-md-6">
+                                    <mat-label>Nom</mat-label>
+                                    <input matInput formControlName="nom_utilisateur">
+
+                                    <mat-error>Ce champ est requis</mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="col-md-6">
+                                    <mat-label>Prénom</mat-label>
+                                    <input matInput formControlName="prenom_utilisateur">
+
+                                    <mat-error>Ce champ est requis</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="row">
+                                <mat-form-field appearance="outline" class="col-md-6">
+                                    <mat-label>Téléphone fixe</mat-label>
+                                    <input matInput [formControl]="tel_fixe_ctrl">
+
+                                    <mat-error>{{getFormControlErrorText(tel_fixe_ctrl)}}</mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="col-md-6">
+                                    <mat-label>Téléphone mobile</mat-label>
+                                    <input matInput [formControl]="tel_mobile_ctrl">
+
+                                    <mat-error>{{getFormControlErrorText(tel_mobile_ctrl)}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="row">
+                                <mat-form-field [formGroup]="emailForm" appearance="outline" class="col-md-6">
+                                    <mat-label>E-mail</mat-label>
+                                    <input matInput formControlName="email">
+
+                                    <mat-error>{{getFormControlErrorText(email_ctrl)}}</mat-error>
+                                </mat-form-field>
+                                <mat-form-field [formGroup]="emailForm" appearance="outline" class="col-md-6">
+                                    <mat-label>Confirmation</mat-label>
+                                    <input matInput formControlName="confirm_email">
+
+                                    <mat-error>{{getFormControlErrorText(confirm_email_ctrl)}}</mat-error>
+                                </mat-form-field>
+                                @if($showEmailErrors | async){
+                                <div class="col-md-12 custom-error">
+                                    <mat-error>Les adresses mail doivent être identiques</mat-error>
+                                </div>
+                                }
+
+                            </div>
+                            <div class="row">
+                                <mat-form-field [formGroup]="passwordForm" appearance="outline" class="col-md-6">
+                                    <mat-label>Mot de passe</mat-label>
+                                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                                    <button mat-icon-button matSuffix (click)="hide = !hide">
+                                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
+                                    <mat-error>Ce champ est requis</mat-error>
+                                </mat-form-field>
+                                <mat-form-field [formGroup]="passwordForm" appearance="outline" class="col-md-6">
+                                    <mat-label>Confirmation</mat-label>
+                                    <input matInput [type]="hide ? 'password' : 'text'"
+                                        formControlName="confirm_password">
+                                    <button mat-icon-button matSuffix (click)="hide = !hide">
+                                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
+                                    <mat-error>Ce champ est requis</mat-error>
+                                </mat-form-field>
+                                @if($showPasswordErrors | async){
+                                <div class="col-md-12 custom-error">
+                                    <mat-error>Les mots de passes doivent être identiques</mat-error>
+                                </div>
+                                }
+                            </div>
+                        </section>
+                    </div>
+                    <div class="already-have-account d-flex">
+                        <p class="have-account">
+                            Vous avez un compte ?
+                            <a routerLink="/login">Se connecter</a>
+                        </p>
+                        @if(validUserForm){
+                        <button class="custom-btn secondary" matStepperNext>Suivant</button>
+                        }@else{
+                        <button class="btn-disabled secondary" [disabled]>Suivant</button>
+                        }
+                    </div>
+                </form>
+
+            </mat-step>
+            <mat-step [stepControl]="etudeForm" label="Utilisateur">
+                <form [formGroup]="etudeForm">
+                    <div class="wrapper-registerForm">
+                        <section class="pb-0">
+                            <div class="row">
+                                <mat-form-field appearance="outline" class="col-md-12">
+                                    <mat-label>SIREN</mat-label>
+                                    <input matInput [formControl]="numero_siren">
+                                    <mat-error>{{getFormControlErrorText(numero_siren)}}</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="row">
+                                <mat-form-field appearance="outline" class="col-md-6">
+                                    <mat-label>Nom d'étude</mat-label>
+                                    <input matInput formControlName="nom_etude">
+                                    <mat-error>Ce champ est requis</mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="col-md-6">
+                                    <mat-label>Forme juridique</mat-label>
+                                    <input matInput formControlName="forme_juridique">
+                                    <mat-error>Ce champ est requis</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="row">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Adresse</mat-label>
+                                    <input matInput formControlName="adresse_etude">
+                                    <mat-error>Ce champ est requis</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="row pb-0">
+                                <mat-form-field appearance="outline" class="col-md-6">
+                                    <mat-label>Code postal</mat-label>
+                                    <input matInput formControlName="cp_etude" (input)="rechercheVille()">
+                                    <mat-error>Ce champ est requis</mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="col-md-6">
+                                    <mat-label>Ville</mat-label>
+                                    <mat-select matInput formControlName="ville_etude">
+                                        @for (ville of listeVilles; track $index) {
+                                            <mat-option value={{ville.nom}}>{{ville.nom}}</mat-option>
+                                        }
+                                    </mat-select>
+                                    <mat-error>Ce champ est requis</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <!-- <div class="row">
+                                <mat-form-field appearance="outline" class="col-md-4">
+                                        <mat-label>Civilité</mat-label>
+                                        <mat-select formControlName="civilite_utilisateur">
+                                            <mat-option value="1">Madame</mat-option>
+                                            <mat-option value="2">Monsieur</mat-option>
+                                            <mat-option value="3">Maître</mat-option>
+                                        </mat-select>
+                                        <mat-icon matSuffix>person</mat-icon>
+                                        <mat-error>Ce champ est requis</mat-error>
+                                    </mat-form-field>
+                            </div> -->
+                        </section>
+                        <section class="pb-0" [formGroup]="facturationForm">
+                            <div class="row">
+                                <mat-checkbox class="example-margin"
+                                    [formControl]="adresse_facturation_differente">Adresse de facturation différente
+                                </mat-checkbox>
+                            </div>
+                            @if(adresse_facturation_differente.value){
+                            <div class="row">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Adresse</mat-label>
+                                    <input matInput formControlName="adresse_facturation">
+                                </mat-form-field>
+                            </div>
+                            <div class="row">
+                                <mat-form-field appearance="outline" class="col-md-4">
+                                    <mat-label>Code postal</mat-label>
+                                    <input matInput formControlName="cp_facturation">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="col-md-8">
+                                    <mat-label>Ville</mat-label>
+                                    <input matInput formControlName="ville_facturation">
+                                </mat-form-field>
+                            </div>
+                            }
+                        </section>
+                        <section [formGroup]="diversForm">
+                            <div class="row pb-0">
+                                <mat-checkbox class="example-margin" formControlName="acceptation_alertes_mail">Je
+                                    souhaite recevoir des alertes par mail (Mises à jour des ERP,...) </mat-checkbox>
+                            </div>
+                            <div class="row pb-0">
+                                <mat-checkbox class="example-margin" formControlName="acceptation_cgu">Je reconnais
+                                    avoir lu et accepté les
+                                    <a routerLink="#" class="acceptation-cgu fw-bold">CGU</a>
+                                </mat-checkbox>
+                            </div>
+                        </section>
+                    </div>
+                </form>
+                <div class="wrapper-btn-validation d-flex justify-content-end gap-2">
+                    <button matStepperPrevious class="custom-btn outline">Retour</button>
+                    @if(validRegisterForm && validDiversForm){
+                    <button class="custom-btn" (click)="sendRegisterForm()">S'inscrire</button>
+                    }@else{
+                    <button class="custom-btn btn-disabled" [disabled]>S'inscrire</button>
+                    }
+                </div>
+                <!-- <button (click)="log()">Vas y click</button> -->
+            </mat-step>
+
+            <!-- <mat-step label="Facturation">
+                <button matStepperPrevious>Précédent</button>
+                @if(validFacturationForm){
+                <button matStepperNext>Suivant</button>
+                }@else{
+                <button class="btn-disabled" [disabled]>Suivant</button>
+                }
+            </mat-step>
+            <mat-step label="Divers">
+                <form [formGroup]="diversForm">
+                    <div class="wrapper-registerForm">
+                        <section>
+                            <legend>Divers</legend>
+                            <div class="row">
+                                <div class="container-jours-ouverture" [formGroup]="joursOuverture">
+                                    @for (day of lesJoursCool; track day) {
+                                    <div class="wrapper-jours-cool">
+                                        <input type="checkbox" class="d-none" id="{{day}}" formControlName="{{day}}">
+                                        <label for="{{day}}">{{day}}</label>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="row" [formGroup]="horairesForm">
+                                @for(day of lesJoursCool; track day){
+                                @if(joursOuverture.get(day)?.value == true){
+                                <div class="wrapper-horaires">
+                                    <p class="jour-cool-semaine">{{day}}</p>
+                                    <div class="container-horaires">
+                                        <div class="horaires-matin">
+                                            <div class="container-matin">
+                                                @if(horairesForm.get(day+'_am_ferme')?.value == false) {
+                                                <mat-form-field appearance="outline" class="horaires">
+                                                    <mat-label>Ouvert</mat-label>
+                                                    <input type="time" matInput formControlName="{{day}}_am_open">
+                                                    <mat-icon matSuffix>access_time_filled</mat-icon>
+                                                    <mat-error>Ce champ est requis</mat-error>
+                                                </mat-form-field>
+                                                <mat-form-field appearance="outline" class="horaires">
+                                                    <mat-label>Fermé</mat-label>
+                                                    <input type="time" matInput formControlName="{{day}}_am_close">
+                                                    <mat-icon matSuffix>access_time_filled</mat-icon>
+                                                    <mat-error>Ce champ est requis</mat-error>
+                                                </mat-form-field>}
+                                                @else {<span>C'est fermé</span>
+                                                <input class="d-none" type="time" matInput
+                                                    formControlName="{{day}}_pm_close">}
+                                                <div (click)="setHorairesToNull(day+'_am_open', day+'_am_close')">
+                                                    <mat-checkbox formControlName="{{day}}_am_ferme"></mat-checkbox>
+                                                </div>
+                                            </div>
+                                            <p class="periode-jour">matin</p>
+                                        </div>
+                                        <div class="horaires-apres-midi">
+                                            <div class="container-apres-midi">
+                                                @if(horairesForm.get(day+'_pm_ferme')?.value == false) {
+                                                <mat-form-field appearance="outline" class="horaires">
+                                                    <mat-label>Ouvert</mat-label>
+                                                    <input type="time" matInput formControlName="{{day}}_pm_open">
+                                                    <mat-icon matSuffix>access_time_filled</mat-icon>
+                                                    <mat-error>Ce champ est requis</mat-error>
+                                                </mat-form-field>
+                                                <mat-form-field appearance="outline" class="horaires">
+                                                    <mat-label>Fermé</mat-label>
+                                                    <input type="time" matInput formControlName="{{day}}_pm_close">
+                                                    <mat-icon matSuffix>access_time_filled</mat-icon>
+                                                    <mat-error>Ce champ est requis</mat-error>
+                                                </mat-form-field>}
+                                                @else {
+                                                <span>C'est fermé</span>
+                                                <input class="d-none" type="time" matInput
+                                                    formControlName="{{day}}_pm_close">
+                                                }
+
+                                                <div (click)="setHorairesToNull(day+'_pm_open', day+'_pm_close')">
+                                                    <mat-checkbox formControlName="{{day}}_pm_ferme"></mat-checkbox>
+                                                </div>
+                                            </div>
+                                            <p class="periode-jour">après-midi</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                }
+
+                                }
+                            </div>
+                            <div class="row">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Logiciel utilise</mat-label>
+                                    <mat-select matInput formControlName="logiciel_utilise">
+                                        @for(l of listeLogicielsUtilises; track l.id){
+                                        <mat-option value="{{l.id}}">{{l.name | uppercase}}</mat-option>
+                                        }
+                                        <mat-option value="0">Autre</mat-option>
+                                    </mat-select>
+                                    <mat-icon matSuffix>hardware</mat-icon>
+                                    <mat-error>Ce champ est requis</mat-error>
+                                </mat-form-field>
+                            </div>
+                            @if(showLogicielPrecisionAutre){
+                            <div class="row">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Précision logiciel</mat-label>
+                                    <input matInput formControlName="logiciel_utilise_precisions_autre">
+                                    <mat-icon matSuffix>hardware</mat-icon>
+                                </mat-form-field>
+                            </div>
+                            }
+                            <div class="row">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Comment avez vous connu Nota Risques Urba?</mat-label>
+                                    <mat-select matInput formControlName="comment_connaitre_NRU">
+                                        @for(c of listeCommentConnuNRU; track c.id){
+                                        <mat-option value="{{c.id}}">{{c.libelle}}</mat-option>
+                                        }
+                                        <mat-option value="0">Autre</mat-option>
+                                    </mat-select>
+                                    <mat-icon matSuffix>forum</mat-icon>
+                                    <mat-error>Ce champ est requis</mat-error>
+                                </mat-form-field>
+                            </div>
+                            @if(showConnaitrePrecisionAutre){
+                            <div class="row">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Précision</mat-label>
+                                    <input matInput formControlName="comment_connaitre_NRU_precisions_autre">
+                                    <mat-icon matSuffix>forum</mat-icon>
+                                </mat-form-field>
+                            </div>
+                            }
+                            <div class="row">
+                                <mat-checkbox class="example-margin" formControlName="acceptation_alertes_mail">Je
+                                    souhaite
+                                    recevoir
+                                    des alertes par mail (Mises à jour des ERP,...) </mat-checkbox>
+                            </div>
+                            <div class="row">
+                                <mat-checkbox class="example-margin" formControlName="acceptation_cgu">Je reconnais
+                                    avoir
+                                    lu et accepté les <a></a>>CGU</mat-checkbox>
+                            </div>
+                        </section>
+                    </div>
+                </form>
+                <button matStepperPrevious>Précédent</button>
+                @if(validRegisterForm && validDiversForm){
+                <button class="custom-btn" (click)="sendRegisterForm()">Valider l'inscription</button>
+                }@else{
+                <button class="btn-disabled" [disabled]>Valider l'inscription</button>
+                }
+            </mat-step> -->
+        </mat-stepper>
+    </div>
+</div>

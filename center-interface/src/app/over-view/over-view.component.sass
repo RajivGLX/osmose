@@ -1,0 +1,191 @@
+@use '../../variables' as *
+.container-dashboard
+    padding: 40px
+    gap: 40px
+    min-height: 100%
+
+    .dashboard-container
+        gap: 20px
+        width: 50%
+        min-height: 100%
+
+        .entete-recap
+            padding: 20px
+            background-color: #fff
+            border-radius: 15px
+
+        .entete-recap
+            display: flex
+            align-items: center
+            justify-content: space-between
+            .picto-title
+                display: flex
+                align-items: center
+                gap: 15px
+                .picto-erp, .picto-urba
+                    background-color: $main-blue
+                    padding: 10px
+                    width: 55px
+                    height: 55px
+                    border-radius: 15px
+                    svg
+                        fill: #fff
+            a
+                text-decoration: none
+
+            .add-action
+                background-color: $main-blue
+                border-radius: 50px
+                padding: 10px
+                min-width: 130px
+                color: #fff
+                display: flex
+                gap: 15px
+                cursor: pointer
+                span
+                    color: #fff
+                    display: flex
+                    align-items: center
+                svg
+                    max-width: 25px
+                    max-height: 25px
+                    fill: #fff
+
+            .demandes-en-cours
+                font-size: 14px
+                gap: 5px
+                align-items: center
+
+                svg
+                    width: 15px
+                    height: 15px
+                    fill: $bg-violet
+
+        .wrapper-listing
+            background-color: #fff
+            border-radius: 15px
+            display: flex
+            flex-direction: column
+            height: 100%
+
+            .wrapper-cta-listing
+                display: flex
+                justify-content: space-between
+                padding: 20px
+                align-items: center
+                border-bottom: solid 3px $bg-gris
+
+                ::ng-deep .mat-mdc-form-field-bottom-align
+                    display: none
+
+                .mat-mdc-form-field
+                    flex-direction: row
+                    width: 20%
+
+                button.custom-btn
+                    background-color: transparent !important
+                    border: 1px solid $main-blue !important
+                    color: $main-blue !important
+                select
+                    padding: 0 15px
+                    min-width: 80px
+                    border-radius: 8px
+                    appearance: none
+
+            .body-listing
+
+                flex-grow: 1
+                &.empty
+                    border: 2px dashed $main-blue
+                    border-bottom-left-radius: 15px
+                    border-bottom-right-radius: 15px
+
+                .empty
+                    display: flex
+                    flex-direction: column
+                    align-items: center
+                    gap: 10px
+                    padding: 50px
+                    svg
+                        max-width: 40px
+                        min-width: 40px
+
+                    button
+                        &:hover
+                            color: #fff !important
+                .wrapper-listing-line
+                    display: flex
+                    justify-content: space-between
+                    padding: 15px 20px
+                    align-items: center
+                    border-bottom: solid 3px $bg-gris
+                    font-size: 14px
+                    transition: 0.3s all
+                    cursor: pointer
+
+                    .erp.status, .urbanisme.status
+                        transition: 0.3s all
+
+                    &:last-of-type
+                        border-bottom: none
+
+                    &:hover
+                        background-color: $bg-gris
+
+                        .erp.status, .urbanisme.status
+                            background-color: #fff
+
+                    &.erp
+                        .nom
+                            width: 20%
+                        .adresse
+                            width: 30%
+                        .erp-date,.erp.status
+                            width: 25%
+
+                    &.urbanisme
+                        .pieces-urbanisme
+                            cursor: default
+                            width: 10%
+                        .nom
+                            width: 20%
+                        .adresse
+                            width: 30%
+                        .urbanisme-date, .urbanisme.status
+                            width: 20%
+
+                    .adresse
+                        display: flex
+                        flex-direction: column
+                    .status
+                        display: flex
+                        background-color: $bg-gris
+                        border-radius: 10px
+                        min-width: 160px
+                        justify-content: start
+                        gap: 20px
+                        padding: 10px 15px
+                        align-items: center
+                        span.libelle-status
+                            font-weight: bold
+
+                        span.pastille
+                            width: 15px
+                            height: 15px
+                            border-radius: 50px
+                            &.violet
+                                background-color: $pastille-etat-violet
+                            &.rouge
+                                background-color: $pastille-etat-rouge
+                            &.orange
+                                background-color: $pastille-etat-orange
+                            &.vert
+                                background-color: $pastille-etat-vert
+
+                    .pieces-urbanisme
+                        span
+                            background-color: $main-blue
+                            padding: 5px
+                            color: #fff
+                            border-radius: 8px
+                            width: auto

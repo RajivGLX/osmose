@@ -1,0 +1,53 @@
+@use '../../variables' as *
+
+.wrapper-component
+    margin-top: 40px
+    display: flex
+    flex-direction: column
+    padding: 40px
+    gap: 40px
+    background-color: #fff
+    border-radius: 15px
+    
+
+    .header-center
+        display: flex
+        justify-content: center
+        align-items: center
+        position: relative
+        h1
+            color: $main-blue
+        .btn
+            position: absolute
+            right: 0 
+            svg
+                width: 13px
+                fill: #ffff
+
+    .wrapper-slot 
+        .title
+            font-size: 18px
+            font-weight: bold
+            color: $text-color-gris-light
+
+    table
+        width: 100%
+        border-collapse: collapse
+        margin-top: 10px
+        .day
+            background-color: $bg-input
+            text-align: left
+            margin-left: 10px
+            font-weight: bold
+
+    table, th, td
+        border: 1px solid #ddd
+        background-color: #fff
+
+    th, td
+        padding: 10px
+        text-align: center
+        text-transform: capitalize
+
+    th
+        background-color: $bg-input

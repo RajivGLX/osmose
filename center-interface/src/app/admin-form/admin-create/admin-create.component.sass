@@ -1,0 +1,102 @@
+@use '../../../variables' as *
+
+.wrapper-component
+    display: flex
+    flex-direction: column
+    gap: 40px
+    .container-informations
+        background-color: #fff
+        border-radius: 15px
+        padding: 25px
+
+        .header-informations
+            display: flex
+            flex-wrap: wrap
+            align-items: center
+            margin-bottom: 25px
+            padding-bottom: 25px
+            border-bottom: 2px solid $bg-gris
+            margin-bottom: 25px
+            
+            .undertitle
+                color: $text-color-gris-light
+
+        .form-line
+            gap: 25px
+            .wrapper-input
+                width: 50%
+                &.full
+                    width: 100%
+                ::ng-deep mat-form-field
+                    width: 100%
+        .form-line.first
+            .wrapper-input
+                width: 33%
+        .custom-error
+            p
+                color: $error-color
+.switch
+    position: relative
+    display: inline-block
+    width: 50px
+    height: 24px
+    margin-right: 20px
+    margin-bottom: 25px
+
+    input
+        opacity: 0
+        width: 0
+        height: 0
+
+    .slider
+        position: absolute
+        cursor: pointer
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        background-color: $text-color-gris
+        -webkit-transition: .4s
+        transition: .4s
+
+    .slider:before
+        position: absolute
+        content: ""
+        height: 16px
+        width: 16px
+        left: 4px
+        bottom: 4px
+        background-color: white
+        -webkit-transition: .4s
+        transition: .4s
+
+    input:checked + .slider
+        background-color: $main-blue
+
+    input:focus + .slider
+        box-shadow: 0 0 1px $main-blue
+
+    input:checked + .slider:before
+        -webkit-transform: translateX(26px)
+        -ms-transform: translateX(26px)
+        transform: translateX(26px)
+
+    .slider.round
+        border-radius: 34px
+
+    .slider.round:before
+        border-radius: 50%
+
+.container-form-user,.container-form-etude
+    position: relative
+form.visibility-off
+    visibility: hidden
+    .switch
+        display: none
+
+.loader-form
+    height: 100%
+    width: 100%
+    position: absolute
+    top: calc(50% - 40px)
+    z-index: 1000

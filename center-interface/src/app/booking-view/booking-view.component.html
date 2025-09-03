@@ -1,0 +1,176 @@
+<div class="container-booking">
+    <div class="wrapper-booking d-flex flex-column">
+        @if(booking) {
+            <div class="container-booking-infos d-flex">
+                <div class="bloc-go-back">
+                    <div class="go-back" (click)="goBack()">
+                        <svg width="10" height="16" viewBox="0 0 10 16" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.2625 13.5078L3.5375 7.9998L9.2625 2.4918L7.5 0.799805L0 7.9998L7.5 15.1998L9.2625 13.5078Z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="infos-user bloc-booking d-flex">
+                    <div class="d-flex fisrt-bloc-infos">
+                        <div class="img-user">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                                id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
+                                <g>
+                                    <circle cx="256" cy="128" r="128" />
+                                    <path
+                                        d="M256,298.667c-105.99,0.118-191.882,86.01-192,192C64,502.449,73.551,512,85.333,512h341.333   c11.782,0,21.333-9.551,21.333-21.333C447.882,384.677,361.99,298.784,256,298.667z" />
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="personal-infos d-flex flex-column">
+                            <span class="user-name">{{booking.patient.user.firstname}} {{ booking.patient.user.lastname | uppercase}}</span>
+                            <span class="mail">Mail : {{booking.patient.user.email}}</span>
+                            <span class="telephone">Téléphone : {{booking.patient.phone}}</span>
+                            <span class="num-client">N°Patient : {{booking.patient.user.id}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="infos-etude bloc-booking d-flex">
+                    <div class="d-flex fisrt-bloc-infos">
+                        <div class="img-etude">
+                            <svg id="Layer_1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1">
+                                <path
+                                    d="m.291 8.552a2.443 2.443 0 0 1 .153-2.566 4.716 4.716 0 0 1 1.668-1.5l7.501-3.904a5.174 5.174 0 0 1 4.774 0l7.5 3.907a4.716 4.716 0 0 1 1.668 1.5 2.443 2.443 0 0 1 .153 2.566 2.713 2.713 0 0 1 -2.416 1.445h-18.584a2.713 2.713 0 0 1 -2.417-1.448zm22.709 13.448a2 2 0 0 0 -2-2v-8h-2v8h-3v-8h-2v8h-4v-8h-2v8h-3v-8h-2v8a2 2 0 0 0 -2 2 1 1 0 0 0 0 2h22a1 1 0 0 0 0-2z" />
+                            </svg>
+                        </div>
+                        @if (booking.patient.center;as center){
+                            <div class="etude-infos d-flex flex-column">
+                                <span class="etude-name">{{booking.patient.center.name}}</span>
+                                <span class="adresse">{{booking.patient.center.address}}</span>
+                                <span class="cp-ville">{{booking.patient.center.zipcode}} {{booking.patient.center.city}}</span>
+                                <span class="phone">{{booking.patient.center.phone}}</span>
+                            </div>
+                        }@else {
+                            <div class="etude-infos d-flex flex-column">
+                                <span class="etude-name">Aucun centre communiqué</span>
+                            </div>
+                        }
+                            
+                        
+                    </div>
+                    <div class="edit">
+                        <svg xmlns="http://www.w3.org/2000/svg" id="Filled" viewBox="0 0 24 24">
+                            <path
+                                d="M1.172,19.119A4,4,0,0,0,0,21.947V24H2.053a4,4,0,0,0,2.828-1.172L18.224,9.485,14.515,5.776Z" />
+                            <path
+                                d="M23.145.855a2.622,2.622,0,0,0-3.71,0L15.929,4.362l3.709,3.709,3.507-3.506A2.622,2.622,0,0,0,23.145.855Z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="container-onglet-categories">
+                <div class="categories">
+                    <ul>
+                        <li class="cat" (click)="switchOnglet(1)" [ngClass]="ongletToDisplay == 1 ? 'active' : ''">
+                            Demande
+                        </li>
+                        <li class="cat" (click)="switchOnglet(2)" [ngClass]="ongletToDisplay == 2 ? 'active' : ''">
+                            Autres demandes
+                        </li>
+                        <li class="cat" (click)="switchOnglet(3)" [ngClass]="ongletToDisplay == 3 ? 'active' : ''">
+                            Dossier
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            @if(ongletToDisplay == 1){
+                @if (loaderOneStatus | async){
+                    <div class="app-lopader">
+                        <app-loader/>
+                    </div>
+                }@else{
+                    <div class="recap-booking-container">
+                        <div class="wrapper-ligne-booking">
+                            <div class="ligne-cmd">
+                                <div class="infos-ligne d-flex justify-content-between align-items-start">
+                                    <div class="current-cmd col-md-6">
+                                        <span class="numero-cmd">
+                                            Réservation n°{{booking.id}}
+                                        </span>
+                                    </div>
+                                    <div class="wrapper-status">
+                                        @for (status of booking.statusBookings; track status.id){
+                                            <div class='status' [ngClass]="status.status_active == true ? 'active' : ''">
+                                                <span class='pastille' [ngStyle]="{'background-color': status.status.color}"></span>
+                                                <span class='libelle-status'>{{status.status.name| titlecase}}</span>
+                                            </div>
+                                            <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M9.2625 13.5078L3.5375 7.9998L9.2625 2.4918L7.5 0.799805L0 7.9998L7.5 15.1998L9.2625 13.5078Z"/>
+                                            </svg>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="wrapper-detail-booking">
+                                <div class="wrapper-box">
+                                    <span class="title">Information sur la demande</span>
+                                    <div class="row align-items-center">
+                                        <div class="col-4">
+                                            <label>Date de la réservation :</label>
+                                            <span>{{booking.dateReserve | formatageDate}}</span>
+                                        </div>
+                                        <div class="col-4">
+                                            <label>Créneaux :</label>
+                                            <span>{{booking.availability.slot.name | traductionSlot}}</span>
+                                        </div>
+                                        <div class="col-4">
+                                            <label>Raison de la réservation :</label>
+                                            <span>{{booking.reason}}</span>
+                                        </div>
+                                        <div class="col-8 mt-3">
+                                            <label>Commentaire :</label>
+                                            <span>{{booking.comment ? booking.comment : 'Aucun commentaire'}}</span>
+                                        </div>
+                                        <div class="col-4 mt-3">
+                                            <button class="btn btn-secondary" (click)="switchOnglet(3)">Informations sur le patient</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="wrapper-box action">
+                                    <span class="title">Changer le statut de la demande</span>
+                                    @if (statusIsUpdated | async){
+                                        <form [formGroup]="statusForm" (ngSubmit)="onSubmit()" class=" d-flex justify-content-between">
+                                            <div class="wrapper-input">
+                                                <mat-form-field appearance="outline" class="bg-input-white">
+                                                    <mat-label>Statut</mat-label>
+                                                    <mat-select formControlName="idStatus">
+                                                        @for (status of getAvailableStatuses(); track status.id) {
+                                                            <mat-option [value]="status.id">{{status.name}}</mat-option>
+                                                        }
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            
+                                            <button class="btn custom-btn" type="submit" [disabled]="statusForm.invalid">Enregistrer le statut</button>
+                                        </form>
+                                    }@else {
+                                        <div class="right-part-infos col-md-6">
+                                            <span class="fw-bold legend">Statut</span>
+                                            <span class="status">{{booking.statusBookings[booking.statusBookings.length - 1].status.name}}</span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            @else if (ongletToDisplay == 2) {
+                <app-other-booking [booking]="booking"></app-other-booking>
+            }
+            @else if (ongletToDisplay == 3) {
+                <app-folder-patient [patient]="booking.patient"></app-folder-patient>
+            }
+
+        }@else{
+            <div class="wrapper-booking w-100 d-flex flex-column justify-content-center">
+                <app-loader></app-loader>
+            </div>
+        }
+    </div>
+</div>

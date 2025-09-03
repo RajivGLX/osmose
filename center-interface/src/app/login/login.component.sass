@@ -1,0 +1,132 @@
+@use '../../variables' as *
+
+.content
+
+    min-height: 100vh
+    background-image: url('/assets/bg/bg-connexion.jpg')
+    display: flex
+    justify-content: center
+    align-items: center
+    background-position: center center
+
+    &:before
+        content: ''
+        width: 100%
+        height: 100%
+        position: absolute
+        left: 0
+        top: 0
+        background-color: rgba(31, 109, 147,0.78)
+    .container-login-form
+        display: flex
+        justify-content: center
+        color: #fff
+        & > *
+            z-index: 10
+
+        h2
+            font-size: 32px
+            margin-bottom: 15px
+
+        p.renseignez-credentials
+            margin-bottom: 30px
+
+        form
+            padding: 40px
+            border-radius: 25px
+            text-align: center
+            max-width: 630px
+            background-color: #fff
+            color: $text-color
+            min-width: 630px
+
+            img
+                width: 150px
+                margin: -75px auto 50px
+
+            .wrapper-loginForm
+                display: flex
+                flex-direction: column
+                padding: 25px 0
+                gap: 25px
+
+            .mat-mdc-form-field-subscript-wrapper
+                display: none !important
+
+            .btn-container
+                display: flex
+                flex-direction: column
+                justify-content: center
+                align-items: center
+                margin-top: 20px
+
+                .custom-btn
+                    margin-right: 0 !important
+                    width: 80% !important
+                    margin-bottom: 40px !important
+            a
+                text-decoration: none
+                color: $text-color
+            .create-account a
+                font-weight: bold
+                text-decoration: underline
+                color: $main-blue
+                margin-left: 20px
+
+            input[type='password']
+                letter-spacing: 5px
+                font-weight: bold
+
+        mat-spinner
+            max-width: 50px
+            max-height: 50px
+            margin-bottom: 32px!important
+
+        mat-icon
+            color: $main-blue
+
+        mat-icon.visibility_password
+            cursor: pointer !important
+
+        .forgot-password
+            text-decoration: underline
+
+//############-MEDIA QUERIES-############// 
+
+@media (max-width: 768px)
+    .content
+        .container-login-form
+            width: 95%
+            padding: 1rem
+
+            form
+                min-width: 100%
+                padding: 20px
+                
+                .wrapper-loginForm
+                    display: flex
+                    flex-direction: column
+                    padding: 25px 0
+                    gap: 25px
+
+                    .row
+                        width: initial
+
+@media (max-width: 480px)
+    .content
+        .container-login-form
+            width: 95%
+            padding: 0.5rem
+
+            form
+                min-width: 100%
+                padding: 20px
+                
+                .wrapper-loginForm
+                    display: flex
+                    flex-direction: column
+                    padding: 25px 0
+                    gap: 25px
+
+                    .row
+                        width: initial

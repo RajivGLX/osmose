@@ -1,0 +1,120 @@
+<div class="wrapper-component">
+    <div class="container-informations">
+
+        <div class="header-informations">
+            <div class="go-back" (click)="goBack()">
+                <svg width="10" height="16" viewBox="0 0 10 16" fill="#155979" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9.2625 13.5078L3.5375 7.9998L9.2625 2.4918L7.5 0.799805L0 7.9998L7.5 15.1998L9.2625 13.5078Z" />
+                </svg>
+            </div>
+            <div>
+                <h4 class="title-utilisateurs">Modification d'un administrateur</h4>
+                <span class="undertitle">Les champs obligatoires sont marqués d’un astérisque (*)</span>
+            </div>
+            
+        </div>
+        <div class="container-form-user">
+            <form [formGroup]="update_admin_form" [ngClass]="loadingAdmin() ? 'visibility-off' : ''">
+                <div class="form-line first d-flex">
+                    <div class="wrapper-input">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nom</mat-label>
+                            <input type="text" matInput formControlName="lastname">
+                            <mat-error>{{ errors.lastname }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="wrapper-input">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Prénom</mat-label>
+                            <input type="text" matInput formControlName="firstname">
+                            <mat-error>{{ errors.firstname }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="wrapper-input">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rôle</mat-label>
+                            <mat-select formControlName="role_array">
+                                @for (role of listAllRoles; track $index) {
+                                    <mat-option [value]="role">{{ role | traductionRole}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-line d-flex" [formGroup]="email_form">
+                    <div class="wrapper-input full">
+                        <mat-form-field appearance="outline">
+                            <mat-label>E-mail du compte</mat-label>
+                            <input type="text" matInput formControlName="current_email" readonly>
+                            <mat-error>{{ errors.current_email }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="d-flex flex-wrap">
+                    <div class="form-line d-flex w-100" [formGroup]="email_form">
+                        <div class="wrapper-input">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Nouvelle adresse email de communincation</mat-label>
+                                <input type="text" matInput formControlName="new_email">
+                                <mat-error>{{ errors.new_email }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="wrapper-input">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Confirmation</mat-label>
+                                <input type="text" matInput formControlName="confirm_new_email">
+                                <mat-error>{{ errors.confirm_new_email }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    @if (email_form.invalid && email_form.hasError('confirmEqual')) {
+                        <div class="custom-error text-center ">
+                            <mat-error>{{ errors.email }}</mat-error>
+                        </div>
+                    }
+                </div>
+                <div class="container-select">
+                    <div class="wrapper-select">
+                        <ng-select 
+                            [items]="allCenter |async"
+                            [bindLabel]="'name'"
+                            [multiple]="true"
+                            [selectableGroupAsModel]="false" 
+                            [closeOnSelect]="false" 
+                            [formControlName]="'center_array'" 
+                            appearance="outline"
+                            notFoundText="Aucun résultat" 
+                            placeholder="Centre(s) assoscié(s)" 
+                        >
+                            <ng-template ng-multi-label-tmp let-items="items" class="pt-3">
+                                <div appMultiLabel [items]="items"></div>
+                            </ng-template>
+                            <!-- <ng-template ng-footer-tmp>
+                                <div class="container-select-actions">
+                                    <button class="btn btn-main-outline" (click)="clearAllSelect('departement')">Effacer</button>
+                                </div>
+                            </ng-template> -->
+                        </ng-select>
+                    </div>
+                </div>
+
+            </form>
+            @if (loadingAdmin()) {
+                <div class="loader-form">
+                    <app-loader></app-loader>
+                </div>
+            }
+        </div>
+
+        @if (update_admin_form.valid) {
+            <div class="wrapper-btn d-flex justify-content-end mt-3">
+                <button class="btn custom-btn full" (click)="sendUpdateUserData()">Confirmer les modifications</button>
+            </div>
+        } @else {
+            <div class="wrapper-btn d-flex justify-content-end mt-3 ">
+                <button class="btn custom-btn full disabled">Confirmer les modifications</button>
+            </div>
+        }
+
+    </div>
+</div>

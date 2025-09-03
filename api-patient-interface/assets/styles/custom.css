@@ -1,0 +1,840 @@
+/*-------------------------------------------------------*/
+/*----------------------GENERAL-------------------------*/
+/*-----------------------------------------------------*/
+
+:root {
+    /* Couleurs principales */
+
+    --dark-blue: #1e317f;
+    --light-blue: #3679E4;
+    --grey-light: #f1f1f1;
+    --white: #ffffff;
+    /* Couleurs secondaires */
+
+}
+
+body{
+    font-family: 'Poppins', sans-serif!important;
+    background-color: var(--grey-light)!important;
+}
+
+.text-dark-blue {
+    color: var(--dark-blue) !important;
+}
+.text-light-blue {
+    color: var(--light-blue) !important;
+}
+.text-grey-light {
+    color: var(--grey-light) !important;
+}
+
+.textUnderline{
+    text-decoration: underline;
+}
+
+.textGrey{
+    color: #788487;
+}
+.ptb-50{
+    padding: 50px 0;
+}
+.bgClassicBlue{
+    background-image: linear-gradient(90deg, var(--dark-blue), var(--light-blue));
+}
+body .card{
+    background: transparent;
+}
+body .accordion-faq .card-header{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+.accordion .collapse {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+    display: block !important;
+}
+
+.accordion .collapse.show {
+    max-height: 500px; /* Ajustez selon votre contenu */
+}
+
+.accordion .collapse .card-body {
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+}
+
+.accordion .collapse.show .card-body {
+    opacity: 1;
+}
+.largeScreenDisplay{
+    display: initial;
+}
+.smallScreenDisplay{
+    display: none;
+}
+@media (max-width: 767px) {
+    .h1, h1{
+        font-size: 2rem;
+    }
+    .largeScreenDisplay{
+        display: none;
+    }
+    .smallScreenDisplay{
+        display: initial;
+    }
+}
+
+/*-------------------------Form---------------------*/
+.input-group-append{
+    cursor: pointer;
+}
+select + .btn-light{
+    background-color: var(--white);
+    border-color: #ebebeb;
+    padding: .75rem 0.85rem;
+}
+label{
+    position: relative;
+}
+label.required::after{
+    content: "*";
+    color: red;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+}
+
+.form-group legend{
+    font-weight: 500;
+    color: var(--dark-blue);
+}
+
+.form-group input::placeholder, .form-group textarea::placeholder{
+    color: rgba(108, 117, 125, 0.7) !important;
+    font-size: 14px;
+}
+.form-group input, .form-group textarea{
+    font-size: 14px;
+    color: var(--dark-blue);
+}
+select.form-control {
+    padding: 0 0.85rem;
+    font-size: 14px;
+    color: var(--dark-blue);
+}
+
+.formRadio{
+    display: flex;
+    gap: 15px;
+}
+.formRadio label, .formRadio input{
+    cursor: pointer;
+}
+.formRadio input{
+    margin-top: 8px;
+}
+
+/*-------------------------Alert---------------------*/
+.main h1 + .alert + p{
+    display: none;
+}
+
+
+/*----------------------------------------------------*/
+/*---------------------HEADER------------------------*/
+/*--------------------------------------------------*/
+body .navbar{
+    margin-bottom: 0;
+}
+html body .header-main{
+    z-index: 5!important;
+}
+.topbar-text ul li a{
+    font-size: 14px!important;
+}
+.progress-bar-container {
+    width: 45%;
+    height: 14px;
+    background-color: #e0e0e0;
+    border-radius: 25px;
+    overflow: hidden;
+    margin-left: 5px;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--dark-blue);
+    width: 0;
+    border-radius: 25px 0 0 25px;
+    transition: width 0.5s ease-in-out;
+    font-size: 10px !important;
+    line-height: 10px;
+}
+
+.progress-bar[data-notation="0"] {width: 10%; background-color: #e0e0e0;}
+.progress-bar[data-notation="1"] {width: 10%;}
+.progress-bar[data-notation="2"] {width: 20%;}
+.progress-bar[data-notation="3"] {width: 30%;}
+.progress-bar[data-notation="4"] {width: 40%;}
+.progress-bar[data-notation="5"] {width: 50%;}
+.progress-bar[data-notation="6"] {width: 60%;}
+.progress-bar[data-notation="7"] {width: 70%;}
+.progress-bar[data-notation="8"] {width: 80%;}
+.progress-bar[data-notation="9"] {width: 90%;}
+.progress-bar[data-notation="10"] {width: 100%;}
+
+
+/*----------------------------------------------------*/
+/*--------------------HOMEPAGE-----------------------*/
+/*--------------------------------------------------*/
+#home .joinUs .container{
+    background-image: linear-gradient(90deg, var(--dark-blue), var(--light-blue));
+    padding: 50px;
+    border-radius: 10px;
+}
+#home .joinUs ul{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#home .joinUs ul li{
+    display: flex;
+    align-items: center;
+    width: 50%;
+}
+#home .feature-section .icon-sm{
+    font-size: 35px;
+    line-height: 35px;
+}
+@media (max-width: 767px) {
+    #home .joinUs .container{
+        padding: 25px;
+        border-radius: 0;
+    }
+    #home .joinUs ul{
+        display: initial;
+    }
+    #home .joinUs ul li{
+        align-items: inherit;
+        width: 100%;
+    }
+}
+
+/*------------------------------------------------------*/
+/*--------------------SEARCHPAGE-----------------------*/
+/*----------------------------------------------------*/
+
+/*--List-Centers--*/
+
+.domain-search-result-section{
+    min-height: 750px;
+}
+
+.domain-search-result-section .container-list-center{
+    margin: 0 40px;
+}
+
+.search-bar{
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    background-color: var(--white);
+    margin-bottom: 50px;
+}
+
+.search-bar form{
+    display: flex;
+    flex-direction: column;
+}
+
+.search-bar form .container-search label{
+    text-align: center;
+    text-decoration: underline;
+    display: flex;
+    justify-content: center;
+}
+
+.content-with-sidebar h4 {
+    margin-bottom: 20px;
+    color: var(--dark-blue) !important;
+}
+.content-with-sidebar h4 span{
+    font-weight: 400;
+}
+
+.list-center{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color: var(--dark-blue) !important;
+}
+
+.list-center .center{
+    display: flex;
+    background-color: var(--white);
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+}
+
+.list-center .center div:first-child{
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+
+}
+
+.list-center .center div span:first-child{
+    text-decoration: underline;
+}
+
+.list-center .center div span:nth-child(2) {
+    font-weight: 600;
+}
+
+.list-center .center div:last-child{
+    width: 25%;
+    margin: auto;
+}
+
+.domain-extension-filter-wrap{
+    position: absolute;
+    left: -30%;
+    top: 0;
+}
+
+@media (min-width: 320px) and (max-width: 1320px) {
+    .domain-extension-filter-wrap{
+        position: inherit;
+    }
+}
+
+/*---------------------------------------------------------*/
+/*-------------------------Center-------------------------*/
+/*-------------------------------------------------------*/
+#app_booking{
+    background-color: var(--white);
+}
+.container-center {
+    display: flex;
+    padding: 50px 20px;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.container-center .widget-categories p{
+    margin-bottom: 8px;
+}
+.container-center .widget-categories ul li{
+    background-color: #ffff;
+    padding: 10px !important;
+    font-size: 14px;
+}
+.container-center .widget-categories ul li.title{
+    border-radius: 5px 5px 0 0 !important;
+    font-weight: 600;
+}
+.container-center .widget-categories ul li:last-child{
+    border-radius: 0 0 5px 5px;
+}
+
+/*------------------Calendar----------------*/
+.container-center .formCalendar{
+    padding: 0;
+    background-color: rgba(204, 204, 204, 0.4);
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.5) 10px, rgba(255,255,255,.5) 20px);
+}
+.boxCalendar h2{
+    color: var(--dark-blue);
+}
+
+.navigationCalendar{
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    margin-bottom: 20px;
+}
+.navigationCalendar h2{
+    margin: auto 0;
+}
+.navigationCalendar li{
+    width: 10%;
+}
+.navigationCalendar li a{
+    width: 100%;
+}
+.userCalendar{
+    width: 100%;
+    height: calc(100vh - 160px);
+}
+
+.userCalendar hr {
+    position: absolute;
+    top: 33%;
+    left: 10%;
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 80%;
+    border: 1px solid rgba(204, 204, 204, 0.3);
+    z-index: 2;
+}
+.userCalendar .blockSlot + hr + .blockSlot + hr + .blockSlot + hr{
+    display: none;
+}
+.userCalendar .blockSlot + hr + .blockSlot + hr{
+    top: 66%;
+}
+.userCalendar td{
+    position: relative;
+    padding: 0;
+    border: 1px solid rgba(11, 33, 122, 0.3);
+    vertical-align: top;
+    width: 14.29%;
+    height: 20%;
+}
+.userCalendar.weeks6 td{
+    height: 16.6%;
+}
+.userCalendar tbody tr:first-child td{
+    height: inherit;
+    background-color: #D1F0FD;
+    padding-left: 5px;
+}
+.userCalendar .otherMonth{
+    background-color: #E5E5E5;
+    background-image: none !important;
+}
+.userCalendar .today{
+    background-color: rgba(209, 240, 253, 0.4);
+}
+
+.userCalendar td .blockDay{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.userCalendar td .blockDay .numberDay{
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    margin: 0;
+    width: 13%;
+    text-align: center;
+    border-left: 1px solid rgba(11, 33, 122, 0.4);
+    border-bottom: 1px solid rgba(11, 33, 122, 0.4);
+    background-color: #D1F0FD;
+    font-size: 14px;
+    cursor: initial;
+}
+
+.userCalendar td.otherMonth .blockDay{
+    display: none;
+}
+
+.blockSlot{
+    background-color: var(--white);
+}
+
+.blockDayDisable, .morningDayDisable, .afternoonDayDisable, .eveningDayDisable{
+    background-color: rgba(255, 138, 138, 0.25);
+    height: 100%;
+}
+.blockDayDisable .boxSwitch, .morningDayDisable .boxSwitch,
+.afternoonDayDisable .boxSwitch, .eveningDayDisable .boxSwitch{
+    cursor: initial;
+}
+.userCalendar td .blockDay .blockSlot{
+    position: relative;
+    min-height: 33.33%;
+}
+
+.morningDay:has(>.alreadyBook),.morningDayDisable:has(>.alreadyBook),
+.afternoonDay:has(>.alreadyBook),.afternoonDayDisable:has(>.alreadyBook),
+.eveningDay:has(>.alreadyBook),.eveningDayDisable:has(>.alreadyBook)
+{
+    background-color: rgba(255, 239, 138, 0.25);
+}
+.alreadyBook{
+    font-size: 13px;
+    margin-left: 4px;
+    margin-top: 10px;
+    margin-bottom: 0 !important;
+}
+.alreadyBook + .boxSwitch{
+   display: none;
+}
+/*-Switch-*/
+.boxSwitch, .boxSwitch .switch {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    cursor: pointer;
+    z-index: 1;
+    font-size: 14px;
+}
+.switch span {
+    display: inline-block;
+    position: relative;
+    width: 30px;
+    height: 15px;
+    border-radius: 20px;
+    margin: 10px;
+    background: #dfd9ea;
+    transition: background 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    vertical-align: middle;
+    cursor: pointer;
+}
+.switch span::before {
+    content: '';
+    position: absolute;
+    top: 1px;
+    left: 2px;
+    width: 13px;
+    height: 13px;
+    background: #fafafa;
+    border-radius: 50%;
+    transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1), background 0.28s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.switch span:active::before {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.28), 0 0 0 20px rgba(128,128,128,0.1);
+}
+.userCalendar td .blockDay input:checked + label{
+    background-color: rgba(0, 217, 4, 0.2);
+}
+input:checked + .switch span {
+    background: #72da67;
+}
+input:checked + .switch span::before {
+    left: 15px;
+    background: #fff;
+}
+input:checked + .switch span:active::before {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.28), 0 0 0 20px rgba(0,150,136,0.2);
+}
+
+/*-popup-*/
+.custom-model-main {
+    text-align: center;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0; /* z-index: 1050; */
+    -webkit-overflow-scrolling: touch;
+    outline: 0;
+    opacity: 0;
+    -webkit-transition: opacity 0.15s linear, z-index;
+    -o-transition: opacity 0.15s linear, z-index;
+    transition: opacity 0.15s linear, z-index;
+    z-index: -1;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.model-open {
+    z-index: 99999;
+    opacity: 1;
+    overflow: hidden;
+}
+.custom-model-inner {
+    -webkit-transform: translate(0, -25%);
+    -ms-transform: translate(0, -25%);
+    transform: translate(0, -25%);
+    -webkit-transition: -webkit-transform 0.3s ease-out;
+    -o-transition: -o-transform 0.3s ease-out;
+    transition: -webkit-transform 0.3s ease-out;
+    -o-transition: transform 0.3s ease-out;
+    transition: transform 0.3s ease-out;
+    transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+    display: inline-block;
+    vertical-align: middle;
+    width: 55%;
+    margin: 30px auto;
+    max-width: 97%;
+}
+.custom-model-wrap {
+    display: block;
+    width: 100%;
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    background-clip: padding-box;
+    outline: 0;
+    text-align: left;
+    padding: 20px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+}
+.custom-model-wrap .formPopup{
+    justify-content: center;
+}
+.model-open .custom-model-inner {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+    position: relative;
+    z-index: 999;
+}
+.model-open .bg-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 99;
+}
+.bg-overlay {
+    background: rgba(0, 0, 0, 0);
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    -webkit-transition: background 0.15s linear;
+    -o-transition: background 0.15s linear;
+    transition: background 0.15s linear;
+}
+.close-btn.cross {
+    position: absolute;
+    right: 15px;
+    top: 0;
+    cursor: pointer;
+    z-index: 9;
+    font-size: 30px;
+    color: var(--dark-blue);
+}
+.secondary-solid-btn.close-btn:hover{
+    background: #dc3545;
+    border: 1px solid #dc3545;
+    color: #fff;
+}
+.secondary-solid-btn.close-btn{
+    background: #dc3545;
+    border: 1px solid #dc3545;
+}
+
+@media screen and (min-width:800px){
+    .custom-model-main:before {
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: -0px;
+        height: 100%;
+    }
+}
+@media screen and (max-width:799px){
+    .custom-model-inner{margin-top: 45px;}
+}
+
+
+/*-------------------------------------------------------*/
+/*-------------------Register / Login-------------------*/
+/*-----------------------------------------------------*/
+
+/*---------------Confirmation----------------*/
+.confirmationExpired{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.confirmationAccount{
+    background-color: var(--white);
+    height: 100vh;
+}
+#update_password .card{
+    background: var(--white);
+}
+/*-------------------------------------------------------*/
+/*------------------------ACCOUNT-----------------------*/
+/*-----------------------------------------------------*/
+
+.account-menu{
+    background-color: var(--grey-light);
+}
+
+.logout{
+    text-align: center;
+    margin-top: 40px;
+}
+
+.logout span{
+    padding-right: 10px;
+}
+.userInformation .bootstrap-select{
+    padding: 0;
+}
+.userInformation #selectpicker{
+    width: 100%;
+    z-index: 99;
+}
+/*---------------------List Booking--------------------*/
+.accountStatus{
+    color: var(--dark-blue);
+}
+.statusMode{
+    text-align: right;
+    width: 100%;
+}
+.statusMode .rounded{
+    opacity: 50%;
+}
+.statusMode .active{
+    opacity: 100%;
+}
+.statusMode i:last-child{
+    display: none;
+}
+/*------------------------Booking-----------------------*/
+.bookingContainer h2{
+    font-size: 30px;
+}
+.bookingContainer h4{
+    font-size: 20px;
+}
+.bookingContainer h5{
+    font-size: 16px;
+}
+.bookingContainer .post-meta li, .bookingContainer .post-header p {
+    color: var(--dark-blue);
+    font-size: 16px;
+    font-weight: 600;
+}
+.bookingContainer .rounded{
+    font-size: 14px;
+    margin-left: 5px;
+}
+
+.bookingContainer .widget-recent-entries-custom .wi {
+    width: 40%;
+}
+.bookingContainer .post-content, .bookingContainer .comment-notes{
+    font-size: 14px;
+}
+.bookingContainer .widget .widget-title > h6{
+    font-size: 16px;
+}
+.bookingContainer .widget ul li{
+    font-size: 14px;
+}
+.bookingContainer + dialog{
+    position: fixed;
+    top: 35%;
+    width: 50%;
+    height: 40%;
+    z-index: 4;
+    border: solid 3px var(--dark-blue);
+    border-radius: 5px;
+    color: var(--dark-blue);
+}
+.bookingContainer + dialog div:first-child{
+    height: 80%;
+    padding: 15px;
+}
+.bookingContainer + dialog div:last-child{
+    height: 20%;
+}
+.bookingContainer + dialog i{
+    position: absolute;
+    cursor: pointer;
+    right: 15px;
+    top: 5px;
+    font-size: 20px;
+}
+dialog + .modalOverlay{
+    display: none;
+    position: fixed;
+    top: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+@media (max-width: 767px) {
+    .container-center form{
+        padding-right: 0!important;
+    }
+    .boxCalendar{
+        margin-top: 25px;
+        padding-left: 0;
+    }
+    .userCalendar {
+        height: 100%;
+    }
+    .navigationCalendar h2{
+        font-size: 24px;
+    }
+    .navigationCalendar li{
+        width: 20%;
+    }
+    .userCalendar tr {
+        display: flex;
+        flex-direction: column;
+    }
+    .userCalendar tr:first-child td{
+        display: none;
+    }
+    .userCalendar td, .userCalendar.weeks6 td {
+        width: 100%;
+        height: 110px;
+    }
+    .userCalendar td .blockDay .numberDay{
+        width: 30%;
+    }
+    .userCalendar .otherMonth, .userCalendar .pastDate{
+        display: none;
+    }
+}
+/*--------------------------------------------------------------*/
+/*-------------------------LandingPage-------------------------*/
+/*------------------------------------------------------------*/
+#userManual .boxStep{
+    display: flex;
+    justify-content: space-between;
+}
+#userManual .boxStep .accordionManual{
+    width: 45%;
+}
+#userManual .boxStep .boxSvg{
+    width: 53%;
+    margin-left: 2%;
+}
+#userManual .boxStep .accordionManual > div{
+    border: solid 2px var(--dark-blue);
+    margin-bottom: 25px;
+    border-radius: 4px;
+}
+#userManual .boxStep .accordionManual > div:last-child{
+    margin-bottom: 0;
+}
+#userManual .boxStep .accordionManual > div h3{
+    font-size: 20px;
+    padding: 15px;
+    cursor: pointer;
+    margin: 0;
+}
+#userManual .boxStep .accordionManual > div p{
+    padding: 0 15px 15px 15px;
+}
+#userManual .boxStep .boxSvg div{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+#userManual .boxStep .boxSvg div svg{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#cgu strong{
+    text-decoration: underline;
+}

@@ -1,0 +1,24 @@
+# Ignorer les dépendances Node.js (Angular)
+center-interface/node_modules/
+center-interface/dist/
+center-interface/.angular/
+
+# Ignorer les fichiers de build Angular
+center-interface/.env
+center-interface/.env.*
+
+# Ignorer les dépendances Composer (Symfony)
+api-patient-interface/vendor/
+api-patient-interface/var/
+api-patient-interface/node_modules/
+api-patient-interface/.env.local
+api-patient-interface/.env.test.local
+api-patient-interface/.env.*.local
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+###> lexik/jwt-authentication-bundle ###
+api-patient-interface/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###

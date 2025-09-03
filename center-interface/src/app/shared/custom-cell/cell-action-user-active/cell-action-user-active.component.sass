@@ -1,0 +1,26 @@
+@use '../../../../variables' as *
+.edit
+    width: 45px
+    height: 45px
+    background-color: $bg-gris
+    display: flex
+    justify-content: center
+    align-items: center
+    border-radius: 8px
+    cursor: pointer
+
+    &.small
+        width: 30px
+        height: 30px
+
+        svg
+            width: 15px
+            height: 15px
+
+    svg
+        width: 18px
+        height: 18px
+        fill: $text-color-gris
+    .notif-input
+        display: flex
+        align-items: center

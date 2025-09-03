@@ -1,0 +1,196 @@
+<nav class="d-flex flex-column myCoolNav">
+    @if(currentUser| async; as user) {
+        <div class="wrapper-num-compte">
+            <div class="num-compte">
+                N° de compte : {{user.id}}
+                <br>
+                {{user.lastname}} {{user.firstname}}
+            </div>
+        </div>
+
+        <div class="wrapper-navigation">
+            <ul class="nav-principale">
+                <li>
+                    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                        <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512">
+                            <path
+                                d="M23.121,9.069,15.536,1.483a5.008,5.008,0,0,0-7.072,0L.879,9.069A2.978,2.978,0,0,0,0,11.19v9.817a3,3,0,0,0,3,3H21a3,3,0,0,0,3-3V11.19A2.978,2.978,0,0,0,23.121,9.069ZM15,22.007H9V18.073a3,3,0,0,1,6,0Zm7-1a1,1,0,0,1-1,1H17V18.073a5,5,0,0,0-10,0v3.934H3a1,1,0,0,1-1-1V11.19a1.008,1.008,0,0,1,.293-.707L9.878,2.9a3.008,3.008,0,0,1,4.244,0l7.585,7.586A1.008,1.008,0,0,1,22,11.19Z" />
+                        </svg>
+                        <span>Tableau de bord</span>
+                    </a>
+                </li>
+                @if (user.adminDialyzone) {
+                    <li>
+                        <a routerLink="center-list" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                            <svg xmlns=" http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path
+                                    d="m8,11h-3c-.552,0-1-.448-1-1s.448-1,1-1h3c.552,0,1,.448,1,1s-.448,1-1,1Zm15.759,12.651c-.198.23-.478.349-.76.349-.23,0-.462-.079-.65-.241l-2.509-2.151c-1.041.868-2.379,1.391-3.84,1.391-3.314,0-6-2.686-6-6s2.686-6,6-6,6,2.686,6,6c0,1.13-.318,2.184-.862,3.087l2.513,2.154c.419.359.468.991.108,1.41Zm-6.78-4.325l2.703-2.614c.398-.383.411-1.016.029-1.414-.383-.399-1.017-.41-1.414-.029l-2.713,2.624c-.143.141-.379.144-.522.002l-1.354-1.331c-.396-.388-1.028-.381-1.414.014-.387.395-.381,1.027.014,1.414l1.354,1.332c.46.449,1.062.674,1.663.674s1.201-.225,1.653-.671Zm-5.979,3.674c0,.552-.448,1-1,1h-5c-2.757,0-5-2.243-5-5V5C0,2.243,2.243,0,5,0h4.515c1.87,0,3.627.728,4.95,2.05l3.485,3.485c.888.888,1.521,2,1.833,3.217.077.299.011.617-.179.861s-.481.387-.79.387h-5.813c-1.654,0-3-1.346-3-3V2.023c-.16-.015-.322-.023-.485-.023h-4.515c-1.654,0-3,1.346-3,3v14c0,1.654,1.346,3,3,3h5c.552,0,1,.448,1,1Zm1-16c0,.551.449,1,1,1h4.338c-.219-.382-.489-.736-.803-1.05l-3.485-3.485c-.318-.318-.671-.587-1.05-.806v4.341Zm-5,6h-2c-.552,0-1,.448-1,1s.448,1,1,1h2c.552,0,1-.448,1-1s-.448-1-1-1Zm0,4h-2c-.552,0-1,.448-1,1s.448,1,1,1h2c.552,0,1-.448,1-1s-.448-1-1-1Z" />
+                            </svg>
+                            <span class="d-flex">Liste centres</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="admin-list" routerLinkActive="active">
+                            <svg xmlns=" http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path
+                                    d="m8,11h-3c-.552,0-1-.448-1-1s.448-1,1-1h3c.552,0,1,.448,1,1s-.448,1-1,1Zm15.759,12.651c-.198.23-.478.349-.76.349-.23,0-.462-.079-.65-.241l-2.509-2.151c-1.041.868-2.379,1.391-3.84,1.391-3.314,0-6-2.686-6-6s2.686-6,6-6,6,2.686,6,6c0,1.13-.318,2.184-.862,3.087l2.513,2.154c.419.359.468.991.108,1.41Zm-6.78-4.325l2.703-2.614c.398-.383.411-1.016.029-1.414-.383-.399-1.017-.41-1.414-.029l-2.713,2.624c-.143.141-.379.144-.522.002l-1.354-1.331c-.396-.388-1.028-.381-1.414.014-.387.395-.381,1.027.014,1.414l1.354,1.332c.46.449,1.062.674,1.663.674s1.201-.225,1.653-.671Zm-5.979,3.674c0,.552-.448,1-1,1h-5c-2.757,0-5-2.243-5-5V5C0,2.243,2.243,0,5,0h4.515c1.87,0,3.627.728,4.95,2.05l3.485,3.485c.888.888,1.521,2,1.833,3.217.077.299.011.617-.179.861s-.481.387-.79.387h-5.813c-1.654,0-3-1.346-3-3V2.023c-.16-.015-.322-.023-.485-.023h-4.515c-1.654,0-3,1.346-3,3v14c0,1.654,1.346,3,3,3h5c.552,0,1,.448,1,1Zm1-16c0,.551.449,1,1,1h4.338c-.219-.382-.489-.736-.803-1.05l-3.485-3.485c-.318-.318-.671-.587-1.05-.806v4.341Zm-5,6h-2c-.552,0-1,.448-1,1s.448,1,1,1h2c.552,0,1-.448,1-1s-.448-1-1-1Zm0,4h-2c-.552,0-1,.448-1,1s.448,1,1,1h2c.552,0,1-.448,1-1s-.448-1-1-1Z" />
+                            </svg>
+                            <span>Liste admins</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="patient-list" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                            <svg xmlns=" http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path
+                                    d="m8,11h-3c-.552,0-1-.448-1-1s.448-1,1-1h3c.552,0,1,.448,1,1s-.448,1-1,1Zm15.759,12.651c-.198.23-.478.349-.76.349-.23,0-.462-.079-.65-.241l-2.509-2.151c-1.041.868-2.379,1.391-3.84,1.391-3.314,0-6-2.686-6-6s2.686-6,6-6,6,2.686,6,6c0,1.13-.318,2.184-.862,3.087l2.513,2.154c.419.359.468.991.108,1.41Zm-6.78-4.325l2.703-2.614c.398-.383.411-1.016.029-1.414-.383-.399-1.017-.41-1.414-.029l-2.713,2.624c-.143.141-.379.144-.522.002l-1.354-1.331c-.396-.388-1.028-.381-1.414.014-.387.395-.381,1.027.014,1.414l1.354,1.332c.46.449,1.062.674,1.663.674s1.201-.225,1.653-.671Zm-5.979,3.674c0,.552-.448,1-1,1h-5c-2.757,0-5-2.243-5-5V5C0,2.243,2.243,0,5,0h4.515c1.87,0,3.627.728,4.95,2.05l3.485,3.485c.888.888,1.521,2,1.833,3.217.077.299.011.617-.179.861s-.481.387-.79.387h-5.813c-1.654,0-3-1.346-3-3V2.023c-.16-.015-.322-.023-.485-.023h-4.515c-1.654,0-3,1.346-3,3v14c0,1.654,1.346,3,3,3h5c.552,0,1,.448,1,1Zm1-16c0,.551.449,1,1,1h4.338c-.219-.382-.489-.736-.803-1.05l-3.485-3.485c-.318-.318-.671-.587-1.05-.806v4.341Zm-5,6h-2c-.552,0-1,.448-1,1s.448,1,1,1h2c.552,0,1-.448,1-1s-.448-1-1-1Zm0,4h-2c-.552,0-1,.448-1,1s.448,1,1,1h2c.552,0,1-.448,1-1s-.448-1-1-1Z" />
+                            </svg>
+                            <span>Liste patients</span>
+                        </a>
+                    </li>
+                }@else {
+                    <li>
+                        <a routerLink="center-info" routerLinkActive="active">
+                            <svg xmlns=" http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path
+                                    d="m8,11h-3c-.552,0-1-.448-1-1s.448-1,1-1h3c.552,0,1,.448,1,1s-.448,1-1,1Zm15.759,12.651c-.198.23-.478.349-.76.349-.23,0-.462-.079-.65-.241l-2.509-2.151c-1.041.868-2.379,1.391-3.84,1.391-3.314,0-6-2.686-6-6s2.686-6,6-6,6,2.686,6,6c0,1.13-.318,2.184-.862,3.087l2.513,2.154c.419.359.468.991.108,1.41Zm-6.78-4.325l2.703-2.614c.398-.383.411-1.016.029-1.414-.383-.399-1.017-.41-1.414-.029l-2.713,2.624c-.143.141-.379.144-.522.002l-1.354-1.331c-.396-.388-1.028-.381-1.414.014-.387.395-.381,1.027.014,1.414l1.354,1.332c.46.449,1.062.674,1.663.674s1.201-.225,1.653-.671Zm-5.979,3.674c0,.552-.448,1-1,1h-5c-2.757,0-5-2.243-5-5V5C0,2.243,2.243,0,5,0h4.515c1.87,0,3.627.728,4.95,2.05l3.485,3.485c.888.888,1.521,2,1.833,3.217.077.299.011.617-.179.861s-.481.387-.79.387h-5.813c-1.654,0-3-1.346-3-3V2.023c-.16-.015-.322-.023-.485-.023h-4.515c-1.654,0-3,1.346-3,3v14c0,1.654,1.346,3,3,3h5c.552,0,1,.448,1,1Zm1-16c0,.551.449,1,1,1h4.338c-.219-.382-.489-.736-.803-1.05l-3.485-3.485c-.318-.318-.671-.587-1.05-.806v4.341Zm-5,6h-2c-.552,0-1,.448-1,1s.448,1,1,1h2c.552,0,1-.448,1-1s-.448-1-1-1Zm0,4h-2c-.552,0-1,.448-1,1s.448,1,1,1h2c.552,0,1-.448,1-1s-.448-1-1-1Z" />
+                            </svg>
+                            <span>Mon centre</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="booking-list" class="submenu" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                            <svg id="Layer_1" height="512" viewBox="0 0 24 24" width="512" xmlns="http://www.w3.org/2000/svg"
+                                data-name="Layer 1">
+                                <path
+                                    d="m11 12a1 1 0 0 1 0 2h-3a1 1 0 0 1 0-2zm6-3a1 1 0 0 0 -1-1h-8a1 1 0 0 0 0 2h8a1 1 0 0 0 1-1zm-9-3h8a1 1 0 0 0 0-2h-8a1 1 0 0 0 0 2zm12 13.444v3.833a.721.721 0 0 1 -1.231.51l-.769-.768-.769.768a.721.721 0 0 1 -1.231-.51v-3.833a3.987 3.987 0 0 1 2-7.444 3.939 3.939 0 0 1 1 .142v-7.142a3 3 0 0 0 -3-3h-8a3 3 0 0 0 -3 3v12a3 3 0 0 0 3 3h5a1 1 0 0 1 0 2h-5a5.006 5.006 0 0 1 -5-5v-12a5.006 5.006 0 0 1 5-5h8a5.006 5.006 0 0 1 5 5v8.382a3.95 3.95 0 0 1 -1 6.062zm0-3.444a2 2 0 1 0 -2 2 2 2 0 0 0 2-2z" />
+                            </svg>
+                            <span>Reservations</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="center-calendar" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="512"
+                                height="512">
+                                <path
+                                    d="M17,10.039c-3.859,0-7,3.14-7,7,0,3.838,3.141,6.961,7,6.961s7-3.14,7-7c0-3.838-3.141-6.961-7-6.961Zm0,11.961c-2.757,0-5-2.226-5-4.961,0-2.757,2.243-5,5-5s5,2.226,5,4.961c0,2.757-2.243,5-5,5Zm1.707-4.707c.391,.391,.391,1.023,0,1.414-.195,.195-.451,.293-.707,.293s-.512-.098-.707-.293l-1-1c-.188-.188-.293-.442-.293-.707v-2c0-.552,.447-1,1-1s1,.448,1,1v1.586l.707,.707Zm5.293-10.293v2c0,.552-.447,1-1,1s-1-.448-1-1v-2c0-1.654-1.346-3-3-3H5c-1.654,0-3,1.346-3,3v1H11c.552,0,1,.448,1,1s-.448,1-1,1H2v9c0,1.654,1.346,3,3,3h4c.552,0,1,.448,1,1s-.448,1-1,1H5c-2.757,0-5-2.243-5-5V7C0,4.243,2.243,2,5,2h1V1c0-.552,.448-1,1-1s1,.448,1,1v1h8V1c0-.552,.447-1,1-1s1,.448,1,1v1h1c2.757,0,5,2.243,5,5Z" />
+                            </svg>
+                            <span>Disponibilités</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+            <div class="separator">
+                <div class="line"></div>
+            </div>
+            <ul class="nav-messagerie">
+                <li>
+                    <a>
+                        <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512">
+                            <path
+                                d="M22.555,13.662l-1.9-6.836A9.321,9.321,0,0,0,2.576,7.3L1.105,13.915A5,5,0,0,0,5.986,20H7.1a5,5,0,0,0,9.8,0h.838a5,5,0,0,0,4.818-6.338ZM12,22a3,3,0,0,1-2.816-2h5.632A3,3,0,0,1,12,22Zm8.126-5.185A2.977,2.977,0,0,1,17.737,18H5.986a3,3,0,0,1-2.928-3.651l1.47-6.616a7.321,7.321,0,0,1,14.2-.372l1.9,6.836A2.977,2.977,0,0,1,20.126,16.815Z" />
+                        </svg>
+                        <span class="d-flex">Notifications</span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="patient-form" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                        <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512">
+                            <path
+                                d="M24,11.247A12.012,12.012,0,1,0,12.017,24H19a5.005,5.005,0,0,0,5-5V11.247ZM22,19a3,3,0,0,1-3,3H12.017a10.041,10.041,0,0,1-7.476-3.343,9.917,9.917,0,0,1-2.476-7.814,10.043,10.043,0,0,1,8.656-8.761A10.564,10.564,0,0,1,12.021,2,9.921,9.921,0,0,1,18.4,4.3,10.041,10.041,0,0,1,22,11.342Z" />
+                            <path d="M8,9h4a1,1,0,0,0,0-2H8A1,1,0,0,0,8,9Z" />
+                            <path d="M16,11H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z" />
+                            <path d="M16,15H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z" />
+                        </svg>
+                        <span class="d-flex">Messagerie</span>
+
+                    </a>
+                </li>
+            </ul>
+            <div class="separator">
+                <div class="line"></div>
+            </div>
+            <ul class="nav-divers">
+                <li>
+                    <a routerLink="my-account" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve"
+                            class="">
+                            <g>
+                                <path
+                                    d="M8 12c3.309 0 6-2.691 6-6s-2.691-6-6-6-6 2.691-6 6 2.691 6 6 6ZM8 2c2.206 0 4 1.794 4 4s-1.794 4-4 4-4-1.794-4-4 1.794-4 4-4Zm.992 12.938a1 1 0 0 1-.869 1.116A7.006 7.006 0 0 0 1.999 23a1 1 0 0 1-2 0c0-4.531 3.386-8.37 7.876-8.93a1.003 1.003 0 0 1 1.116.869Zm13.704 4.195-.974-.562c.166-.497.278-1.019.278-1.572s-.111-1.075-.278-1.572l.974-.562a1 1 0 0 0-1-1.732l-.973.562A4.972 4.972 0 0 0 18 12.101V11a1 1 0 0 0-2 0v1.101a4.983 4.983 0 0 0-2.723 1.594l-.973-.562a1 1 0 0 0-1 1.732l.974.562c-.166.497-.278 1.019-.278 1.572s.111 1.075.278 1.572l-.974.562a1 1 0 0 0 1 1.732l.973-.562A4.972 4.972 0 0 0 16 21.897v1.101a1 1 0 0 0 2 0v-1.101a4.983 4.983 0 0 0 2.723-1.594l.973.562a.997.997 0 0 0 1.366-.366 1 1 0 0 0-.366-1.366ZM17 19.999c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3-1.346 3-3 3Z"
+                                    opacity="1" data-original="#000000" class=""></path>
+                            </g>
+                        </svg>
+                        <span>Mon compte</span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="credits-abonnement" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path
+                                d="m12,0C5.383,0,0,5.383,0,12s5.383,12,12,12,12-5.383,12-12S18.617,0,12,0Zm0,22c-5.514,0-10-4.486-10-10S6.486,2,12,2s10,4.486,10,10-4.486,10-10,10Zm-2.829-12.829c-.755.755-1.171,1.76-1.171,2.829s.416,2.073,1.171,2.829c1.56,1.56,4.098,1.56,5.657,0,.391-.391,1.023-.391,1.414,0s.391,1.023,0,1.414c-.914.915-2.055,1.46-3.243,1.659v1.098c0,.552-.448,1-1,1s-1-.448-1-1v-1.098c-1.188-.199-2.328-.744-3.243-1.659-2.339-2.339-2.339-6.146,0-8.485.914-.915,2.055-1.46,3.243-1.659v-1.098c0-.552.448-1,1-1s1,.448,1,1v1.098c1.188.199,2.328.744,3.243,1.659.391.391.391,1.023,0,1.414s-1.023.391-1.414,0c-1.56-1.56-4.098-1.56-5.657,0Z" />
+                        </svg>
+
+                        <span>Crédits</span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="need-help" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                        <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512">
+                            <path
+                                d="M12,0A12,12,0,1,0,24,12,12.013,12.013,0,0,0,12,0Zm0,22A10,10,0,1,1,22,12,10.011,10.011,0,0,1,12,22Z" />
+                            <path
+                                d="M12.717,5.063A4,4,0,0,0,8,9a1,1,0,0,0,2,0,2,2,0,0,1,2.371-1.967,2.024,2.024,0,0,1,1.6,1.595,2,2,0,0,1-1,2.125A3.954,3.954,0,0,0,11,14.257V15a1,1,0,0,0,2,0v-.743a1.982,1.982,0,0,1,.93-1.752,4,4,0,0,0-1.213-7.442Z" />
+                            <rect x="11" y="17" width="2" height="2" rx="1" />
+                        </svg>
+                        <span>Besoin d'aide?</span>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="logiciel-metier" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            width="512" height="512">
+                            <path
+                                d="M3.771,13.38c-.198,.239-.483,.363-.771,.363-.224,0-.45-.075-.636-.229-1.502-1.24-2.363-3.068-2.363-5.015C0,4.916,2.916,2,6.5,2h5c3.584,0,6.5,2.916,6.5,6.5s-2.916,6.5-6.5,6.5c-.552,0-1-.447-1-1s.448-1,1-1c2.481,0,4.5-2.019,4.5-4.5s-2.019-4.5-4.5-4.5H6.5c-2.481,0-4.5,2.019-4.5,4.5,0,1.348,.597,2.613,1.637,3.472,.426,.352,.486,.982,.134,1.408Zm17.866-2.895c-.426-.35-1.056-.29-1.408,.135-.352,.426-.292,1.057,.134,1.408,1.04,.858,1.637,2.124,1.637,3.472,0,2.481-2.019,4.5-4.5,4.5h-5c-2.481,0-4.5-2.019-4.5-4.5s2.019-4.5,4.5-4.5c.552,0,1-.447,1-1s-.448-1-1-1c-3.584,0-6.5,2.916-6.5,6.5s2.916,6.5,6.5,6.5h5c3.584,0,6.5-2.916,6.5-6.5,0-1.946-.861-3.774-2.363-5.015Z" />
+                        </svg>
+                        <span>Logiciels métier</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="separator">
+                <div class="line"></div>
+            </div>
+            <ul class="nav-logout">
+                <li>
+                    <a href="#" (click)="logout()">
+                        <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="512" height="512">
+                            <path
+                                d="M15,3.849h0a1.02,1.02,0,0,0,.629.926A9,9,0,0,1,21,13.292,9,9,0,0,1,3,13,9,9,0,0,1,8.371,4.776,1.023,1.023,0,0,0,9,3.848H9a1,1,0,0,0-1.374-.929,11,11,0,1,0,8.751,0A1,1,0,0,0,15,3.849Z" />
+                            <rect x="11" width="2" height="8" rx="1" />
+                        </svg>
+                        <span>Déconnexion</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="toggle-menu" (click)="toggle()">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <rect y="20" width="20" height="20" transform="rotate(-90 0 20)"
+                                fill="url(#pattern0_2782_19712)" />
+                            <defs>
+                                <pattern id="pattern0_2782_19712" patternContentUnits="objectBoundingBox" width="1"
+                                    height="1">
+                                    <use xlink:href="#image0_2782_19712" transform="scale(0.00195312)" />
+                                </pattern>
+                                <image id="image0_2782_19712" width="512" height="512"
+                                    xlink:href="data:image/png;base64,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" />
+                            </defs>
+                        </svg>
+
+                        <span>Réduire</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    }
+</nav>

@@ -1,0 +1,115 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$main-palette: (
+    50: #155979,
+    100: #155979,
+    200: #155979,
+    300: #155979,
+    400: #155979,
+    500: #155979,
+    600: #155979,
+    700: #155979,
+    800: #155979,
+    900: #155979,
+    contrast: (
+        50: rgba(black, 0.87),
+        100: rgba(black, 0.87),
+        200: rgba(black, 0.87),
+        300: white,
+        400: rgba(black, 0.87),
+        500: rgba(black, 0.87),
+        600: white,
+        700: rgba(black, 0.87),
+        800: rgba(black, 0.87),
+        900: white,
+
+    )
+);
+
+$second-palette: (
+    50: #cfa806,
+    100: #cfa806,
+    200: #cfa806,
+    300: #cfa806,
+    400: #cfa806,
+    500: #cfa806,
+    600: #cfa806,
+    700: #cfa806,
+    800: #cfa806,
+    900: #cfa806,
+    contrast: (50: rgba(black, 0.87),
+        100: rgba(black, 0.87),
+        200: rgba(black, 0.87),
+        300: white,
+        400: rgba(black, 0.87),
+        500: rgba(black, 0.87),
+        600: white,
+        700: rgba(black, 0.87),
+        800: rgba(black, 0.87),
+        900: white,
+    )
+);
+$third-palette: (
+    50: #fff,
+    100: #fff,
+    200: #fff,
+    300: #fff,
+    400: #fff,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff,
+    contrast: (50: rgba(black, 0.87),
+        100: rgba(black, 0.87),
+        200: rgba(black, 0.87),
+        300: white,
+        400: rgba(black, 0.87),
+        500: rgba(black, 0.87),
+        600: white,
+        700: rgba(black, 0.87),
+        800: rgba(black, 0.87),
+        900: white,
+    )
+);
+
+
+$nota-risques-primary: mat.define-palette($main-palette);
+$nota-risques-accent: mat.define-palette($second-palette);
+$nota-risques-white: mat.define-palette($third-palette);
+
+// The warn palette is optional (defaults to red).
+$nota-risques-warn: mat.define-palette(mat.$red-palette);
+
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$nota-risques-theme: mat.define-light-theme((
+  color: (
+    primary: $nota-risques-primary,
+    accent: $nota-risques-accent,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($nota-risques-theme);
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

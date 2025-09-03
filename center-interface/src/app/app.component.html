@@ -1,0 +1,9 @@
+<div class="main">
+  @if(isLogged | async){
+  <app-sidebar (toggleEmit)="toggleSideBar($event)" [ngClass]="toggled ? 'toggle': ''"></app-sidebar>
+  }
+  <app-main>
+    <router-outlet></router-outlet>
+  </app-main>
+
+</div>

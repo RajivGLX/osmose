@@ -1,0 +1,29 @@
+
+<div class="wrapper-component">
+    <div class="container-utilisateurs">
+        <div class="header-utilisateurs d-flex justify-content-between mb-4">
+            <h4 class="title-utilisateurs">Mes utilisateurs</h4>
+            <button class="btn custom-btn" (click)="openAddUserDialog()">Ajouter un utilisateur</button>
+        </div>
+
+        <div class="container-table">
+            @if(loading | async){
+                <app-loader />
+            }@else {
+                <ag-grid-angular class="ag-theme-alpine" style="height: 80vh; width: auto;" 
+                    [columnDefs]="colDefs"
+                    [defaultColDef]="defaultColDef" 
+                    [rowData]="rowData" 
+                    [animateRows]="false" 
+                    [pagination]="false"
+                    [rowHeight]="60" 
+                    [localeText]="localeTextFr" 
+                    [gridOptions]="gridOptions"
+                    (gridReady)="onGridReady($event)" 
+                    (firstDataRendered)="firstDataRendered($event)"
+                    (cellClicked)="$event" 
+                />
+            }
+        </div>
+    </div>
+</div>

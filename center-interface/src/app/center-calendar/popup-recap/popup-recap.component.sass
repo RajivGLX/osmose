@@ -1,0 +1,86 @@
+@use '../../../variables' as *
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface
+    border-radius: 15px
+    min-width: 554px
+    height: 95vh
+    .wrapper-recap 
+        padding: 40px
+        height: 95vh
+        justify-content: space-between
+        .wrapper-title-and-close-btn
+            align-items: center
+            .cross-btn
+                background-color: rgba(21, 89, 121, 0.13)
+                color: #155979
+                font-weight: bold
+                padding: 10px
+                border-radius: 8px
+                cursor: pointer
+                transition: 0.3s all
+                border: none
+                display: flex
+                justify-content: center
+                align-items: center
+
+                svg
+                    fill: $main-blue
+                    width: 25px
+                    height: 25px
+                    transition: 0.3s all
+
+                &:hover
+                    background-color: $error-color-hover
+
+                    & svg
+                        fill: $error-color
+        h3
+            font-size: 20px
+            font-weight: bold
+
+        .day
+            font-weight: bold    
+
+        .wrapper-footer
+            margin: 0
+
+        .accordion-container
+            .wrapper-accordion
+                border-top-left-radius: 8px
+                border-top-right-radius: 8px
+            .mat-expansion-panel-body
+                padding-bottom: 0    
+            mat-expansion-panel
+                margin-bottom: 1rem
+                border: 1px solid #ddd
+                border-radius: 4px
+                box-shadow: none
+                margin-bottom: 20px
+                .month-header
+                    background-color: $main-blue
+                    text-transform: uppercase
+                    cursor: pointer
+                    border-bottom-left-radius: 0
+                    border-bottom-right-radius: 0
+
+                    .month-title
+                        font-size: 16px
+                        color: #fff
+                        justify-content: center
+
+                    .mat-expansion-indicator::after
+                        color: #fff
+                .month-body
+                    mat-expansion-panel
+                        &:first-of-type
+                            margin-top: 20px
+
+                .slot-item
+                    padding: 0.5rem
+                    display: flex
+                    justify-content: space-between
+                    align-items: center
+                    border-bottom: 1px solid #eee
+
+                    &:last-child
+                        border-bottom: none

@@ -1,0 +1,87 @@
+@use '../../../variables' as *
+
+.container-status-update
+    margin: 15px 0
+    .wrapper-box
+        background: #fff
+        padding-bottom: 2.6px
+        display: flex
+        justify-content: space-between
+        .custom-btn
+            margin-top: 11px
+
+.container-booking-tab
+    position: relative
+
+    .mat-spinner
+        position: absolute
+        top: 25%
+        left: calc(50% - 50px)
+    ::ng-deep .ag-header
+        border-color: $border-input
+        background: $main-blue
+
+        .custom-header-last .ag-header-cell-resize
+            display: none
+
+        .ag-header-cell
+            background: $main-blue
+            color: #fff
+
+            .ag-icon
+                color: #fff
+
+    ::ng-deep .ag-root-wrapper.ag-layout-normal
+        border-radius: 15px
+        border-color: $border-input
+
+    ::ng-deep .ag-paging-panel
+        border-top: none
+
+    ::ng-deep .ag-cell-value
+        display: flex
+        align-items: center
+
+    ::ng-deep .ag-row-hover:before
+        background: $bg-gris
+
+    ::ng-deep .ag-body-viewport,
+    ::ng-deep .ag-body-vertical-scroll-viewport
+        scrollbar-color: $main-blue #f0f0f0
+
+    ::ng-deep .ag-cell-value
+        .status
+            padding: 0 15px
+            display: flex
+            background-color: $bg-gris
+            border-radius: 10px
+            min-width: 160px
+            justify-content: start
+            gap: 20px
+            align-items: center
+            span.libelle-status
+                font-weight: bold
+
+            span.pastille
+                width: 15px
+                height: 15px
+                border-radius: 50px
+                z-index: 10
+        &.attente
+            span.pastille
+                background-color: $pastille-etat-attente
+        &.confirme
+            span.pastille
+                background-color: $pastille-etat-confirme
+        &.contact
+            span.pastille
+                background-color: $pastille-etat-contact
+        &.annule
+            span.pastille
+                background-color: $pastille-etat-annule
+        &.refuse
+            span.pastille
+                background-color: $pastille-etat-refuse
+        &.depasse
+            span.pastille
+                background-color: $pastille-etat-depasse

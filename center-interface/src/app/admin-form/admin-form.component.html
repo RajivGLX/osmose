@@ -1,0 +1,6 @@
+@if (view == 'create') {
+    <app-admin-create (goBackEvent)="goBack()"/>
+}@else {
+    <app-admin-update  [adminToUpdate]="adminToUpdate" (goBackEvent)="goBack()"/>
+}
+

@@ -1,0 +1,164 @@
+@use '../../variables' as *
+
+nav
+    padding-top: 40px
+    gap: 15px
+
+    .wrapper-num-compte
+        transition: none !important
+        padding: 0 25px
+        overflow: hidden
+        .num-compte
+            transition: none !important
+            background-color: $bg-bleu-gris
+            border-radius: 8px
+            padding: 10px
+            color: $main-blue
+            font-weight: bold
+            width: fit-content
+            max-height: 84px
+            overflow: hidden
+            span
+                transition: none !important
+
+    ul
+        list-style: none
+        padding-left: 0
+        li
+            transition: 0.3s all
+
+            svg
+                width: 20px
+                height: 20px
+                margin-right: 15px
+                // transition: 0.3s all
+
+            a
+                text-decoration: none
+                color: $main-blue
+                font-weight: 600
+                font-size: 16px
+                padding: 15px 0 15px 30px
+                display: flex
+                border-top-right-radius: 30px
+                border-bottom-right-radius: 30px
+                position: relative
+                span:not(.mat-content)
+                    transition: 0.3s all
+                    // transition: 0s font-weight
+                    min-width: 1px
+                    .count-non-lus
+                        display: flex
+                        justify-content: center
+                        align-items: center
+                        // transition: 0.3s all
+                        background-color: $main-blue
+                        min-width: 35px
+                        border-radius: 15px
+                        color: #fff
+                        margin-left: 20px
+                &.active
+                    background-color: $main-blue
+                    span
+                        color: #fff
+                        .count-non-lus
+                            background-color: $bg-gris
+                            color: $main-blue
+                    svg
+                        fill: #fff
+                    &:before
+                        content: ''
+                        position: absolute
+                        left: 0
+                        top: -50px
+                        width: 20px
+                        height: 50px
+                        border-bottom-left-radius: 25px
+                        box-shadow: 0 25px 0 0 $main-blue
+                        background-color: transparent
+                    &:after
+                        content: ''
+                        position: absolute
+                        left: 0
+                        bottom: -50px
+                        width: 20px
+                        height: 50px
+                        border-top-left-radius: 25px
+                        box-shadow: 0 -25px 0 0 $main-blue
+                        background-color: transparent
+
+            a:hover span
+                font-weight: bold
+
+            .toggle-menu
+                cursor: pointer
+
+    svg
+        fill: $main-blue
+
+.separator
+    padding-left: 30px
+    padding-right: 30px
+
+    .line
+
+        border: 1px solid #E0E0E0
+        margin: 20px 0
+
+.mat-expansion-panel
+    box-shadow: none !important
+    border: none
+    background: none
+
+    .mat-expansion-panel-header
+        padding-left: 0 !important
+        color: $main-blue
+        font-weight: bold
+        line-height: 24px
+        font-size: 16px
+
+    .mat-expansion-panel-header:hover
+        background: none !important
+
+    ::ng-deep .mat-expansion-panel-body
+        padding-left: 0 !important
+
+    ::ng-deep .mat-content
+        a
+            padding-left: 30px !important
+
+::ng-deep app-sidebar
+    transition: 0.3s all
+
+::ng-deep app-sidebar.toggle
+
+    min-width: 105px !important
+    width: 6% !important
+
+    nav
+        .wrapper-num-compte
+            padding: 0 15px !important
+            .num-compte
+                padding: 5px
+
+    ul
+        li
+            a
+                min-height: 54px
+
+            span:not(.mat-content, .mat-expansion-indicator)
+                line-height: 24px !important
+                min-height: 24px
+                margin-left: -300px
+                opacity: 0
+
+            span.mat-content
+                align-items: center
+                line-height: 24px !important
+                min-height: 24px
+                a
+                    padding-left: 0 !important
+                span
+                    margin-left: -300px !important
+                    line-height: 24px !important
+                    min-height: 24px

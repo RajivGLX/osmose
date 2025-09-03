@@ -1,0 +1,42 @@
+<div class="container-admin-list">
+    @if(switchView == 'adminList'){
+        <div class="wrapper-admin-list d-flex flex-column">
+            <section class="wrapper-filter">
+                <div class="container-search">
+                    <img src="/assets/pictos/messagerie/search.svg" alt="">
+                    <input type="text" placeholder="Rechercher..." [formControl]="searchCtrl" id="filter-text-box"
+                        (input)="onFilterTextBoxChanged($event)">
+                </div>
+                <div class="create-admin">
+                    <button class="btn custom-btn secondary" (click)="newAdmin()">Créer un administrateur</button>
+                </div>
+            </section>
+
+            <div class="container-admin-tab">
+                <ag-grid-angular 
+                    class="ag-theme-alpine" 
+                    style="height: 80vh; width: auto;" 
+                    [columnDefs]="colDefs"
+                    [defaultColDef]="defaultColDef" 
+                    [rowData]="rowData" 
+                    [animateRows]="true" 
+                    [pagination]="true"
+                    [rowHeight]="60" 
+                    [localeText]="localeTextFr" 
+                    [gridOptions]="gridOptions"
+                    (gridReady)="onGridReady($event)" 
+                    (rowDoubleClicked)="rowDoubleClicked($event)"
+                    (firstDataRendered)="firstDataRendered($event)" />
+                @if (loaderAgGrid$ | async) {
+                    <div class="mat-spinner">
+                        <mat-spinner />
+                    </div>
+                }
+            </div>
+        </div>
+    }@else if(switchView == 'adminForm') {
+        <app-admin-form [userSelect]="userSelect" [view]="'update'" (closeVueDetaillee)="changeView('adminList')" />
+    }@else if (switchView == 'adminCreate') {
+        <app-admin-form [view]="'create'" (closeVueDetaillee)="changeView('adminList')"/>
+    }
+</div>

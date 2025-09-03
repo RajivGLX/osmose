@@ -1,0 +1,50 @@
+<div class="wrapper-recap d-flex flex-column">
+    <div>
+        <div class="wrapper-title-and-close-btn d-flex justify-content-between mb-3">
+            <h3>Récapitulatif de vos modifications</h3>
+            <button class="cross-btn" (click)="closeModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24">
+                    <path
+                        d="M18,6h0a1,1,0,0,0-1.414,0L12,10.586,7.414,6A1,1,0,0,0,6,6H6A1,1,0,0,0,6,7.414L10.586,12,6,16.586A1,1,0,0,0,6,18H6a1,1,0,0,0,1.414,0L12,13.414,16.586,18A1,1,0,0,0,18,18h0a1,1,0,0,0,0-1.414L13.414,12,18,7.414A1,1,0,0,0,18,6Z" />
+                </svg>
+            </button>
+        </div>
+        
+        <div class="accordion-container">
+            <mat-accordion>
+                @for (month of groupSlots | keyvalue; track month.key) {
+                    <mat-expansion-panel [expanded]="expandedMonths[month.key]" class="wrapper-accordion">
+                        <mat-expansion-panel-header (click)="toggleMonth(month.key)" class="month-header">
+                            <mat-panel-title class="month-title">
+                                {{ month.key }}
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div class="month-body">
+                            @for (day of month.value | sortDays; track day.key) {
+                                <mat-expansion-panel [expanded]="expandedDays[day.key]">
+                                    <mat-expansion-panel-header (click)="toggleDay(day.key)" class="day-header">
+                                        <mat-panel-title>
+                                            <span class="day">{{ day.key }}</span>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    @for (slotKey of getObjectKeys(day.value) | sortSlots; track slotKey) {
+                                        <div class="slot-item">
+                                            <span>{{ slotKey | traductionSlot | titlecase }}</span>
+                                            <span>Places disponibles : {{ day.value[slotKey].check ? day.value[slotKey].qty : 0 }}</span>
+                                        </div>
+                                    }
+                                </mat-expansion-panel>
+                            }
+                        </div>
+            
+                    </mat-expansion-panel>
+                }
+            </mat-accordion>
+        </div>
+    </div>
+
+    <div class="row wrapper-footer justify-content-center">
+        <button (click)="sendDataToBack()" class="btn custom-btn">Envoyer</button>
+    </div>
+</div>

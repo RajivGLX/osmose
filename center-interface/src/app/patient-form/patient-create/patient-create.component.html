@@ -1,0 +1,252 @@
+<div class="wrapper-component">
+    <div class="container-informations">
+        <div class="header-informations">
+            <div class="go-back" (click)="goBack()">
+                <svg width="10" height="16" viewBox="0 0 10 16" fill="#155979" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M9.2625 13.5078L3.5375 7.9998L9.2625 2.4918L7.5 0.799805L0 7.9998L7.5 15.1998L9.2625 13.5078Z" />
+                </svg>
+            </div>
+            <div>
+                <h4 class="title-utilisateurs">Création d'un patient</h4>
+                <span class="undertitle">Les champs obligatoires sont marqués d’un astérisque (*)</span>
+            </div>
+        </div>
+        <div class="container-form-user">
+            <form [formGroup]="patient_form" [ngClass]="loadingPatient() ? 'visibility-off' : ''">
+                <section>
+                    <div class="form-line for-three-input d-flex">
+                        <div class="wrapper-input">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Nom</mat-label>
+                                <input type="text" matInput formControlName="lastname">
+                                <mat-error>{{ errors.lastname }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="wrapper-input">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Prénom</mat-label>
+                                <input type="text" matInput formControlName="firstname">
+                                <mat-error>{{ errors.firstname }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="wrapper-input">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Téléphone</mat-label>
+                                <input type="text" matInput formControlName="phone">
+                                <mat-error>{{ errors.phone }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="form-line for-two-input d-flex">
+                        <div class="wrapper-input">
+                            <mat-form-field appearance="outline">
+                                <mat-label>E-mail du compte</mat-label>
+                                <input type="text" matInput formControlName="email">
+                                <mat-error>{{ errors.email }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="radio-wrapper bg-input">
+                            <label class="hide">Validation de l'adresse mail du patient* :</label>
+                            <label>Validation de l'adresse mail du patient* :</label>
+                            <div class="wrapper-input radio-group">
+                                <mat-radio-group aria-label="Validation mail" formControlName="checked">
+                                    <mat-radio-button [value]="false" class="p-2">Non</mat-radio-button>
+                                    <mat-radio-button [value]="true" class="p-2">Oui</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-select">
+                        <div class="wrapper-select">
+                            <ng-select [items]="allCenter |async" [bindLabel]="'name'" [multiple]="false"
+                                [selectableGroupAsModel]="false" [closeOnSelect]="false" [formControlName]="'center'"
+                                appearance="outline" notFoundText="Aucun résultat" placeholder="Centre de référence">
+                                <ng-template ng-multi-label-tmp let-items="items" class="pt-3">
+                                    <div appMultiLabel [items]="items"></div>
+                                </ng-template>
+                            </ng-select>
+                        </div>
+                    </div>
+                </section>
+
+
+                <div class="header-informations">
+                    <div>
+                        <h4 class="title-utilisateurs">Questions médicale</h4>
+                        <span class="undertitle">Les champs obligatoires sont marqués d’un astérisque (*)</span>
+                    </div>
+                </div>
+
+                <div class="form-line d-flex">
+                    <div class="wrapper-input">
+                        <mat-form-field appearance="outline">
+                            <mat-label>La date à laquelle a débuté la dialyse :</mat-label>
+                            <input type="date" matInput formControlName="dialysis_start_date">
+                            <button class="clear-date" mat-icon-button matSuffix (click)="clearDialysisStartDate()">
+                                <mat-icon>clear</mat-icon>
+                            </button>
+                            <mat-error>{{ errors.dialysis_start_date }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="wrapper-input">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Informations sur l'accès vasculaires :</mat-label>
+                            <mat-select formControlName="vascular_access_type">
+                                <mat-option [value]="null">Non précisé</mat-option>
+                                @for (accessSite of listAccessSite; track $index) {
+                                <mat-option [value]="accessSite">{{ accessSite | translateTypeDialysis}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="wrapper-input">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Type de dialyse :</mat-label>
+                            <mat-select formControlName="type_dialysis">
+                                <mat-option [value]="null">Non précisé</mat-option>
+                                @for (type of listTypeDialysis; track $index) {
+                                <mat-option [value]="type">{{ type }}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="form-line for-two-input d-flex" [formGroup]="renal_failure_form">
+                    <div class="wrapper-input">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Type d'insuffisance rénale :</mat-label>
+                            <mat-select formControlName="renal_failure">
+                                <mat-option [value]="null">Non précisé</mat-option>
+                                @for (renalFailure of listRenalFailure; track $index) {
+                                <mat-option [value]="renalFailure">{{ renalFailure }}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="wrapper-input">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Autre type d'insuffisance rénale :</mat-label>
+                            <input type="text" matInput formControlName="renal_failure_other" #renalFailureOtherInput>
+                            <mat-error>{{ errors.renal_failure_other }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="form-line radio-wrapper d-flex mb-4" [formGroup]="precise_allergie_form">
+                    <label class="hide">Le patient a t'il des allergies aux médicaments :</label>
+                    <label>Le patient a t'il des allergies aux médicaments :</label>
+                    <div class="wrapper-input radio-group">
+                        <mat-radio-group aria-label="Allergies" formControlName="drug_allergies">
+                            <mat-radio-button [value]="null" class="p-2">Non précisé</mat-radio-button>
+                            <mat-radio-button [value]="false" class="p-2">Non</mat-radio-button>
+                            <mat-radio-button [value]="true" class="p-2">Oui</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="wrapper-input">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Si oui veuillez préciser les allergies</mat-label>
+                            <input type="text" matInput formControlName="drug_allergie_precise"
+                                #drugAllergiePreciseInput>
+                            <mat-error>{{ errors.drug_allergie_precise }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="form-line radio-wrapper d-flex mb-4" [formGroup]="precise_heart_disease_form">
+                    <label class="hide">Le patient a t'il une maladie cardiaque :</label>
+                    <label>Le patient a t'il une maladie cardiaque :</label>
+                    <div class="wrapper-input radio-group">
+                        <mat-radio-group aria-label="maladie cardiaque" formControlName="bool_heart_disease">
+                            <mat-radio-button [value]="null" class="p-2">Non précisé</mat-radio-button>
+                            <mat-radio-button [value]="false" class="p-2">Non</mat-radio-button>
+                            <mat-radio-button [value]="true" class="p-2">Oui</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="wrapper-input">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Si oui veuillez préciser la maladie cardiaque</mat-label>
+                            <input type="text" matInput formControlName="heart_disease" #heartDiseaseInput>
+                            <mat-error>{{ errors.heart_disease }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="form-line radio-wrapper d-flex mb-4" [formGroup]="precise_diabetes_form">
+                    <label class="hide">Le patient a t'il du diabéte:</label>
+                    <label>Le patient a t'il du diabéte :</label>
+                    <div class="wrapper-input radio-group">
+                        <mat-radio-group aria-label="diabéte" formControlName="bool_diabetes">
+                            <mat-radio-button [value]="null" class="p-2">Non précisé</mat-radio-button>
+                            <mat-radio-button [value]="false" class="p-2">Non</mat-radio-button>
+                            <mat-radio-button [value]="true" class="p-2">Oui</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="wrapper-input">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Si oui veuillez préciser le type de diabéte</mat-label>
+                            <input type="text" matInput formControlName="diabetes" #diabetesInput>
+                            <mat-error>{{ errors.diabetes }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="form-line radio-wrapper d-flex mb-4" [formGroup]="precise_musculoskeletal_form">
+                    <label class="hide">Le patient a t'il des troubles musculosquelettiques :</label>
+                    <label>Le patient a t'il des troubles musculosquelettiques :</label>
+                    <div class="wrapper-input radio-group">
+                        <mat-radio-group aria-label="troubles musculosquelettiques"
+                            formControlName="bool_musculoskeletal_problems">
+                            <mat-radio-button [value]="null" class="p-2">Non précisé</mat-radio-button>
+                            <mat-radio-button [value]="false" class="p-2">Non</mat-radio-button>
+                            <mat-radio-button [value]="true" class="p-2">Oui</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div class="wrapper-input">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Si oui veuillez préciser les troubles musculosquelettiques</mat-label>
+                            <input type="text" matInput formControlName="musculoskeletal_problems"
+                                #musculoskeletalProblemsInput>
+                            <mat-error>{{ errors.musculoskeletal_problems }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="form-line d-flex mb-4">
+                    <div class="wrapper-input full">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Information médical spécifique patient :</mat-label>
+                            <textarea matInput formControlName="medical_history"></textarea>
+                            <mat-error>{{ errors.medical_history }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            </form>
+            @if (loadingPatient()) {
+            <div class="loader-form">
+                <app-loader></app-loader>
+            </div>
+            }
+        </div>
+
+        @if (
+        patient_form.valid
+        && precise_allergie_form.valid
+        && precise_heart_disease_form.valid
+        && precise_heart_disease_form.valid
+        && precise_diabetes_form.valid
+        && precise_musculoskeletal_form.valid
+        ) {
+        <div class="wrapper-btn d-flex justify-content-end mt-3">
+            <button class="btn custom-btn full" (click)="sendUpdateUserData()">Confirmer les modifications</button>
+        </div>
+        } @else {
+        <div class="wrapper-btn d-flex justify-content-end mt-3 ">
+            <button class="btn custom-btn full disabled">Confirmer les modifications</button>
+        </div>
+        }
+
+    </div>
+</div>

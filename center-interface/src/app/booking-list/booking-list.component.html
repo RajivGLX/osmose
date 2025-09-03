@@ -1,0 +1,56 @@
+<div class="container-booking-list">
+    @if(switchView == 'bookingList'){
+        <div class="wrapper-booking-list d-flex flex-column">
+            <section class="wrapper-filter">
+                <div class="container-search">
+                    <img src="/assets/pictos/messagerie/search.svg" alt="">
+                    <input type="text" placeholder="Rechercher..." [formControl]="searchCtrl" id="filter-text-box"
+                        (input)="onFilterTextBoxChanged($event)">
+                </div>
+
+                <div class="container-btn-choix d-flex">
+                    <div class="wrapper-input-label">
+                        <input type="radio" class="d-none custom-radio" id="past" value="past"(change)="onRadioChange('past')" [checked]="currentView === 'past'">
+                        <label for="past" class="custom-radio-label past">Réservation Passé</label>
+                    </div>
+                    <div class="wrapper-input-label">
+                        <input type="radio" class="d-none custom-radio" id="futur" value="futur" (change)="onRadioChange('futur')" [checked]="currentView === 'futur'">
+                        <label for="futur" class="custom-radio-label futur">Réservation à venir</label>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="container-booking-tab">
+                <ag-grid-angular 
+                    class="ag-theme-alpine" 
+                    style="height: 80vh; width: auto;" 
+                    [columnDefs]="colDefs"
+                    [defaultColDef]="defaultColDef" 
+                    [rowData]="rowData" 
+                    [rowSelection]="'multiple'" 
+                    [animateRows]="true"
+                    [pagination]="true" 
+                    [rowHeight]="60" 
+                    [paginationPageSize]="paginationPageSize"
+                    [localeText]="localeTextFr" 
+                    [gridOptions]="gridOptions"
+                    (gridReady)="onGridReady($event)" 
+                    (rowDoubleClicked)="rowDoubleClicked($event)"
+                    (firstDataRendered)="firstDataRendered($event)"
+                />
+                @if (loaderAgGrid$ | async) {
+                    <div class="mat-spinner">
+                        <mat-spinner />
+                    </div>
+                }
+            </div>
+        </div>
+
+    }@else if(switchView == 'bookingView') {
+        <app-booking-view 
+            [booking]="bookingSelect"
+            (closeVueDetaillee)="changeView('bookingList')" 
+            (bookingUpdated)="onBookingUpdated($event)"
+        />
+    }
+</div>

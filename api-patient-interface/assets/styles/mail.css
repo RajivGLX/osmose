@@ -1,0 +1,136 @@
+/*@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');*/
+
+.wrapper-main {
+    font-family: "DM Sans", sans-serif;
+    width: 60% !important;
+    margin: 0 auto !important;
+    font-size: clamp(16px, 2vw, 24px);
+    border-collapse: collapse;
+
+
+}
+.wrapper-main td{
+    padding: 10px 0;
+}
+
+.text-yellow {
+    color: #cfa806;
+}
+
+.text-blue {
+    color: #1e317f;
+}
+
+/* HEADER */
+.wrapper-header {
+    border-bottom: solid 5px #1e317f;
+}
+
+
+.logo-header img {
+    width: 150px;
+    max-width: 150px;
+}
+
+.text-header {
+    text-align: center;
+}
+
+.text-header p {
+
+    color: #1e317f;
+}
+
+/* BODY */
+
+.wrapper-message {
+    font-size: 20px;
+    margin: 20px auto;
+    width: 95%;
+}
+
+.wrapper-message a {
+    color: #1e317f;
+}
+
+.wrapper-actions {
+    width: 60%; /* Utilisation de largeur fixe */
+    text-align: center;
+}
+
+.action-btn-container{
+    text-align: center;
+}
+.action-btn {
+    width: 18%;
+    max-width:25% ;
+    display: inline-block;
+    background-color: #e6f3f9;
+    padding: 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: clamp(12px, 1.5vw, 24px);
+
+
+}
+
+.action-btn .btn-icon {
+    width: 24px;
+    vertical-align: middle;
+}
+
+.action-btn .btn-text {
+
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+/* FOOTER */
+.wrapper-footer {
+
+}
+
+.wrapper-contact {
+    border-bottom: solid 5px #1e317f;
+}
+
+
+.question {
+    width: 40%;
+    position: relative;
+    text-align: center;
+    padding: 0;
+
+
+}
+.question img{
+    transform: translate(0,11px);
+}
+
+.question h4 {
+    color: white;
+    font-size: clamp(12px, 2vw, 24px);
+
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-77%, -25%);
+    margin: 0;
+}
+
+.contact-info {
+    text-align: left;
+}
+
+.phone-nr {
+    font-weight: bold;
+
+}
+
+.wrapper-adresse {
+    background-color: #dce9ee;
+    text-align: center;
+    font-size: 16px;
+}
+
+
