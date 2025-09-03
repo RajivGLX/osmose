@@ -1,4 +1,3 @@
-import './bootstrap.js';
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -8,12 +7,11 @@ import './bootstrap.js';
 import './styles/app.css';
 import './styles/custom.css';
 import './styles/hostlar-main.css';
-import './js/hostlar-app.js';
 
-// CSS + JS de bootstrap-select
+import './bootstrap.js';
 import 'bootstrap-select/dist/css/bootstrap-select.min.css';
 import 'bootstrap-select';
-
 import './js/custom.js';
+import './js/hostlar-app.js';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

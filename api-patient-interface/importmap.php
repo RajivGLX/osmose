@@ -22,11 +22,8 @@ return [
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],
-    '@hotwired/turbo' => [
-        'version' => '8.0.13',
-    ],
     'jquery' => [
-        'version' => '3.7.1',
+        'version' => '3.6.0',
     ],
     'bootstrap-select/dist/css/bootstrap-select.min.css' => [
         'version' => '1.13.18',
@@ -36,16 +33,13 @@ return [
         'version' => '1.13.18',
     ],
     'bootstrap' => [
-        'version' => '5.3.8',
+        'version' => '4.6.2',
     ],
     'popper.js' => [
         'version' => '1.16.1',
     ],
     'bootstrap/dist/css/bootstrap.min.css' => [
-        'version' => '5.3.8',
+        'version' => '4.6.2',
         'type' => 'css',
-    ],
-    '@popperjs/core' => [
-        'version' => '2.11.8',
     ],
 ];

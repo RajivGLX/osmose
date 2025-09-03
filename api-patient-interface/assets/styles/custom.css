@@ -363,12 +363,12 @@ html body .header-main{
 .navigationCalendar li a{
     width: 100%;
 }
-.userCalendar{
+.patientCalendar{
     width: 100%;
     height: calc(100vh - 160px);
 }
 
-.userCalendar hr {
+.patientCalendar hr {
     position: absolute;
     top: 33%;
     left: 10%;
@@ -378,13 +378,13 @@ html body .header-main{
     border: 1px solid rgba(204, 204, 204, 0.3);
     z-index: 2;
 }
-.userCalendar .blockSlot + hr + .blockSlot + hr + .blockSlot + hr{
+.patientCalendar .blockSlot + hr + .blockSlot + hr + .blockSlot + hr{
     display: none;
 }
-.userCalendar .blockSlot + hr + .blockSlot + hr{
+.patientCalendar .blockSlot + hr + .blockSlot + hr{
     top: 66%;
 }
-.userCalendar td{
+.patientCalendar td{
     position: relative;
     padding: 0;
     border: 1px solid rgba(11, 33, 122, 0.3);
@@ -392,29 +392,29 @@ html body .header-main{
     width: 14.29%;
     height: 20%;
 }
-.userCalendar.weeks6 td{
+.patientCalendar.weeks6 td{
     height: 16.6%;
 }
-.userCalendar tbody tr:first-child td{
+.patientCalendar tbody tr:first-child td{
     height: inherit;
     background-color: #D1F0FD;
     padding-left: 5px;
 }
-.userCalendar .otherMonth{
+.patientCalendar .otherMonth{
     background-color: #E5E5E5;
     background-image: none !important;
 }
-.userCalendar .today{
+.patientCalendar .today{
     background-color: rgba(209, 240, 253, 0.4);
 }
 
-.userCalendar td .blockDay{
+.patientCalendar td .blockDay{
     display: flex;
     flex-direction: column;
     height: 100%;
 }
 
-.userCalendar td .blockDay .numberDay{
+.patientCalendar td .blockDay .numberDay{
     position: absolute;
     z-index: 3;
     right: 0;
@@ -428,7 +428,7 @@ html body .header-main{
     cursor: initial;
 }
 
-.userCalendar td.otherMonth .blockDay{
+.patientCalendar td.otherMonth .blockDay{
     display: none;
 }
 
@@ -444,7 +444,7 @@ html body .header-main{
 .afternoonDayDisable .boxSwitch, .eveningDayDisable .boxSwitch{
     cursor: initial;
 }
-.userCalendar td .blockDay .blockSlot{
+.patientCalendar td .blockDay .blockSlot{
     position: relative;
     min-height: 33.33%;
 }
@@ -499,7 +499,7 @@ html body .header-main{
 .switch span:active::before {
     box-shadow: 0 2px 8px rgba(0,0,0,0.28), 0 0 0 20px rgba(128,128,128,0.1);
 }
-.userCalendar td .blockDay input:checked + label{
+.patientCalendar td .blockDay input:checked + label{
     background-color: rgba(0, 217, 4, 0.2);
 }
 input:checked + .switch span {
@@ -669,10 +669,10 @@ input:checked + .switch span:active::before {
 .logout span{
     padding-right: 10px;
 }
-.userInformation .bootstrap-select{
+.patientInformation .bootstrap-select{
     padding: 0;
 }
-.userInformation #selectpicker{
+.patientInformation #selectpicker{
     width: 100%;
     z-index: 99;
 }
@@ -766,7 +766,7 @@ dialog + .modalOverlay{
         margin-top: 25px;
         padding-left: 0;
     }
-    .userCalendar {
+    .patientCalendar {
         height: 100%;
     }
     .navigationCalendar h2{
@@ -775,61 +775,61 @@ dialog + .modalOverlay{
     .navigationCalendar li{
         width: 20%;
     }
-    .userCalendar tr {
+    .patientCalendar tr {
         display: flex;
         flex-direction: column;
     }
-    .userCalendar tr:first-child td{
+    .patientCalendar tr:first-child td{
         display: none;
     }
-    .userCalendar td, .userCalendar.weeks6 td {
+    .patientCalendar td, .patientCalendar.weeks6 td {
         width: 100%;
         height: 110px;
     }
-    .userCalendar td .blockDay .numberDay{
+    .patientCalendar td .blockDay .numberDay{
         width: 30%;
     }
-    .userCalendar .otherMonth, .userCalendar .pastDate{
+    .patientCalendar .otherMonth, .patientCalendar .pastDate{
         display: none;
     }
 }
 /*--------------------------------------------------------------*/
 /*-------------------------LandingPage-------------------------*/
 /*------------------------------------------------------------*/
-#userManual .boxStep{
+#patientManual .boxStep{
     display: flex;
     justify-content: space-between;
 }
-#userManual .boxStep .accordionManual{
+#patientManual .boxStep .accordionManual{
     width: 45%;
 }
-#userManual .boxStep .boxSvg{
+#patientManual .boxStep .boxSvg{
     width: 53%;
     margin-left: 2%;
 }
-#userManual .boxStep .accordionManual > div{
+#patientManual .boxStep .accordionManual > div{
     border: solid 2px var(--dark-blue);
     margin-bottom: 25px;
     border-radius: 4px;
 }
-#userManual .boxStep .accordionManual > div:last-child{
+#patientManual .boxStep .accordionManual > div:last-child{
     margin-bottom: 0;
 }
-#userManual .boxStep .accordionManual > div h3{
+#patientManual .boxStep .accordionManual > div h3{
     font-size: 20px;
     padding: 15px;
     cursor: pointer;
     margin: 0;
 }
-#userManual .boxStep .accordionManual > div p{
+#patientManual .boxStep .accordionManual > div p{
     padding: 0 15px 15px 15px;
 }
-#userManual .boxStep .boxSvg div{
+#patientManual .boxStep .boxSvg div{
     position: relative;
     width: 100%;
     height: 100%;
 }
-#userManual .boxStep .boxSvg div svg{
+#patientManual .boxStep .boxSvg div svg{
     position: absolute;
     width: 100%;
     height: 100%;

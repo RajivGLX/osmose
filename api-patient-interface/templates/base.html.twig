@@ -13,7 +13,7 @@
             {% endblock %}
         {% endblock %}
     </head>
-    <body {{ stimulus_controller('turbo') }}>
+    <body id="{{ app.request.attributes.get('_route') }}">
         {% block header %}
             {{ include('partials/header.html.twig') }}
         {% endblock %}
