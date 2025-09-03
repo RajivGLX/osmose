@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste réservations{% endblock %}
+
+{% block body %}
+<div class="main accountStatus">
+
+    <!--page header section start-->
+    <section class="page-header-section ptb-100 gradient-overly-right" style="background: url('{{ asset('assets/img/hero-13.jpg') }}')no-repeat center center / cover">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-10 col-lg-8">
+                    <div class="page-header-content text-white">
+                        <h1 class="text-white mb-2">
+                            Vos {{ title == 'old' ? 'anciennes' :  '' }} demandes de réservations
+                        </h1>
+                        <p class="lead">
+                            {% if title == 'old' %}
+                                Vous pouvez consulter vos anciennes demandes auprés des centre de dialyze, que vous avez effectué sur Dialyzone
+                            {% else %}
+                                Vous pouvez prendre connaissance des étapes de votre demande, jusqu'à la confirmation de celle-ci.
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--page header section end-->
+
+    <!--breadcrumb bar start-->
+    <div id="breadcrumb-bar" class="breadcrumb-bar py-3 gray-light-bg border-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="custom-breadcrumb">
+                        <ol class="breadcrumb d-inline-block bg-transparent list-inline py-0 pl-0">
+                            <li class="list-inline-item breadcrumb-item"><a href="{{ path('app_account') }}">Mon-Compte</a></li>
+                            <li class="list-inline-item breadcrumb-item active">Vos-{{ title == 'old' ? 'anciennes-' :  '' }}demandes-de-réservations</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumb bar end-->
+
+    <!--our status section start-->
+    <section class="our-system-status ptb-100">
+        <div class="container">
+            {% include "components/_flash.html.twig" %}
+            <div class="row justify-content-center">
+                <div class="col-md-9 col-lg-8">
+                    <div class="section-heading text-center mb-5">
+                        <h2>Liste de vos {{ title == 'old' ? 'anciennes demandes' :  'demandes à venir'}} </h2>
+                        <p class="lead">
+                            {% if title != 'old' and pagination != null %}
+                                Cliquer sur la demande de reservation pour avoir plus d'informations sur le centre de dialyze ainsi que les informations utile
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!--status row start-->
+            <div class="row mt-5">
+                <div class="col-md-12 col-lg-12">
+                    {% if title == 'old' and pagination.items == null %}
+                        <div class="alert alert-info" role="alert">
+                            Vous n'avez pas d'ancciennes demandes actuellment.
+                        </div>
+                    {% elseif title == 'future' and pagination.items == null %}
+                        <div class="alert alert-info" role="alert">
+                            Vous n'avez pas encore fait de demandes sur Dialyzone, vous pouvez faire une demande en sélectionnant un centre via ce lien : <br>
+                            <a href="{{ path('search_center') }}">trouver un centre pour vérifier ses disponibilitées</a>
+                        </div>
+                    {% endif %}
+                    <div class="services-status-wrap">
+                        <ul class="list-unstyled services-status-list">
+                            {% for booking in pagination %}
+                                <li>
+                                    <a href="{{ path('account_booking', {'id': booking.getId }) }}" class="d-flex align-items-center white-bg p-4 rounded single-status">
+                                        <div class="status-location-heading">
+                                            <h5 class="mb-2">{{ booking.center.getName|capitalize }} <span class="ti-info-alt" data-toggle="tooltip" data-placement="top" title="Seamlessly monetize cooperative"></span>
+                                                <br>Le {{ booking.getDateReserve|format_datetime(pattern='d MMMM Y') }}
+                                            </h5>
+                                            <span class="badge color-3 color-3-bg">Créneau {{ booking.getSlot.name == 'morning' ? 'du Matin' : 'de l\'aprés midi' }}</span>
+                                        </div>
+                                        <div class="statusMode">
+                                            {% for statusBooking in booking.statusBookings %}
+                                                <span
+                                                        class="px-2 py-1 mr-2 rounded {{ statusBooking.statusActive ? 'active' : '' }}"
+                                                        style="color:{{ statusBooking.status.getColor }};background-color:{{ statusBooking.status.getBgColor }}"
+                                                >
+                                                    <strong>Demande {{ statusBooking.status.getName }}</strong>
+                                                </span>
+                                                <i class="fa fa-arrow-circle-right"></i>
+                                            {% endfor %}
+                                        </div>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-md-12">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
+            </div>
+            <!--status row end-->
+
+
+        </div>
+    </section>
+    <!--our status section end-->
+
+</div>
+{% endblock %}

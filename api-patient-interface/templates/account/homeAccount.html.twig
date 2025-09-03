@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compte{% endblock %}
+
+{% block body %}
+    <div class="main">
+        <section class="account-menu ptb-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 col-lg-8">
+                        <div class="section-heading mb-5">
+                            <h1>{{ app.user.firstname }}, bienvenue sur votre compte</h1>
+                            <p class="lead">Gérez votre éspace membre</p>
+                        </div>
+                    </div>
+                </div>
+
+                {% include "components/_flash.html.twig" %}
+
+                <div class="row">
+                    <div class="col-md-4 col-lg-4">
+                        <a href="{{ path('account_information') }}">
+                            <div class="single-promo-2 custom-shadow single-promo-hover rounded-custom text-center white-bg p-5 h-100">
+                                <div class="circle-icon">
+                                    <span class="fa fa-id-card text-white"></span>
+                                </div>
+                                <h5>Vos informations</h5>
+                                <p>Completez, consultez ou modifier vos informations</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <a href="{{ path('account_list_future_booking') }}">
+                            <div class="single-promo-2 custom-shadow single-promo-hover rounded-custom text-center white-bg p-5 h-100">
+                                <div class="circle-icon">
+                                    <span class="fas fa-calendar-check text-white"></span>
+                                </div>
+                                <h5>Vos demandes à venir</h5>
+                                <p>Suivie de vos demandes auprés des centres de Dialyze</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4 col-lg-4">
+                        <a href="{{ path('account_old_list_booking') }}">
+                            <div class="single-promo-2 custom-shadow single-promo-hover rounded-custom text-center white-bg p-5 h-100">
+                                <div class="circle-icon">
+                                    <span class="fas fa-flag-checkered text-white"></span>
+                                </div>
+                                <h5>Vos anciennes demandes</h5>
+                                <p>Consultez vos anciennes demandes</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4 col-lg-4 mt-4">
+                        <a href="{{ path('account_change_password') }}">
+                            <div class="single-promo-2 custom-shadow single-promo-hover rounded-custom text-center white-bg p-5 h-100">
+                                <div class="circle-icon">
+                                    <span class="fa fa-unlock text-white"></span>
+                                </div>
+                                <h5>Modifiaction mot de passe</h5>
+                                <p>Vous pouvez modifier votre mot passe</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-4 col-lg-4 mt-4">
+                        <a href="{{ path('contact') }}">
+                            <div class="single-promo-2 custom-shadow single-promo-hover rounded-custom text-center white-bg p-5 h-100">
+                                <div class="circle-icon">
+                                    <span class="fas fa-headset text-white"></span>
+                                </div>
+                                <h5>Nous contacter</h5>
+                                <p>N'hésitez pas à nous contacter</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="action-btns logout">
+                    <a href="{{ path('app_user_logout') }}" class="btn primary-solid-btn mr-2">
+                        <span>Déconnexion</span>
+                        <i class="fa fa-sign-out"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}guide d'utilisation{% endblock %}
+
+{% block body %}
+    <div class="main">
+
+        <!--page header section start-->
+        <section class="page-header-section ptb-100 gradient-overly-right" style="background: url('{{ asset('assets/img/hero-13.jpg') }}')no-repeat center center / cover">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-7 col-lg-6">
+                        <div class="page-header-content text-white">
+                            <h1 class="text-white mb-2">Guide d'utilisation</h1>
+                            <p class="lead">Retrouvez toutes les étapes pour profiter des services de Dialyzone dans son intégralité</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div id="userManual" class="ptb-100 ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-8 section-heading mb-5">
+                        <h2>Les différentes étapes de Dialyzone</h2>
+                        <p>Voici les questions les étapes d'utilisation de la plateforme Dialyzone, si vous avez des questions n'hés</p>
+                    </div>
+                    <div class="boxStep col-12">
+                        <div class="accordionManual">
+                            <div>
+                                <h3>1. Inscription</h3>
+                                <p>Créez votre compte Dialyzone en quelques clics</p>
+                            </div>
+                            <div>
+                                <h3>2. Connexion</h3>
+                                <p>Connectez-vous à votre compte Dialyzone</p>
+                            </div>
+                            <div>
+                                <h3>3. Réservation</h3>
+                                <p>Prenez rendez-vous dans un centre de dialyse</p>
+                            </div>
+                            <div>
+                                <h3>4. Remplissez votre profil</h3>
+                                <p>
+                                    Cette démarche a pour but de transmettre les informations nécessaire à votre centre
+                                    de dialyse. Vous pouvez remplir votre profil en cliquant ici. <br>
+                                    Vous avez la possibilité de modifier vos informations personnelles à tout moment.
+                                </p>
+                            </div>
+                            <div>
+                                <h3>4. Suivi</h3>
+                                <p>Consultez vos rendez-vous et vos résultats</p>
+                            </div>
+                            <div>
+                                <h3>5. Contact</h3>
+                                <p>Contacter Dialyzone pour plus d'informations</p>
+                            </div>
+                            <div>
+                                <h3>6. FAQ</h3>
+                                <p>Consultez les questions fréquemment posées</p>
+                            </div>
+                        </div>
+                        <div class="boxSvg">
+                            <div>
+                                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="#FFFFFF" d="M43.3,-32.8C59.1,-14.6,77.1,3.6,74.7,18.2C72.3,32.9,49.5,44.2,28.7,50.8C7.9,57.5,-10.9,59.6,-28.9,53.5C-46.8,47.3,-63.9,32.9,-67.7,15.6C-71.6,-1.7,-62.3,-22,-48.8,-39.6C-35.3,-57.3,-17.6,-72.4,-2,-70.8C13.7,-69.2,27.4,-51,43.3,-32.8Z" transform="translate(30 140)" />
+                                </svg>
+                                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="#3679E4" d="M49.1,-45.1C59.1,-26.7,59.5,-6.5,56.2,14.8C52.9,36.1,45.9,58.5,30.4,67.7C14.9,76.9,-9.2,72.9,-30.3,62.8C-51.4,52.7,-69.7,36.4,-70.8,19.5C-72,2.7,-56.1,-14.7,-41.5,-34.2C-26.8,-53.8,-13.4,-75.4,3.1,-77.9C19.6,-80.3,39.2,-63.6,49.1,-45.1Z" transform="translate(180 80)" />
+                                </svg>
+                                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="#1e317f" d="M70.5,-18.2C77.8,-0.2,61,30.3,37.6,46C14.2,61.6,-15.8,62.4,-30.4,49.9C-45,37.4,-44.1,11.7,-36.5,-6.7C-28.8,-25,-14.4,-36.1,8.6,-38.8C31.5,-41.6,63.1,-36.2,70.5,-18.2Z" transform="translate(10, 40)"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}

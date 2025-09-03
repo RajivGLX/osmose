@@ -1,0 +1,240 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservation dialyze{% endblock %}
+
+{% block body %}
+    <div class="main">
+        {% set statusDefault = false %}
+        {% set statusConfirm = false %}
+        {% set statusContact = false %}
+        {% set statusDenied = false %}
+        {% set optionCanceled = false %}
+        {% set statusCurrent = '' %}
+
+        {% for statusBookings in booking.statusBookings %}
+            {% if statusBookings.statusActive %}
+                {% set statusCurrent = statusBookings.status %}
+                {% if statusBookings.status.statusDefault %}
+                    {% set statusDefault = true %}
+                {% elseif statusBookings.status.statusConfirm %}
+                    {% set statusConfirm = true %}
+                {% elseif statusBookings.status.statusContact %}
+                    {% set statusContact = true %}
+                {% elseif statusBookings.status.statusCanceled %}
+                    {% set optionCanceled = true %}
+                {% elseif statusBookings.status.statusDenied %}
+                    {% set statusDenied = true %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+        <section class="page-header-section ptb-100 gradient-overly-right" style="background: url('{{ asset('assets/img/hero-13.jpg') }}')no-repeat center center / cover">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-12 col-lg-12">
+                        <div class="page-header-content text-white">
+                            <h1 class="text-white mb-2">
+                                {{ form is defined ? 'Réservation' : 'Ancienne réservation' }} : {{ booking.center.name|capitalize }}
+                            </h1>
+                            <p class="lead">
+                                Le {{ booking.dateReserve|format_datetime(pattern='d MMMM Y') }} / {{ "backend.center.slot"|trans }} : {{ ("backend.booking."~booking.slot.name)|trans }}
+                                {% if "now"|date('Y-m-d H:i:s') < booking.dateReserve|date('Y-m-d H:i:s') %}
+                                    <br/>
+                                    <span class="textUnderline">{{ "backend.booking.status_book"|trans }} :</span>
+                                    <br>
+                                    {% if statusDefault %}
+                                        Votre demande de reservation est en attente de confirmation auprés du centre de dialyze
+                                    {% elseif optionCanceled %}
+                                        Vous avez annulé votre demande de reservation
+                                    {% elseif statusContact %}
+                                        Le centre de dialyze a besoin de plus d'information pour confirmer votre demande de reservation, veuillez les contacter.
+                                        <br/>
+                                        <span class="textUnderline">Numéro de téléphone :</span> {{ booking.center.phone() }}
+                                        <br>
+                                        <span class="textUnderline">Mail :</span> {{ booking.center.email }}
+                                    {% elseif statusDenied %}
+                                        Le centre de dialyze a refusé votre demande de reservation, veuillez les contacter pour plus d'information.
+                                    {% elseif statusConfirm %}
+                                        Le centre de dialyze a confirmé votre demande de reservation, nous vous conseillons de contacter le centre pour connaitre les modalités de votre reservation.
+                                    {% endif %}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="breadcrumb-bar py-3 gray-light-bg border-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="custom-breadcrumb">
+                            <ol class="breadcrumb d-inline-block bg-transparent list-inline py-0 pl-0">
+                                <li class="list-inline-item breadcrumb-item"><a href="{{ path('app_account') }}">Mon-Compte</a></li>
+                                <li class="list-inline-item breadcrumb-item"><a href="{{ path('account_list_future_booking') }}">Mes-réservations</a></li>
+                                <li class="list-inline-item breadcrumb-item active">Reservation-{{ booking.center.slug()|capitalize }}</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="module ptb-50">
+            <div class="container bookingContainer">
+                {% include "components/_flash.html.twig" %}
+                <div class="row">
+                    <div class="col-lg-8 col-md-8">
+                        <!-- Post-->
+                        <article class="post">
+                            <div class="post-wrapper">
+                                <div class="post-header">
+                                    <h2>{{ booking.center.name|upper }}</h2>
+                                    <ul class="post-meta mt-1">
+                                        <li>{{ "backend.booking.book_in"|trans }} : <strong>{{ booking.dateReserve()|date('d-m-Y') }}</strong></li>
+                                        <li>{{ "backend.center.slot"|trans|capitalize }} : <strong>{{ ("backend.booking."~booking.slot.name)|trans|upper }}</strong></li>
+                                    </ul>
+                                    <p class="m-0">
+                                        Motif de la reservation : <strong>{{ booking.reason }}</strong>
+                                    </p>
+                                    <p class="">
+                                        {{ "backend.booking.status_book"|trans }} :
+                                        <span class="px-2 py-1 mr-2 rounded active" style="color:{{ statusCurrent.color }};background-color:{{ statusCurrent.bgColor }}">
+                                            <strong>{{ statusCurrent.name|upper }}</strong>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="post-content mt-2">
+                                    <span class="pb-1 textUnderline font-weight-bold">{{ "backend.booking.info_home"|trans|upper }} :</span>
+                                    <p>
+                                        {{ booking.center.information()|nl2br}}
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+
+                        <div class="comments-area">
+                            <h4 class="comments-title">{{ "backend.booking.comment_for_center"|trans }}</h4>
+                            <div class="comment-respond">
+                                {% if booking.comment != null and form is defined %}
+                                    <h5 class="comment-reply-title">Modifier votre commentaire</h5>
+                                    <p class="comment-notes">Votre commentaire sera lu par le personel du centre de dialyze en charge des admision</p>
+                                {% elseif form is defined %}
+                                    <h5 class="comment-reply-title">Ajouter un commentaire</h5>
+                                    <p class="comment-notes">Votre commentaire sera lu par le personel du centre de dialyze en charge des admision</p>
+                                {% else %}
+                                    <p class="comment-notes">Votre commentaire laissé pour cette reservation</p>
+                                {% endif %}
+
+                                {% if form is defined %}
+                                    {{ form_start(form, {'attr' : {'class':'comment-form row'}} ) }}
+                                    <div class="form-group col-md-12">
+                                        <textarea
+                                                class="form-control"
+                                                rows="8"
+                                                placeholder="Votre commentaire"
+                                                name="{{ field_name(form.comment) }}"
+                                        >{{ field_value(form.comment) }}</textarea>
+                                    </div>
+                                    <div class="form-submit col-md-12">
+                                        <button class="btn primary-solid-btn" type="submit">Enregistrer</button>
+                                    </div>
+                                    {{ form_end(form) }}
+                                {% else %}
+                                    <textarea class="form-control" rows="8" disabled>{{ booking.comment|nl2br }}</textarea>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                        <!-- Comments area end-->
+                    </div>
+                    <div class="col-lg-4 col-md-4 pt-4">
+                        <div class="sidebar-right pl-4">
+
+
+                            <!-- Categories widget-->
+                            <aside class="widget widget-categories">
+                                <div class="widget-title">
+                                    <h6>Information sur le centre</h6>
+                                </div>
+                                <ul>
+                                    <li class="textGrey">
+                                        <span class="textUnderline">Téléphone :</span><br>
+                                        {{ booking.center.phone() }}
+                                    </li>
+                                    <li class="textGrey">
+                                        <span class="textUnderline">Adresse :</span><br>
+                                        {{ booking.center.address() }}<br>
+                                        {{ booking.center.zipcode() }}, {{ booking.center.city() }}
+                                    </li>
+                                    <li class="textGrey">
+                                        <span class="textUnderline">Groupe :</span><br>
+                                        {{ booking.center.band() }}
+                                    </li>
+                                </ul>
+                            </aside>
+
+                            <!-- Recent entries widget-->
+                            <aside class="widget widget-recent-entries-custom">
+                                <div class="widget-title">
+                                    <h6>Créneau</h6>
+                                </div>
+                                <ul class="textGrey">
+                                    <li class="clearfix">
+                                        <div class="textUnderline">{{ ("backend.booking."~booking.slot.name)|trans|upper }}</div>
+                                        <div class="">
+                                            {# {% for centerSlots in booking.center.getCenterSlots %}
+                                                {% if centerSlots.slot.id == booking.slot.id %}
+                                                    {{ "backend.booking.start"|trans }} : {{ centerSlots.hourStart|date('H:i') }} <br>
+                                                    {{ "backend.booking.end"|trans }} : {{ centerSlots.hourEnd|date('H:i') }}
+                                                {% endif %}
+                                            {% endfor %} #}
+
+                                            <span class="post-date">le {{ booking.dateReserve|date('d/m/Y') }}</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </aside>
+                            {% if (statusDefault or statusConfirm or statusContact) and "now"|date('Y-m-d H:i:s') < booking.dateReserve|date('Y-m-d H:i:s')  %}
+                                <aside>
+                                    <button data-open-modal class="openModalCustom btn btn-danger">Annuler la demande</button>
+                                </aside>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if (statusDefault or statusConfirm or statusContact) and "now"|date()|date_modify("+3 days") < booking.dateReserve %}
+                <dialog data-modal class="modalCustom">
+                    <div>
+                        Vous etes sur le point d'annuler votre demande de reservation pour le {{ booking.dateReserve|date('d/m/Y') }}
+                        (créneau : {{ ("backend.booking."~booking.slot.name)|trans }}) à {{ booking.center.name|capitalize }}.
+                        <br/>
+                        <span class="font-weight-bold">Cette decision est irreversible.</span>
+                    </div>
+                    <div class="text-center">
+                        <a href="{{ path('account_booking_cancel',{'id': booking.id }) }}" class="btn btn-danger">Confirmer l'annulation</a>
+                    </div>
+                    <i data-close-modal class="fa fa-circle-xmark"></i>
+                </dialog>
+            {% else %}
+                <dialog data-modal class="modalCustom">
+                    <div>
+                        Vous ne pouvez pas annuler votre demande de reservation pour le {{ booking.dateReserve|date('d/m/Y') }}, en effet
+                        conformément a notre chartre de réservation, vous ne pouvez annuler votre demande de reservation que
+                        <span class="font-weight-bold">3 jours avant la date de reservation.</span>
+                        <br/>
+                        <br/>
+                        Cependant en cas d'urgence, veuillez contacter le centre de dialyse au : <span class="font-weight-bold">{{ booking.center.phone() }}</span> pour annuler votre demande de reservation.
+                    </div>
+                    <i data-close-modal class="fa fa-circle-xmark"></i>
+                </dialog>
+            {% endif %}
+            <div data-overlay class="modalOverlay"></div>
+        </div>
+        <!--blog section end-->
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,223 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Centre de dialyse - {{ center.name }}{% endblock %}
+
+{% block body %}
+
+    <div class="main">
+        <!--page header section start-->
+        <section class="page-header-section ptb-100 gradient-overly-right" style="background: url('{{ asset('img/hero-13.jpg') }}')no-repeat center center / cover">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-12 col-lg-12">
+                        <div class="page-header-content text-white">
+                            <h1 class="text-white mb-2 text-uppercase">{{ center.name }}</h1>
+                            <p class="lead">Consultez les disponibilitées selon vos dates</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--page header section end-->
+
+        <!--breadcrumb bar start-->
+        <div id="breadcrumb" class="breadcrumb-bar py-3 gray-light-bg border-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="custom-breadcrumb">
+                            <ol class="breadcrumb d-inline-block bg-transparent list-inline py-0 pl-0">
+                                <li class="list-inline-item breadcrumb-item"><a href="{{ path('search_center') }}">Recherche-Centres-Dialyse</a></li>
+                                <li class="list-inline-item breadcrumb-item active">{{ center.name|replace({' ': '-'}) }}</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--breadcrumb bar end-->
+
+        <div class="container-center">
+            {{ form_start(formBooking, {'attr' : {'class':'bookingForm col-lg-3 col-md-12 pr-3 pl-0'}} ) }}
+                <div>
+                    <h3 class="text-dark-blue text-center pt-1 mb-4">Votre sélection</h3>
+                    <aside class="widget widget-categories">
+                        <p>Séance(s) :</p>
+                        <ul>
+                            <li class="text-uppercase title"><span>Jours</span> <span class="float-right">Moment</span></li>
+                        </ul>
+                    </aside>
+                    <div class="form-group">
+                        {{ form_row(formBooking.reason) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(formBooking.comment) }}
+                        <label for="message">{{ field_label(formBooking.comment) }} :</label>
+                    </div>
+                    <div class="form-group text-center">
+                        <button type="button" class="btn primary-solid-btn openModal">Demande de réservation</button>
+                    </div>
+                    <div class="alert alert-danger errorSelect" style="display: none">
+                        Veuillez sélectionner un crénau horaire sur le calendrier
+                    </div>
+                </div>
+
+                <div class="custom-model-main popup-confirm {% if isUserHasMinInfo == true %}popup-by-notation{% endif %}">
+                    <div class="custom-model-inner">
+                        <div class="close-btn cross">×</div>
+                        <div class="custom-model-wrap">
+                            <div class="pop-up-content-wrap">
+                                <h3 class="mb-4">Confirmation de votre demande</h3>
+                                <p class="mb-3">
+                                    <span class="font-weight-bold">Centre de dialyse :</span> {{ center.name }}
+                                </p>
+                                <p class="mb-3">
+                                    <span class="font-weight-bold">Séances :</span> <span class="selectedDate"></span>
+                                </p>
+                                <p class="mb-3">
+                                    <span class="font-weight-bold">Raison de la demande :</span> <span class="reason"></span>
+                                </p>
+                                <p class="mb-3">
+                                    <span class="font-weight-bold">Commentaire :</span> <span class="comment"></span>
+                                </p>
+                                <div class="form-group text-center">
+                                    <button type="submit" class="btn primary-solid-btn">Confirmer</button>
+                                    <button type="button" class="btn secondary-solid-btn close-btn">Annuler</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-overlay"></div>
+                </div>
+            {{form_end(formBooking)}}
+            <div class="custom-model-main popup-info {% if isUserHasMinInfo == false %}popup-by-notation{% endif %}">
+                <div class="custom-model-inner">
+                    <div class="close-btn cross">×</div>
+                    <div class="custom-model-wrap">
+                        <div class="pop-up-content-wrap">
+                            <h3 class="mb-4">Confirmation de votre demande</h3>
+                            <p class="mb-3">
+                                <span class="font-weight-bold">Pour pouvoir continuer veuillez remplir les informations minimal qui sont :</span>
+                            </p>
+                            {{ form_start(formUser, {'attr': {'id': 'userInformationForm', 'action': path('app_user_information')}}) }}
+                                <div class="row formPopup">
+                                    <div class="form-group col-6">
+                                        {{ form_row(formUser.phone) }}
+                                    </div>
+                                    <div class="form-group col-6">
+                                        {{ form_row(formUser.typeDialysis) }}
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 text-center mt-4">
+                                        <button type="submit" class="btn primary-solid-btn">
+                                        Modifier vos informations
+                                        </button>
+                                    </div>
+                                </div>
+                            {{ form_end(formUser) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-overlay"></div>
+            </div>
+
+            <div class="boxCalendar col-lg-9 col-md-12 pr-0">
+                {% include "components/_flash.html.twig" %}
+                <ul class="navigationCalendar">
+                    <li>
+                        <a href="{{ path('app_booking', {'slug':center.slug,'month':month.previousMonth().month,'year':month.previousMonth().year}) }}#breadcrumb" class="btn btn-primary">
+                            <i class="fa fa-chevron-circle-left"></i>
+                        </a>
+                    </li>
+                    <h2>{{ month.dateToString }}</h2>
+                    <li>
+                        <a href="{{ path('app_booking', {'slug':center.slug,'month':month.nextMonth().month,'year':month.nextMonth().year}) }}#breadcrumb" class="btn btn-primary">
+                            <i class="fa fa-chevron-circle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+                <section class="formCalendar">
+                    <table class="userCalendar weeks{{ month.getAllWeeksInMonth() }}">
+                        <tr>
+                            {% for key,day in month.days %}
+                                <td>
+                                    <div class="weekDay">{{ day }}</div>
+                                </td>
+                            {% endfor %}
+                        </tr>
+                        {% for i in range(0, month.getAllWeeksInMonth() - 1) %}
+                            <tr>
+                                {% for key,day in month.days %}
+                                    {% set date = month.getFirstDayOfWeek()|date_modify("+"~(key + i * 7)~" days") %}
+                                    {% set otherMonth = month.withinMonth(date) ? '':'otherMonth' %}
+                                    {% set today = "now"|date("Y-m-d") == date|date("Y-m-d") ? 'today':'' %}
+                                    {% set pastDate = "now"|date("Y-m-d") > date|date("Y-m-d") ? 'pastDate':'' %}
+                                    {% set alreadyBook = '' %}
+                                    {% for userBooking in allUserBooking %}
+                                        {% for slotData in allSlot %}
+                                            {% if userBooking.getDateReserve == date and userBooking.getSlot.id == slotData.id %}
+                                                {% set alreadyBook = userBooking %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+
+                                    <td class="{{ otherMonth }} {{ today }} {{ pastDate }}">
+                                        <div class="blockDay">
+                                            <p class="numberDay">
+                                                <span class="largeScreenDisplay">{{ date|date("d") }}</span>
+                                                <span class="smallScreenDisplay">{{ date|date("d/m/Y") }}</span>
+                                            </p>
+                                            {% if otherMonth is empty and pastDate != 'pastDate' and today != 'today' %}
+                                                {% for slotData in allSlot %}
+                                                    {% set availabilityCurrent = month.checkAvailabilityInDays(availability,slotData.getName,date)  %}
+                                                    <div class="blockSlot {{ slotData.getName }}Day{{ availabilityCurrent > 0 ? '' : 'Disable' }}">
+                                                        {% if alreadyBook != null %}
+                                                            <p class="alreadyBook ml-2">
+                                                                {% if alreadyBook.getSlot.id == slotData.id %}
+                                                                    {% for statusBooking in alreadyBook.statusBookings %}
+                                                                        {% if statusBooking.statusActive %}
+                                                                            <a href="{{ path('account_booking', {'id': alreadyBook.id }) }}"
+                                                                               style="color:{{ statusBooking.status.color }}"
+                                                                               class="font-weight-bold"
+                                                                            >
+                                                                                {{ statusBooking.status.slug|capitalize }}
+                                                                            </a>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            </p>
+                                                        {% endif %}
+                                                        <div class="boxSwitch">
+                                                            {% if availabilityCurrent > 0 %}
+                                                                {% if alreadyBook == null %}
+                                                                    <input
+                                                                            type="checkbox"
+                                                                            id="{{ slotData.getName }}Day{{ date|date("d") }}"
+                                                                            name="availability[{{ date|date("Y-m-d") }}][]"
+                                                                            value="{{ slotData.getName }}"
+                                                                            class="{{ ("backend.booking."~slotData.getName)|trans }}"
+                                                                            data-title="{{ date|format_datetime(pattern='d MMMM Y') }}"
+                                                                            hidden="hidden"
+                                                                    >
+                                                                    <label class="switch" for="{{ slotData.getName }}Day{{ date|date("d") }}">
+                                                                        <span></span>
+                                                                        : {{ ("backend.booking."~slotData.getName)|trans }}
+                                                                    </label>
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <hr class="hrDay">
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </section>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

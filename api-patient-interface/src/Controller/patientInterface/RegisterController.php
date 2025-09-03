@@ -44,7 +44,7 @@ class RegisterController extends AbstractController
             return $this->redirectToRoute('app_user_login');
         }
 
-        return $this->render('patientInterface/register/register.html.twig', [
+        return $this->render('register/register.html.twig', [
             'controller_name' => 'RegisterController',
             'form' => $form->createView(),
             'user' => $user
@@ -71,7 +71,7 @@ class RegisterController extends AbstractController
                     $this->addFlash('notice', ['nature' => 'danger', 'message' => 'Une erreur est survenue lors de la validation de votre compte Dialyzone.<br> Veuillez réessayer ou appeler le support technique.']);
                 }
             } else {
-                return $this->render('patientInterface/security/confirmExpired.html.twig', ['id' => $payload['user_id']]);
+                return $this->render('security/confirmExpired.html.twig', ['id' => $payload['user_id']]);
             }
         }
 

@@ -1,0 +1,146 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vos Informations{% endblock %}
+
+{% block body %}
+
+<div class="main">
+
+    <!--page header section start-->
+    <section class="page-header-section ptb-100 gradient-overly-right" style="background: url('{{ asset('img/hero-13.jpg') }}')no-repeat center center / cover">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-7 col-lg-6">
+                    <div class="page-header-content text-white">
+                        <h1 class="text-white mb-2">Vos Informations</h1>
+                        <p class="lead">
+                            Consultez ou modifier vos informations, il est important de renseigner un maximum
+                            d'informations ces derniere auron pour seul but de rensigner les équipes médicales.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--page header section end-->
+
+    <!--breadcrumb bar start-->
+    <div class="breadcrumb-bar py-3 gray-light-bg border-bottom" id="patientInformation">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="custom-breadcrumb">
+                        <ol class="breadcrumb d-inline-block bg-transparent list-inline py-0 pl-0">
+                            <li class="list-inline-item breadcrumb-item"><a href="{{ path('app_account') }}">Mon-Compte</a></li>
+                            <li class="list-inline-item breadcrumb-item active">Mes informations</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumb bar end-->
+
+    <!--submit request form start-->
+    <section class="submit-request-form ptb-50 patientInformation">
+        <div class="container">
+            {{ include('components/_flash.html.twig') }}
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    {{ form_start(form, {'attr' : {'class':'submit-request-form'}} ) }}
+                        <div class="row">
+                            <div class="form-group col-4">
+                                {{ form_row(form.firstname) }}
+                            </div>
+                            <div class="form-group col-4">
+                                {{ form_row(form.lastname) }}
+                            </div>
+                            <div class="form-group col-4">
+                                {{ form_row(form.phone) }}
+                            </div>
+                            <div class="form-group col-12">
+                                {{ form_row(form.dialysisStartDate) }}
+                            </div>
+                            <div class="form-group col-6">
+                                {{ form_row(form.typeDialysis) }}
+                            </div>
+                            <div class="form-group col-6">
+                                {{ form_row(form.renalFailure) }}
+                            </div>
+                            <div class="form-group col-6">
+                                {{ form_row(form.drugAllergies, {'attr' : {'class':'formRadio'}} ) }}
+                            </div>
+                            <div class="form-group col-6">
+                                {{ form_row(form.drugAllergiePrecise) }}
+                            </div>
+                            <div class="form-group col-6">
+                                {{ form_row(form.pathologies.boolHeartDisease, {'attr' : {'class':'formRadio'}} ) }}
+                            </div>
+                            <div class="form-group col-6">
+                                {{ form_row(form.pathologies.heartDisease) }}
+                            </div>
+                            <div class="form-group col-6">
+                                {{ form_row(form.pathologies.boolDiabetes, {'attr' : {'class':'formRadio'}} ) }}
+                            </div>
+                            <div class="form-group col-6">
+                                {{ form_row(form.pathologies.diabetes) }}
+                            </div>
+                            <div class="form-group col-6">
+                                {{ form_row(form.pathologies.boolMusculoskeletalProblems, {'attr' : {'class':'formRadio'}} ) }}
+                            </div>
+                            <div class="form-group col-6">
+                                {{ form_row(form.pathologies.musculoskeletalProblems) }}
+                            </div>
+                            <div class="form-group col-12">
+                                {{ form_row(form.vascularAccessType, {'attr' : {'class':'formRadio'}} ) }}
+                            </div>
+                            <div class="form-group col-12">
+                                <label class="pb-1" for="{{ field_name(form.medicalHistory) }}">
+                                    {{ field_label(form.medicalHistory) }}
+                                </label>
+                                <textarea
+                                        name="{{ field_name(form.medicalHistory) }}"
+                                        id="{{ field_name(form.medicalHistory) }}"
+                                        class="form-control {% if field_errors(form.medicalHistory) is not empty %}is-invalid{% endif %}"
+                                        rows="5"
+                                        cols="25"
+                                        placeholder="Votre message"
+                                >{{ field_value(form.medicalHistory) }}</textarea>
+                                <div class="invalid-feedback">
+                                    {{ form_errors(form.medicalHistory) }}
+                                </div>
+                            </div>
+                            <div class="form-group col-12">
+                                <label for="selectpicker">Séléctionner votre centre actuel :</label>
+                                {% if field_errors(form.center) is not empty %}
+                                    <div class="alert alert-danger" role="alert">{{ "backend.patient.center_error"|trans }}</div>
+                                {% endif %}
+
+                                <select id="selectpicker" class="selectpicker col-12"
+                                     data-live-search="true"
+                                     aria-label="Default select example"
+                                     name="{{ field_name(form.center) }}"
+                                >
+                                        <option value="">Rechercher votre centre en tapant son nom ou bien le département</option>
+                                        {% for option in form.center.vars.choices %}
+                                            {% set selected = patientCenter != null ? (patientCenter.id == option.value ? 'selected' : '') : '' %}
+                                            <option data-tokens="{{ option.label }}" value="{{ option.value }}" {{ selected }}>
+                                                {{ option.data.zipcode }} | {{ option.label }}
+                                            </option>
+                                        {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 text-center mt-4">
+                                <button type="submit" class="btn primary-solid-btn" >Modifier vos informations</button>
+                            </div>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--submit request form end-->
+
+</div>
+{% endblock %}
+

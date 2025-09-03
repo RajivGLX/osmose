@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <section class="domain-search-result-section ptb-100">
+        <div class="container-list-center">
+            <div class="row justify-content-between">
+                <div class="col-lg-3"></div>
+                <div class="col-md-12 col-lg-9">
+                    <div class="content-with-sidebar">
+                        <div class="search-bar">
+                            {%
+                                include "components/_search_data.html.twig"
+                                with {
+                                    form:form,
+                                    query:query,
+                                    allRegions:allRegions,
+                                    resultFilter:resultFilter
+                                }
+                                only
+                            %}
+                        </div>
+                        <h4 class="text-center">
+                            Séléctionnez un centre de Dialyze
+                            <span>
+                            {% if result != null %}
+                                ({{ result }} centre{% if result > 1 %}s trouvés{% else %} trouvé{% endif %})
+                            {% endif %}
+                        </span>
+                        </h4>
+
+                        {% include "components/_flash.html.twig" %}
+                        <div class="list-center">
+                            {% for center in pagination %}
+                            <div class="center">
+                                <div>
+                                    <span class="text-uppercase text-de font-weight-bolder">
+                                        {{ center.region.name }}
+                                    </span>
+                                    <span class="text-uppercase">
+                                        <i class="fa-solid fa-hospital"></i> {{ center.name }}
+                                    </span>
+                                    <span>
+                                        <i class="fa-solid fa-map-pin"></i> {{ center.address }}
+                                    </span>
+                                </div>
+                                <div>
+                                    <a href="{{ path('app_booking', {'slug': center.slug}) }}" class="btn primary-solid-btn">
+                                        Voir les disponibilitées
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-12">
+                            {{ knp_pagination_render(pagination) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

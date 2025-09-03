@@ -1,0 +1,206 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}{% endblock %}
+
+{% block body %}
+    <div class="main register">
+        <section class="gray-light-bg">
+            <div class="container-fluid">
+                <div class="row justify-content-between">
+
+                    <div class="col-md-7 col-lg-6 col-xl-7 d-none d-lg-block">
+                        <!-- Image -->
+                        <div class="bg-cover height-lg-100vh ml-n3 gradient-overly-right" style="background-image: url('{{ asset('img/hero-13.jpg') }}');">
+                            <div class="position-absolute login-signup-content">
+                                <div class="position-relative text-dark-blue col-md-12 col-lg-7">
+                                    <h1 class="text-grey-light">Création de compte</h1>
+                                    <p class="text-grey-light">Créer votre compte gratuitement pour pouvoir profiter des services sécurisé de Dyalizone </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-5">
+                        <div class="login-signup-wrap my-5">
+                            <div class="mb-5 text-center">
+                                <h5 class="h3">Inscription</h5>
+                                <p class="text-muted mb-0">Saisissez vos informations pour continuer.</p>
+                            </div>
+
+                            {% for flash in app.flashes('notice') %}
+                                <div class="alert alert-{{ flash.nature == 'danger' ? 'danger' : (flash.nature == 'success' ? 'success' : 'info') }} mb-3" role="alert">
+                                    {% autoescape false %}{{ flash.message }}{% endautoescape %}
+                                </div>
+                            {% endfor %}
+
+                            {{ form_start(form, {
+                                'attr' : {'class':'login-signup-form d-flex flex-row flex-wrap'}
+                            }) }}
+                                <!-- Champ honeypot caché pour détecter les bots -->
+                                <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+                                <!-- ------------------------- -->
+                                <!-- Token CSRF supplémentaire -->
+                                <input type="hidden" name="_token" value="{{ csrf_token('register') }}">
+                                <!-- ------------------------- -->
+                                <div class="form-group col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                    <label class="pb-1" for="{{ field_label(form.email) }}">
+                                        Adresse mail :
+                                    </label>
+                                    <div class="input-group input-group-merge ">
+                                        <div class="input-icon">
+                                            <span class="ti-email color-primary"></span>
+                                        </div>
+                                        <input
+                                                type="email"
+                                                id="{{ field_label(form.email) }}"
+                                                name="{{ field_name(form.email) }}"
+                                                placeholder="adresse@mail.com"
+                                                value="{{ user.email }}"
+                                                required="required"
+                                                class="form-control {% if field_errors(form.email) is not empty %}is-invalid{% elseif user.email is not empty %}is-valid{% endif %}"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{ form_errors(form.email) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                    <label class="pb-1" for="{{ field_label(form.firstname) }}">
+                                        Votre prénom :
+                                    </label>
+                                    <div class="input-group input-group-merge">
+                                        <div class="input-icon">
+                                            <span class="ti-user color-primary"></span>
+                                        </div>
+                                        <input
+                                                type="text"
+                                                id="{{ field_label(form.firstname) }}"
+                                                name="{{ field_name(form.firstname) }}"
+                                                placeholder="Entrez votre prénom"
+                                                value="{{ user.firstname }}"
+                                                required="required"
+                                                class="form-control {% if field_errors(form.firstname) is not empty %}is-invalid{% elseif user.firstname is not empty %}is-valid{% endif %}"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{ form_errors(form.firstname) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                    <label class="pb-1" for="{{ field_label(form.lastname) }}">
+                                        Votre nom de famille :
+                                    </label>
+                                    <div class="input-group input-group-merge">
+                                        <div class="input-icon">
+                                            <span class="ti-user color-primary"></span>
+                                        </div>
+                                        <input
+                                                type="text"
+                                                id="{{ field_label(form.lastname) }}"
+                                                name="{{ field_name(form.lastname) }}"
+                                                placeholder="Entrez votre nom"
+                                                value="{{ user.lastname }}"
+                                                required="required"
+                                                class="form-control {% if field_errors(form.lastname) is not empty %}is-invalid{% elseif user.lastname is not empty %}is-valid{% endif %}"
+                                        />
+                                        <div class="invalid-feedback">
+                                            {{ form_errors(form.lastname) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                    <label class="pb-1" for="{{ field_label(form.password.first) }}">
+                                        Mot de passe :
+                                    </label>
+                                    <div class="input-group input-group-merge">
+                                        <div class="input-icon">
+                                            <span class="ti-lock color-primary"></span>
+                                        </div>
+                                        <input
+                                                type="password"
+                                                id="{{ field_label(form.password.first) }}"
+                                                name="{{ field_name(form.password.first) }}"
+                                                placeholder="{{ field_label(form.password.first) }}"
+                                                required="required"
+                                                class="form-control {% if field_errors(form.password.first) is not empty %}is-invalid{% endif %}"
+                                        />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" >
+                                              <i class="fas fa-eye"></i>
+                                              <i class="fas fa-eye-slash d-none"></i>
+                                            </span>
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            {{ form_errors(form.password.first) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                    <label class="pb-1" for="password_confirm">
+                                        Confirmez le mot de passe :
+                                    </label>
+                                    <div class="input-group input-group-merge">
+                                        <div class="input-icon">
+                                            <span class="ti-lock color-primary"></span>
+                                        </div>
+                                        <input
+                                                type="password"
+                                                id="password_confirm"
+                                                name="{{ field_name(form.password.second) }}"
+                                                placeholder="{{ field_label(form.password.second) }}"
+                                                required="required"
+                                                class="form-control"
+                                        />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                              <i class="fas fa-eye"></i>
+                                              <i class="fas fa-eye-slash d-none"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="my-2 col-sm-12 col-md-12 col-lg-12 ">
+                                    <div class="custom-control custom-checkbox mb-3">
+                                        <input
+                                                type="checkbox"
+                                                id="check-terms"
+                                                name="{{ field_name(form.termsUser) }}"
+                                                required="required"
+                                                class="custom-control-input {% if field_errors(form.termsUser) is not empty %}is-invalid{% endif %}"
+                                        />
+                                        <label class="custom-control-label" for="check-terms">
+                                            J'accepte les
+                                            <a href="{{ path('app_cgu') }}" target="_blank" title="cgu de dialyzone">
+                                                Conditions Général d'Utilisation de Dialyzone
+                                            </a>
+                                        </label>
+                                        <div class="invalid-feedback">
+                                            {{ form_errors(form.termsUser) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-block primary-solid-btn border-radius mt-4 mb-3" type="submit" name="{{ field_name(form.submit) }}">
+                                    Créer son compte
+                                </button>
+                                <div class="text-center">
+                                    <small class="text-muted text-center">
+                                        Vous avez déjà un compte Dialyzone ? <a href="{{ path('app_user_login') }}">Connexion</a>.
+                                    </small>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+

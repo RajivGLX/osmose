@@ -71,7 +71,7 @@ class BookingController extends AbstractController
             return $this->redirectToRoute('app_booking', ['slug' => $slug, 'month' => $month->month, 'year' => $month->year,]);
         }
 
-        return $this->render('patientInterface/pages/center.html.twig', [
+        return $this->render('pages/center.html.twig', [
             'center' => $center,
             'allPatientBooking' => $allPatientBooking,
             'month' => $month,

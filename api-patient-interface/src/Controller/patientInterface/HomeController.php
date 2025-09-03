@@ -17,7 +17,7 @@ class HomeController extends AbstractController {
     #[\Symfony\Component\Routing\Attribute\Route('/', name: 'home')]
     public function showHomePage()
     {
-        return $this->render('patientInterface/pages/home.html.twig');
+        return $this->render('pages/home.html.twig');
     }
 
     #[\Symfony\Component\Routing\Attribute\Route('/foire-aux-questions', name: 'faq')]
@@ -44,7 +44,7 @@ class HomeController extends AbstractController {
 
         }
 
-        return $this->render('patientInterface/pages/faq.html.twig', [
+        return $this->render('pages/faq.html.twig', [
             'form' => $form->createView()
         ] );
     }

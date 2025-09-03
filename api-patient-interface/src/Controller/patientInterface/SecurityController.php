@@ -21,7 +21,7 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $email = $authenticationUtils->getLastUsername();
 
-        return $this->render('patientInterface/security/login.html.twig', ['email' => $email, 'error' => $error]);
+        return $this->render('security/login.html.twig', ['email' => $email, 'error' => $error]);
     }
 
     #[Route(path: '/deconnexion', name: 'app_user_logout')]

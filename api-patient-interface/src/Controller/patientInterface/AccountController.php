@@ -38,7 +38,7 @@ class AccountController extends AbstractController
     #[IsGranted('ROLE_PATIENT')]
     public function index(): Response
     {
-        return $this->render('patientInterface/account/homeAccount.html.twig', [
+        return $this->render('account/homeAccount.html.twig', [
             'controller_name' => 'AccountController',
         ]);
     }
@@ -62,7 +62,7 @@ class AccountController extends AbstractController
             return $this->redirectToRoute('app_account');
         }
 
-        return $this->render('patientInterface/account/patientUpdatePassword.html.twig', [
+        return $this->render('account/patientUpdatePassword.html.twig', [
             'form' => $form,
             'errorPassword' => $errorPassword,
         ]);
@@ -90,7 +90,7 @@ class AccountController extends AbstractController
             return $this->redirectToRoute('account_information');
         }
 
-        return $this->render('patientInterface/account/patientInformation.html.twig', [
+        return $this->render('account/patientInformation.html.twig', [
             'form' => $form,
             'patientCenter' => $center
         ]);
@@ -104,7 +104,7 @@ class AccountController extends AbstractController
         $futureBooking = $this->bookingRepository->findFutureBookingsByPatient($patient);
 
         $pagination = $this->paginator->paginate($futureBooking, $request->query->get('page', 1), 7);
-        return $this->render('patientInterface/account/bookingList.html.twig', [
+        return $this->render('account/bookingList.html.twig', [
             'patient' => $patient,
             'pagination' => $pagination,
             'title' => 'future'
@@ -118,7 +118,7 @@ class AccountController extends AbstractController
         $oldBooking = $this->bookingRepository->findOldBookingsByPatient($patient);
         $pagination = $this->paginator->paginate($oldBooking, $request->query->get('page', 1), 7);
 
-        return $this->render('patientInterface/account/bookingList.html.twig', [
+        return $this->render('account/bookingList.html.twig', [
             'patient' => $patient,
             'pagination' => $pagination,
             'title' => 'old'
@@ -150,7 +150,7 @@ class AccountController extends AbstractController
             return $this->redirectToRoute('account_booking',['id' => $booking->getId()]);
         }
 
-        return $this->render('patientInterface/account/booking.html.twig', [
+        return $this->render('account/booking.html.twig', [
             'booking' => $booking,
             'form' => $form,
         ]);
@@ -164,7 +164,7 @@ class AccountController extends AbstractController
         if ($booking->getPatient() !== $patient)return $this->redirectToRoute('account_list_future_booking');
         if ($booking->getDateReserve() > $now)return $this->redirectToRoute('account_list_future_booking');
 
-        return $this->render('patientInterface/account/booking.html.twig', [
+        return $this->render('account/booking.html.twig', [
             'booking' => $booking,
         ]);
     }

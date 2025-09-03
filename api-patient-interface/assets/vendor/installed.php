@@ -19,6 +19,16 @@
     array (
     ),
   ),
+  'jquery' => 
+  array (
+    'version' => '3.7.1',
+    'dependencies' => 
+    array (
+    ),
+    'extraFiles' => 
+    array (
+    ),
+  ),
   'bootstrap-select/dist/css/bootstrap-select.min.css' => 
   array (
     'version' => '1.13.18',
@@ -40,23 +50,12 @@
     array (
     ),
   ),
-  'jquery' => 
-  array (
-    'version' => '3.6.0',
-    'dependencies' => 
-    array (
-    ),
-    'extraFiles' => 
-    array (
-    ),
-  ),
   'bootstrap' => 
   array (
-    'version' => '4.6.2',
+    'version' => '5.3.8',
     'dependencies' => 
     array (
-      0 => 'jquery',
-      1 => 'popper.js',
+      0 => '@popperjs/core',
     ),
     'extraFiles' => 
     array (
@@ -74,7 +73,17 @@
   ),
   'bootstrap/dist/css/bootstrap.min.css' => 
   array (
-    'version' => '4.6.2',
+    'version' => '5.3.8',
+    'dependencies' => 
+    array (
+    ),
+    'extraFiles' => 
+    array (
+    ),
+  ),
+  '@popperjs/core' => 
+  array (
+    'version' => '2.11.8',
     'dependencies' => 
     array (
     ),

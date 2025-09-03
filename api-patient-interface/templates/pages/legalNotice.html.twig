@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mention légale{% endblock %}
+
+{% block body %}
+<div class="main">
+
+    <!--page header section start-->
+    <section class="page-header-section ptb-100 gradient-overly-right" style="background: url('{{ asset('assets/img/hero-13.jpg') }}')no-repeat center center / cover">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-7 col-lg-6">
+                    <div class="page-header-content text-white">
+                        <h1 class="text-white mb-2">Mention légale</h1>
+                        <p class="lead">Voici les informations légales concernant notre site web.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="userManual" class="ptb-100 ">
+        <div class="container">
+            <div class="row">
+                <div class="kd-seo-page">
+                    <p>
+                        <strong>MENTIONS LEGALES</strong>
+                    </p>
+                    <p>Les Services proposés par DIALYZONE sont accessibles à l’adresse URL :
+                        <a href="https://www.dialyzone.com" target="_blank">
+                            https://www.dialyzone.com
+                        </a>
+                    </p>
+                    <p>
+                        Editeur du service DIALYZONE: SAS ENOR,
+                        au capital de 10.000 EUROS, immatriculée au Registre du Commerce et des Sociétés
+                        d'Evry sous le numéro 952 107 472, dont le siège social est situé au 10 avenue de Provence - 91940 Les Ulis.
+                        – Tél : 06 82 09 79 21 – Email : contact@dialyzone.com.
+                    </p>
+                    <ul>
+                        <li>
+                            Pour toute demande support, accompagnement pour utiliser la solution : n’hésitez pas à
+                            consulter la
+                            <a href="{{ path('faq') }}" target="_blank">
+                                FAQ
+                            </a> ou envoyer votre demande à
+                            <a href="mailto:contact@dialyzone.com" target="_blank">
+                                contact@dialyzone.com
+                            </a>
+                        </li>
+                        <li>
+                            Pour toute demande d’accès, de rectification, de suppression, d’opposition au traitement de
+                            vos données à caractère personnel, à la limitation du traitement ainsi que votre droit à la
+                            portabilité de vos données :
+                            <a href="#" target="_blank">
+                                https://www.dialyzone.com
+                            </a>
+                        </li>
+                        <li>Pour toute demande d’information commerciale ou partenariat :
+                            <a href="mailto:contact@dialyzone.com" target="_blank">
+                                contact@dialyzone.com
+                            </a>
+                            <br> Directeur de la publication : Rajiv Louis GUILLOUX, Président Enor SAS.
+                        </li>
+                    </ul>
+                    <br>
+                    <p>
+                        Hébergeur:
+                        HOSTINGER INTERNATIONAL LTD, dont le siège
+                        social se situe 61 Lordou Vironos Street, 6023 Larnaca, Chypre, joignable par le moyen suivant : https://www.hostinger.fr/contact
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% apply inline_css(source('@style/mail.css')) %}
+    <table class="wrapper-main">
+        <thead class="wrapper-header ">
+        <tr>
+
+            <td class="logo-header">
+                <img src="{{ email.image('@image/mail/logo-nru.svg') }}" alt="Logo Dialyzone">
+            </td>
+            <td class="text-header">
+                <p>
+                    1<sup>ère</sup> Plateforme de mise en relation<br> entre les patients et centres de dialyse
+                </p>
+            </td>
+
+        </tr>
+        </thead>
+
+        {% block body %}
+
+        {% endblock %}
+
+        <tfoot class="wrapper-footer">
+        <tr class="wrapper-contact">
+            <td class="question">
+                <img src="{{ email.image('@image/mail/pied-de-page.svg') }}" alt="pied de page">
+                <h4>Une question ?</h4>
+            </td>
+            <td class="contact-info">
+                <p class="text-blue"><span class="contact-us">Contactez notre service client</span> <br><span
+                            class="text-yellow phone-nr">01 75 43 80 00</span>
+                </p>
+            </td>
+        </tr>
+        <tr class="wrapper-adresse">
+            <td colspan="2">
+                <p>Dialyzone - 10 avenue de Provence, 91940 Les Ulis
+                    - France</p>
+            </td>
+        </tr>
+
+        </tfoot>
+
+
+    </table>
+{% endapply %}
+

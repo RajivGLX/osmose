@@ -1,0 +1,49 @@
+{{ form_start(form, {'attr' : {'class':'domain-search-form'}} ) }}
+    <div class="container-search">
+        <label for="search">Cherchez le centre de dialyse de votre choix</label>
+        <div class="input-group">
+            <input
+                    type="text"
+                    name="{{ field_name(form.query) }}"
+                    value="{{ query }}"
+                    id="search"
+                    class="form-control"
+                    placeholder="Centre de dialyse"
+            />
+            <div class="input-group-append">
+                <button class="btn search-btn btn-hover d-flex align-items-center" type="submit">
+                    <span class="ti-search mr-2"></span> Recherche
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="domain-extension-filter-wrap p-4 white-bg rounded">
+        <div class="domain-filter-title">
+            <h5 class="mb-0">Filtrez par régions <span class="ti-angle-down float-right"></span></h5>
+        </div>
+        <ul class="list-unstyled domain-filter-list mt-3">
+            {% for region in allRegions %}
+                <li class="form-check">
+                    <label class="form-check-label">
+                        <input
+                                type="checkbox"
+                                class="form-check-input"
+                                value="{{ region.id }}"
+                                name="{{ field_name(form.region) }}[]"
+                                {% for regionCheck in resultFilter %}
+                                    {% if region.id == regionCheck.id %}
+                                        checked
+                                    {% endif %}
+                                {% endfor %}
+                            />
+                        {{ region.name }}
+                    </label>
+                </li>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-block outline-btn mt-3">Filtrez</button>
+        </ul>
+    </div>
+
+{{ form_end(form) }}

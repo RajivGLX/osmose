@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirmation compte{% endblock %}
+{% block header %}{% endblock %}
+
+{% block body %}
+    <div class="main">
+        <section class="confirmationExpired page-header-section ptb-100 gradient-overly-right" style="background: url('{{ asset('assets/img/hero-13.jpg') }}')no-repeat center center / cover">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-10 col-lg-9">
+                        <div class="error-content text-center text-white">
+                            <h1 class="text-white">Erreur</h1>
+                            <p class="lead">
+                                Il semble que <span class="textUnderline">votre lien de confirmation de compte a expiré.</span> <br>
+                                Vous pouvez en demander un nouveau en cliquant sur le bouton ci-dessous.
+                            </p>
+                            <a class="btn outline-white-btn" href="{{ path('resend_token',{'id':id}) }}">Demander un nouveau lien</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

@@ -1,0 +1,137 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contactez Dialyzone{% endblock %}
+
+{% block body %}
+    <div class="main">
+
+        <!--page header section start-->
+        <section class="page-header-section ptb-100 gradient-overly-right" style="background: url('{{ asset('img/hero-13.jpg') }}')no-repeat center center / cover">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-7 col-lg-6">
+                        <div class="page-header-content text-white">
+                            <h1 class="text-white mb-2">Foire Aux Questions (FAQ)</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="faq" class="ptb-100 ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 col-lg-8">
+                        <div class="section-heading mb-5">
+                            <h2>Questions fréquemment posées</h2>
+                            <p>Voici les questions les plus fréquemment posé n'hésitez pas a nous <a href="#banner" class="page-scroll">contacter</a> si vous avez besoin de plus d'informations </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-lg-12">
+                        <div id="accordion-one" class="accordion accordion-faq">
+                            <div class="card mb-0">
+                                <a class="card-header collapsed" data-toggle="collapse" href="#collapseOne">
+                                    <h6 class="mb-0 d-inline-block">Mot de passe oublié ?
+                                    </h6>
+                                </a>
+                                <div id="collapseOne" class="collapse" data-parent="#accordion-one">
+                                    <div class="card-body">
+                                        <p>Si vous souhaitez réinitialiser votre mot de passe voici les étapes a éffectuer :</p>
+                                        <p>
+                                            1 . Cliquez sur "Connexion" situé en haut à droite de la page d'accueil.
+                                            <br>
+                                            2. Cliquez sur "Mot de passe oublié ?" situé à la fin du formulaire de connexion.
+                                            <br>
+                                            3. Saisissez votre adresse mail et cliquez sur "Réinitialisez le mot de passe".
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mb-0">
+                                <a class="card-header collapsed" data-toggle="collapse" href="#collapseTwo">
+                                    <h6 class="mb-0 d-inline-block">Consulter les disponibiltées d'un centre et prendre rendez-vous</h6>
+                                </a>
+                                <div id="collapseTwo" class="collapse" data-parent="#accordion-one">
+                                    <div class="card-body">
+                                        <p>Vous pouvez consulter les disponibilitées d'un centre de dialyse en suivant ces étapes :</p>
+                                        <p>
+                                            1 . Cliquez sur "Réservation" situé dans le menu en haut de votre écran. (Pour cela il faudra être inscrit ou connecté)
+                                            <br>
+                                            2. Saisissez le nom du centre de dialyse que vous recherchez, ou sélectionner sa région d'apartenance en cliquant sur le filtre à gauche de l'écran.
+                                            <br>
+                                            3. Cliquez sur "Recherche".
+                                            <br>
+                                            4. Vous aurez accès à la liste des centres de dialyse correspondant à votre recherche.
+                                            <br>
+                                            5. Cliquez sur le centre de dialyse de votre choix pour consulter ses disponibilitées.
+                                            <br>
+                                            6. Cliquez sur les dates disponible (si les date souhaité ne sont pa disponible vous pouvez joindre le centre de dialyse directement).
+                                            <br>
+                                            7. Sélectionnez la date et l'heure de votre rendez-vous.
+                                            <br>
+                                            8. Ensuite indiquez la raison de votre demande de réservation, vous pouvez aussi laisser un message qui sera lu par le personnel du centre en charge des demandes.
+                                            <br>
+                                            9. Cliquez sur "Demande de réservation".
+                                            <br>
+                                            10. Vous devrais attendre la confirmation du centre de dialyse pour valider votre rendez-vous.
+                                        </p>
+                                        <p>
+                                            Pour plus d'informations vous pouvez consultez la page : <a href="#" title="guide d'utilisation">Guide d'utilisation</a>.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card mb-0">
+                                <a class="card-header collapsed" data-toggle="collapse" href="#collapseThree">
+                                    <h6 class="mb-0 d-inline-block">Préparer son rendez-vous</h6>
+                                </a>
+                                <div id="collapseThree" class="collapse" data-parent="#accordion-one">
+                                    <div class="card-body">
+                                        <p>
+                                            Pour préparer votre rendez-vous avec un centre de dialyse voici les étapes a suivre :
+                                        </p>
+                                        <p>
+                                            Une fois votre demande de reservation efféctué vous pourrez accédé à vos demande en cours depuis votre espace personel ou via ce lien
+                                            <a href="{{ path('account_list_future_booking') }}" title="Demande en cour">Vos demandes en cours</a>.
+                                            Ainsi vous pourrez consulter l'état de votre demande et les informations necessaire pour vous rendre à votre rendez-vous.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="call-to-action ptb-100 gradient-overlay bgClassicBlue">
+            <div class="container">
+                <div class="row justify-content-center" id="banner">
+                    <div class="col-md-9 col-lg-8">
+                        <div class="cta-new-wrap text-white text-center">
+                            <h2 class="text-white">Comprendre Dialyzone</h2>
+                            <p class="lead">
+                                Vous souhaitez comprendre comment utiliser et connaitre toutes les fonctionalités de Dialyzone ?
+                                Cliquez sur le bouton ci-dessous pour accéder à notre guide d'utilisation.
+                            </p>
+                            <div class="action-btns mt-4">
+                                <a href="{{ path('app_user_manual') }}" class="btn solid-white-btn animated-btn mr-lg-3">Guide d'utilisation</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class=" ptb-100">
+            <h2 class="pb-5 text-center">Contact </h2>
+            {%
+                include "components/_form_contact.html.twig"
+                with {form:form}
+                only
+            %}
+        </section>
+    </div>
+{% endblock %}

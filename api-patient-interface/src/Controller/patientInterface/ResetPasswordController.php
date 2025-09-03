@@ -52,7 +52,7 @@ class ResetPasswordController extends AbstractController
             }
             return $this->redirectToRoute('app_reset_password');
         }
-        return $this->render('patientInterface/security/resetPassword.html.twig');
+        return $this->render('security/resetPassword.html.twig');
     }
 
 
@@ -95,7 +95,7 @@ class ResetPasswordController extends AbstractController
 
         }
 
-        return $this->render('patientInterface/security/updatePassword.html.twig', [
+        return $this->render('security/updatePassword.html.twig', [
             'form' => $form,
         ]);
 

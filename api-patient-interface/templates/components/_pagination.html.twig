@@ -1,0 +1,38 @@
+{# tailwindcss Sliding pagination control implementation #}
+{% if pageCount > 1 %}
+    <nav class="custom-pagination-nav mt-4">
+        <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href=
+                    "{% if previous is defined %}{{ path(route, query|merge({(pageParameterName): previous})) }}{% else %}#{% endif %}"
+                    >
+                        <span class="ti-angle-left"></span>
+                    </a>
+                </li>
+
+            {% for page in pagesInRange %}
+                {% if page != current %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ path(route, query|merge({(pageParameterName): page})) }}">
+                            {{ page }}
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item active">
+                        <a class="page-link" href="#">
+                            {{ page }}
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            <li class="page-item">
+                <a class="page-link" href=
+                "{% if next is defined %}{{ path(route, query|merge({(pageParameterName): next})) }}{% else %}#{% endif %}"
+                >
+                    <span class="ti-angle-right"></span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+{% endif %}

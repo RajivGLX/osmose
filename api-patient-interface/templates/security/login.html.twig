@@ -1,0 +1,188 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+{% block header %}{% endblock %}
+
+{% block body %}
+    <div class="main">
+        <section class="gray-light-bg">
+            <div class="container-fluid">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-12 col-md-7 col-lg-6 col-xl-7 d-none d-lg-block p-0">
+                        {% if error is not null and error.code == 2 %}
+                            <div class="confirmationAccount p-5">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="section-heading mb-5">
+                                            <h2>Confirmation d'email requise pour activer votre compte</h2>
+                                            <p>
+                                                Nous sommes ravis que vous nous ayez rejoint. <br>
+                                                Pour commencer à profiter de tous les avantages de Dialyzone, veuillez confirmer votre adresse e-mail.
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-12">
+                                        <div id="accordion-one" class="accordion accordion-faq">
+                                            <div class="card mb-0">
+                                                <a class="card-header collapsed" data-toggle="collapse" href="#collapseOne" aria-expanded="false">
+                                                    <h6 class="mb-0 d-inline-block">Comment activer votre compte ?</h6>
+                                                </a>
+                                                <div id="collapseOne" class="collapse" data-parent="#accordion-one" style="">
+                                                    <div class="card-body">
+                                                        <ul>
+                                                            <li>- Un email de confirmation vous a été envoyé à l'adresse [Adresse e-mail fournie lors de l'inscription].</li>
+                                                            <li>- Ouvrez l'email et cliquez sur le lien de confirmation.</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card mb-0">
+                                                <a class="card-header collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false">
+                                                    <h6 class="mb-0 d-inline-block">Si vous ne trouvez pas l'email de confirmation</h6>
+                                                </a>
+                                                <div id="collapseTwo" class="collapse" data-parent="#accordion-one" style="">
+                                                    <div class="card-body">
+                                                        <ul>
+                                                            <li>- Vérifiez vos dossiers indésirables ou spam.</li>
+                                                            <li>- Attendez quelques minutes, l'email peut prendre un certain temps à arriver.</li>
+                                                            <li>- Si vous ne recevez toujours pas l'email, cliquez sur le bouton "Renvoyer l'email" ci-dessous.</li>
+                                                        </ul>
+                                                        <p><a href="#" class="btn outline-btn border-radius mt-2 mb-1">Renvoyer l'email</a></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card mb-0">
+                                                <a class="card-header collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false">
+                                                    <h6 class="mb-0 d-inline-block">Pourquoi dois-je confirmer mon adresse e-mail ?</h6>
+                                                </a>
+                                                <div id="collapseThree" class="collapse" data-parent="#accordion-one" style="">
+                                                    <div class="card-body">
+                                                        <ul>
+                                                            <li>- Protéger votre compte contre les accès non autorisés.</li>
+                                                            <li>- Vous envoyer des notifications importantes concernant votre compte et Dialyzone.</li>
+                                                        </ul>
+                                                        <p class="mt-2">Nous vous remercions de votre patience et de votre compréhension.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="pt-5">
+                                            <a href="{{ path('resend_token',{'id':error.messageData.id }) }}" class="btn primary-solid-btn border-radius">Renvoyer l'email de confirmation</a>
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="bg-cover height-lg-100vh ml-n3 gradient-overlay" style="background-image: url('{{ asset('img/hero-13.jpg') }}');">
+                                <div class="position-absolute login-signup-content">
+                                    <div class="position-relative text-dark-blue col-md-12 col-lg-7">
+                                        <h1 class="text-dark-blue">Connectez vous</h1>
+                                        {% include "/components/_flash.html.twig" %}
+                                        <p class="lead">Profitez de toutes les donctionnalitées de Dialyzone depuis votre compte</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6 col-xl-5">
+                        <div class="login-signup-wrap my-5">
+                            <div class="mb-5 text-center">
+                                <h5 class="h3">Connexion</h5>
+                                <p class="text-muted mb-0">Connectez vous pour continuer</p>
+                                {# Affichage des erreurs de connexion #}
+                                {% if error %}
+                                    {% if error.code == 2 %}
+                                        <div class="alert alert-warning" role="alert">
+                                            <strong>Compte non activé :</strong> Veuillez confirmer votre adresse e-mail pour activer votre compte.
+                                        </div>
+                                    {% else %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <!--login form-->
+                            <form class="login-signup-form flex-row flex-wrap" action="{{ path('app_user_login') }}" method="post">
+                                <div class="form-group col-12 p-0">
+                                    <label class="pb-1" for="inputEmail">Adresse mail</label>
+                                    <div class="input-group input-group-merge">
+                                        <div class="input-icon">
+                                            <span class="ti-email color-primary"></span>
+                                        </div>
+                                        <input
+                                                type="email"
+                                                id="inputEmail"
+                                                name="_username"
+                                                value="{{ email }}"
+                                                required autofocus
+                                                class="form-control {% if error %}is-invalid{% endif %}"
+                                                placeholder="adresse@mail.com"
+                                                autocomplete="email"
+                                        />
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-12 p-0">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label class="pb-1" for="inputPassword">Mot de passe</label>
+                                        </div>
+                                    </div>
+                                    <div class="input-group input-group-merge">
+                                        <div class="input-icon">
+                                            <span class="ti-lock color-primary"></span>
+                                        </div>
+                                        <input
+                                                type="password"
+                                                id="inputPassword"
+                                                name="_password"
+                                                class="form-control {% if error %}is-invalid{% endif %}"
+                                                placeholder="Entrez votre mot de passe"
+                                                autocomplete="current-password"
+                                                required
+                                        />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                              <i class="fas fa-eye"></i>
+                                              <i class="fas fa-eye-slash d-none"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <a href="{{ path('app_reset_password') }}" class="form-text small text-muted">
+                                        Mot de passe oublié ?
+                                    </a>
+                                </div>
+
+                                <button class="btn btn-block primary-solid-btn border-radius mt-4 mb-3">
+                                    Connexion
+                                </button>
+
+                                <!-- Link -->
+                                <p class="text-center">
+                                    <small class="text-muted text-center">
+                                        Vous n'avez pas de compte ? <a href="{{ path('register') }}">Inscription</a>.
+                                    </small>
+                                </p>
+                                <input type="hidden" name="_csrf_token"
+                                       value="{{ csrf_token('authenticate') }}"
+                                >
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
+
+
+{% block footer %}{% endblock %}

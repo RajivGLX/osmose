@@ -1,0 +1,32 @@
+{% extends '../../../../base.html.twig' %}
+
+{% block title %}Page introuvrable -  - Dialyzone{% endblock %}
+
+{% block body %}
+	<div class="main">
+
+		<section class="gradient-bg ptb-100 height-lg-100vh d-flex align-items-center" style="background: url('{{ asset('assets/img/hero-bg-4.jpg') }}')no-repeat center center / cover">
+			<div class="container">
+				<div class="row align-items-center justify-content-center">
+					<div class="col-md-9 col-lg-7">
+						<div class="error-content text-center text-white">
+							<div class="notfound-404">
+								<h1 class="text-white">500</h1>
+							</div>
+							<h3 class="text-white">Désolé, une erreur s'est produite.</h3>
+							<p>
+								La page que vous recherchez a peut-être été supprimée, son nom a été modifié ou est temporairement indisponible.
+							</p>
+							<a class="btn outline-white-btn" href="{{ path('home') }}">Retour page accueil</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block components %}{% endblock %}

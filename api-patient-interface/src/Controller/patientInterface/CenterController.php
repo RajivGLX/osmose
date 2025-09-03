@@ -49,7 +49,7 @@ class CenterController extends AbstractController
         }
 
 
-        return $this->render('patientInterface/pages/listCenter.html.twig',[
+        return $this->render('pages/listCenter.html.twig',[
             'form'=> $form->createView(),
             'pagination'=> $pagination,
             'allRegions' => $allRegions,

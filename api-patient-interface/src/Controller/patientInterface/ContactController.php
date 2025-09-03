@@ -36,7 +36,7 @@ class ContactController extends AbstractController
 
         }
 
-        return $this->render('patientInterface/pages/contact.html.twig', [
+        return $this->render('pages/contact.html.twig', [
             'form' => $form->createView()
         ] );
     }

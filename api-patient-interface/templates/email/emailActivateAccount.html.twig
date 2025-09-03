@@ -1,0 +1,40 @@
+{% extends "email/baseEmail.html.twig" %}
+{% block body %}
+
+    <tbody class="wrapper-message">
+    <tr>
+        <td colspan="2">
+            <p> Bonjour {{ user.lastname }},</p>
+        </td>
+
+    </tr>
+    <tr>
+        <td colspan="2">
+            <p>
+                {{ sujet }}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <p>Pour pouvoir vous accéder à votre espace, merci d\'activer votre compte en <a href={{ lien }}>Cliquant
+                    ici</a> ou en utilisant le lien ci-dessous
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td class="action-btn-container" colspan="2">
+            <a class="action-btn" href="{{ lien }}"><img
+                        src=" {{ email.image('@image/mail/lock.svg') }}" alt="Icon home"
+                        class='btn-icon'><span class="btn-text">Activer mon compte</span>
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <p>Nous nous tenons bien entendu à votre disposition pour toute question et vous remercions pour votre
+                confiance.</p>
+        </td>
+    </tr>
+
+{% endblock %}

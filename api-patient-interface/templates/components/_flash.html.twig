@@ -1,0 +1,5 @@
+{% for notice in app.flashes('notice') %}
+    <div class="alert alert-{{ notice.nature }}" role="alert">
+        {{ notice.message| raw }}
+    </div>
+{% endfor %}
