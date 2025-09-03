@@ -7,7 +7,7 @@
                         <ul class="list-inline">
                             <li class="list-inline-item d-flex">
                                 {% if app.user %}
-                                    {% set notation = notationByPatient(app.user) %}
+                                    {% set notation = notationByPatient(app.user.patient) %}                                    
                                     <a class="d-inline-block" href="{{ path('account_information') }}" title="Progress bar information">Information profil :</a>
                                     <a class="progress-bar-container d-inline-block" href="{{ path('account_information') }}" title="Progress bar information">
                                         <span class="progress-bar" data-notation="{{ notation }}">{{ notation }}0%</span>
@@ -23,23 +23,11 @@
                     <div class="topbar-text">
                         <ul class="list-inline text-right">
                             {% if app.user %}
-                                <li class="list-inline-item">
-                                    <a href="{{ path('app_account') }}">
-                                        <span class="fas fa-user mr-2"></span> {{ app.user.firstname }} {{ app.user.lastname }}
-                                    </a>
-                                </li>
+                                <li class="list-inline-item"><a href="{{ path('app_account') }}"><span class="fas fa-user mr-2"></span> {{ app.user.firstname }} {{ app.user.lastname }}</a></li>
                             {% else %}
-                                <li class="list-inline-item">
-                                    <a href="{{ path('app_user_login') }}">
-                                        <span class="fas fa-user mr-2"></span> Connexion
-                                    </a>
-                                </li>
+                                <li class="list-inline-item"><a href="{{ path('app_user_login') }}"><span class="fas fa-user mr-2"></span> Connexion</a></li>
                                 <span>/</span>
-                                <li class="list-inline-item">
-                                    <a href="{{ path('register') }}">
-                                        <span class="fa-solid fa-user-plus mr-2"></span> Inscription
-                                    </a>
-                                </li>
+                                <li class="list-inline-item"><a href="{{ path('register') }}"><span class="fa-solid fa-user-plus mr-2"></span> Inscription</a></li>
                             {% endif %}
                         </ul>
                     </div>

@@ -1,0 +1,209 @@
+interface:
+  global:
+    invalid_credentials: Identifiants invalides
+backend:
+  global:
+    admin: Dialyzone admin
+    welcome: Bienvenue
+    you_are_logged: Vous êtes connecté en tant que
+    leave_impersonate: Quitter l'impersonnation
+    change_my_password: Changer mon mot de passe
+    logout: Deconnexion
+    error: Erreur
+    success: Succès
+    an_unexpected_error: Une erreur innatendue est survenue
+    must_not_be_empty: Ne doit pas être vide
+    please_confirm: Veuillez confirmer votre action?
+    choice_action: Selectionner une action
+    no_item_selected: Aucun article selectionné
+    Invalid credentials.: Identifiants invalides.
+    unauthorized: Vous n'êtes pas autorisé à accéder à cette page
+  menu:
+    home: Accueil
+    user: Utilisateur
+    center: Centres de dialyse
+    manage: Gérer
+    categories: Categorie
+    blog: Blog
+    history: Historique
+    settings: Parametre
+    general: Génerale
+    faq: FAQ
+    contact: Conctact
+    inbox: Boîte de reception
+    manage_admin: Gestion des admninistrateurs
+    manage_patient: Gestion des patients
+  role:
+    choice_role: Choisissez un role
+  user:
+    listing: Liste des utilisateurs
+    user_listing: Gérer les utilisateurs depuis cette page
+    group_actions: Action de groupe
+    deactivate: Désactiver
+    Activate: Activer
+    delete: Supprimer
+    username: Nom d'utilisateur
+    firstname: Prénom
+    lastname: Nom de famille
+    role: Role
+    email: Email
+    email_already_exist: L'email saisi est déjà associé à un compte
+    modifier: Modifier
+    status: Etat
+    calendar: Calendrier
+    password: Mot de passe
+    submit: Soumettre
+    cancel: Annuler
+    register: Enregistrer
+    changer_password: Changer de mot de passe
+    changer_my_password: Changer mon mot de passe
+    current_password: Mot de passe actuel
+    new_password: Nouveau mot de passe
+    confirm_password: Confirmé mot de passe
+    remember_password: Veuiller votre mot de passe actuel
+    error_current_password: Le mot de passe actuel est incorrect
+    new_password_must_be: Les nouveaux mot de passe doivent être identique.
+    changed_password: Mot de passe modifié
+    add_user: Utilisateur ajouté
+    modify_user: Utilisateur modifié
+    not_modify_user: Une erreur est survenue l'utilisateur n'a pas été modifié
+    label_role: Assigner un rôle
+    non_authorized: Vous n'êtes pas autorisé accéder à cette page
+  patient:
+    name: Patient
+    phone: Numéro de téléphone
+    medical_history: Information médicale sur le patient
+    btn_add: Ajouter un patient
+    add_user: Patient ajouté
+    not_add_user: Une erreur est survenue le patient n'a pas été ajouté
+    label_center: Choisir le centre de référence du patient
+    center_error: Choisisez le centre de référence du patient
+    listing: Liste des patients
+    add: Création d'un patient
+    info: Information sur le patient
+    manage: Gestion des patients
+    new: Ajout d'un patient
+    update: Modification d'un patient
+  admin:
+    name: Adminitsrateur
+    service: Service de l'admnistrateur
+    btn_add: Ajouter un administrateur
+    add_user: Administrateur ajouté
+    not_add_user: Une erreur est survenue l'administrateur n'a pas été ajouté
+    manage: Gestion des administrateurs
+    label_center: Choisir le ou les centre(s) de gestion
+    label_role: Choisir le rôle de l'administrateur
+    center_error: Choisir au moins un centre pour l'administrateur
+    role_error: Choisir un role pour l'administrateur
+    update: Modification administrateur
+    new: Ajout d'un administrateur
+  center:
+    name: Centre
+    slot: Créneau
+    listing: Liste des centres
+    center_listing: Gérer les centres depuis cette page
+    address: Adresse
+    region: Région
+    group: Groupement
+    add_center: Ajouter un centre
+    label_group_dialyzone: Informations administrateurs Dialyzone
+    label_group_general: Informations générales
+    label_group_dialysis: Informations sur la dialyse patient
+    label_group_state: état du patient
+    label_group_address: Adresse du centre
+    label_group_slot: Gestions des créneaux
+    label_slot_first: Créneau du matin
+    label_slot_second: Créneau de l'aprés-midi
+    label_slot_third: Créneau du soir
+    update_center: Modifier un centre
+    label_name: Nom du centre
+    label_email: Email du centre
+    label_hour_start: Heure de début
+    label_hour_end: Heure de fin
+    label_band: Groupe d'appartenance
+    label_address: Adresse du centre
+    label_city: Ville du centre
+    label_zipcode: Code postal du centre
+    label_url : Url du site internet
+    label_place_available : Nombre de places disponible par défaut
+    label_active: Activé le centre ?
+    label_phone: Téléphone
+    label_center: Centre de dialyse de référence
+    label_Latitude_longitude: Renseigner la latitude et la longitude du centre
+    label_region: Région d'appartenance du centre
+    title_region: Sélectionné la région d'appartenance du centre
+    update: Modification centre
+    new: Ajout d'un centre
+    modify_center: Centre sauvegardé !
+    not_modify_center: Une erreur est survenue le centre n'a pas été sauvegardé
+    manage: Gestion des centres
+  booking:
+    booking: Rendez-vous
+    book_in: Reservation du
+    info_home: Information sur l'acueil
+    comment_for_center: Commentaire pour le centre de dialyze
+    status_book: Statut de la réservation
+    start: Début
+    end: Fin
+    manage_calendar: Gestion des disponibilitées
+    view_week: Vue semaine
+    view_month: Vue mois
+    calendar: Calendrier
+    save_success: Vos changement on bien été pris en compte
+    save_error: Une erreur est survenue, vos changement n'ont pas été pris en compte
+    select_center: Calendrier centre
+    morning: Matin
+    afternoon: Aprés-Midi
+    evening: Soirée
+    all_morning: Cocher tous les matins
+    all_afternoon: Cocher toutes les aprés-midi
+    all_evening: Cocher toutes les soirées
+    number_place: Place
+    place_booked: Place réservée
+  request:
+    request: Demande
+    id: Id demande
+    request_management: Gestion des demandes
+    patient_name: Prénom et nom du patient
+    date_request: Date de la demande
+    date_booking: Date de la réservation
+    status_history: Historique des statuts
+    status: Statut de la demande
+    status_active: Statut actuel
+    action_view: Gérer la demande
+    slot: Créneau
+    listing: Liste des demandes
+    list: Liste des demandes
+    medical_information: Informations médical
+    modify_all_status: Modifier les statuts de la selection
+    success_modify_all_status: Les statuts des demandes selectionnées ont été modifiés
+    error_modify_all_status: Les statuts des demandes selectionnées n'ont pas été modifiés
+    not_info: Le patient n'a pas fournie d'information médical
+    other_request: Autres demandes
+    reason: Motif de la demande
+    no_reason: Aucun motif connu
+    no_comment: Aucun commentaire émis par le ptaient
+    comment: Commentaire
+    select: Sélection
+    label_status: Changer le statut de la demande
+    label_all_status: Changer les statuts sélectionné en
+    modify_status: Statut de la demande modifié
+    demande-confirme: Demande confirmée
+    demande-refuse: Demande refusée
+    demande-contact: Besoin de contacter le patient
+    dont_change_status: Vous ne pouvez pas changer le statut de cette demande, si vous avez besoin de le faire, veuillez contacter le service technique
+  login:
+    title: Admin Dialyzone
+    login: Connexion
+    password: Mot de passe
+    email : Email
+    lost_password : Mot de passe oublié
+    all_rights: Tous droits réservés
+  reset_password:
+    title: Réinitialiser votre mot de passe
+    instruction : Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.
+    submit : Envoyer un e-mail de réinitialisation du mot de passe
+    email_check : Un e-mail a été envoyé contenant un lien sur lequel vous pouvez cliquer pour réinitialiser votre mot de passe. Ce lien expirera dans
+    hours : heure(s)
+    try_again_info: Si vous ne recevez pas d'e-mail, veuillez vérifier votre dossier spam ou
+    try_again: essayez   à nouveau
