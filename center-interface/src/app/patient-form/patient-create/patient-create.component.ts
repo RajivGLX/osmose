@@ -43,13 +43,11 @@ import { TypeDialysis } from '../../utils/pipe/type-dialysis.pipe';
 export class PatientCreateComponent {
         @Output() goBackEvent = new EventEmitter<void>()
         @ViewChild('drugAllergiePreciseInput') drugAllergiePreciseInput!: ElementRef
-        @ViewChild('renalFailureOtherInput') renalFailureOtherInput!: ElementRef
-    
+
     
         patient_form = this.patientFormService.patient_form
         precise_allergie_form = this.patientFormService.precise_allergie_form
-        renal_failure_form = this.patientFormService.renal_failure_form
-    
+
         allCenter: Observable<Center[]> =  this.centerListService.allCenter$
     
         loadingPatient: WritableSignal<boolean> = this.patientFormService.loadingPatientCreate
@@ -57,7 +55,6 @@ export class PatientCreateComponent {
         hide: boolean = true
         errors : any = {}
     
-        listRenalFailure = this.patientFormService.listRenalFailure
         listTypeDialysis = this.patientFormService.listTypeDialysis
         listAccessSite = this.patientFormService.listAccessSite
     
@@ -73,8 +70,6 @@ export class PatientCreateComponent {
             // Récupère les informations de l'utilisateur pour le formulaire de modif
             this.errorHandler.handleErrors(this.patient_form,this.errors)
             this.errorHandler.handleErrors(this.precise_allergie_form,this.errors)
-            this.errorHandler.handleErrors(this.renal_failure_form,this.errors)
-            
             this.valueChangeFocus()
         }
     
@@ -86,9 +81,6 @@ export class PatientCreateComponent {
         valueChangeFocus() {
             this.precise_allergie_form.get('drug_allergies')?.valueChanges.subscribe(value => {
                 if (value === true) this.drugAllergiePreciseInput.nativeElement.focus()
-            })
-            this.renal_failure_form.get('renal_failure')?.valueChanges.subscribe(value => {
-                if (value === 'Autre') this.renalFailureOtherInput.nativeElement.focus()
             })
         }
 

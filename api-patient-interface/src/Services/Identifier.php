@@ -51,7 +51,7 @@ Class Identifier
 
     public function notationByPatient(Patient $patient): float
     {
-        $properties = ['getPhone','getCenter', 'getRenalFailure', 'getTypeDialysis', 'isDrugAllergies', 'getDialysisStartDate', 'getVascularAccessType'];
+        $properties = ['getPhone','getCenter', 'getTypeDialysis', 'isDrugAllergies', 'getDialysisStartDate', 'getVascularAccessType'];
         $notation = 0;
 
         foreach ($properties as $property) {

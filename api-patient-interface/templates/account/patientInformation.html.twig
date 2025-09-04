@@ -14,8 +14,9 @@
                     <div class="page-header-content text-white">
                         <h1 class="text-white mb-2">Vos Informations</h1>
                         <p class="lead">
-                            Consultez ou modifier vos informations, il est important de renseigner un maximum
-                            d'informations ces derniere auron pour seul but de rensigner les équipes médicales.
+                            Consultez ou modifiez vos informations.
+                            Il est important de renseigner un maximum de données,
+                            celles-ci ayant pour unique objectif d’informer les équipes médicales
                         </p>
                     </div>
                 </div>
@@ -45,75 +46,68 @@
     <section class="submit-request-form ptb-50 patientInformation">
         <div class="container">
             {{ include('components/_flash.html.twig') }}
-            <div class="row">
-                <div class="col-md-12 col-lg-12">
-                    {{ form_start(form, {'attr' : {'class':'submit-request-form'}} ) }}
-                        <div class="row">
-                            <div class="form-group col-4">
-                                {{ form_row(form.firstname) }}
-                            </div>
-                            <div class="form-group col-4">
-                                {{ form_row(form.lastname) }}
-                            </div>
-                            <div class="form-group col-4">
-                                {{ form_row(form.patient.phone) }}
-                            </div>
-                            <div class="form-group col-12">
-                                {{ form_row(form.patient.dialysisStartDate) }}
-                            </div>
-                            <div class="form-group col-6">
-                                {{ form_row(form.patient.typeDialysis) }}
-                            </div>
-                            <div class="form-group col-6">
-                                {{ form_row(form.patient.renalFailure) }}
-                            </div>
-                            <div class="form-group col-6">
-                                {{ form_row(form.patient.drugAllergies, {'attr' : {'class':'formRadio'}} ) }}
-                            </div>
-                            <div class="form-group col-6">
-                                {{ form_row(form.patient.drugAllergiePrecise) }}
-                            </div>
-                            <div class="form-group col-12">
-                                {{ form_row(form.patient.vascularAccessType, {'attr' : {'class':'formRadio'}} ) }}
-                            </div>
-                            <div class="form-group col-12">
-                                <label class="pb-1" for="{{ field_name(form.patient.medicalHistory) }}">
-                                    {{ field_label(form.patient.medicalHistory) }}
-                                </label>
-                                <textarea
-                                        name="{{ field_name(form.patient.medicalHistory) }}"
-                                        id="{{ field_name(form.patient.medicalHistory) }}"
-                                        class="form-control {% if field_errors(form.patient.medicalHistory) is not empty %}is-invalid{% endif %}"
-                                        rows="5"
-                                        cols="25"
-                                        placeholder="Votre message"
-                                >{{ field_value(form.patient.medicalHistory) }}</textarea>
-                                <div class="invalid-feedback">
-                                    {{ form_errors(form.patient.medicalHistory) }}
-                                </div>
-                            </div>
-                            <div class="form-group col-12">
-                                <label for="selectpicker">Séléctionner votre centre actuel :</label>
-                                {% if field_errors(form.patient.center) is not empty %}
-                                    <div class="alert alert-danger" role="alert">{{ "backend.patient.center_error"|trans }}</div>
-                                {% endif %}
-                                <select id="selectpicker" class="selectpicker col-12" data-live-search="true" aria-label="Default select example" name="{{ field_name(form.patient.center) }}">
-                                    <option value="">Rechercher votre centre en tapant son nom ou bien le département dans lequel il se trouve</option>
-                                    {% for option in form.patient.center.vars.choices %}
-                                        {% set selected = patientCenter != null ? (patientCenter.id == option.value ? 'selected' : '') : '' %}
-                                        <option data-tokens="{{ option.label }}" value="{{ option.value }}" {{ selected }}>
-                                            {{ option.data.zipcode }} / {{ option.label }}
-                                        </option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12 text-center mt-4">
-                                <button type="submit" class="btn primary-solid-btn" >Modifier vos informations</button>
+                {{ form_start(form, {'attr' : {'class':'submit-request-form'}} ) }}
+                    <div class="row">
+                        <div class="form-group col-4">
+                            {{ form_row(form.firstname) }}
+                        </div>
+                        <div class="form-group col-4">
+                            {{ form_row(form.lastname) }}
+                        </div>
+                        <div class="form-group col-4">
+                            {{ form_row(form.patient.phone) }}
+                        </div>
+                        <div class="form-group col-12">
+                            {{ form_row(form.patient.dialysisStartDate) }}
+                        </div>
+                        <div class="form-group col-6">
+                            {{ form_row(form.patient.typeDialysis) }}
+                        </div>
+                        <div class="form-group col-6">
+                            {{ form_row(form.patient.vascularAccessType) }}
+                        </div>
+                        <div class="form-group col-6">
+                            {{ form_row(form.patient.drugAllergies, {'attr' : {'class':'formRadio'}} ) }}
+                        </div>
+                        <div class="form-group col-6">
+                            {{ form_row(form.patient.drugAllergiePrecise) }}
+                        </div>
+                        <div class="form-group col-12">
+                            <label for="selectpicker">Séléctionner votre centre actuel :</label>
+                            {% if field_errors(form.patient.center) is not empty %}
+                                <div class="alert alert-danger" role="alert">{{ "backend.patient.center_error"|trans }}</div>
+                            {% endif %}
+                            <select id="selectpicker" class="selectpicker col-12" data-live-search="true" aria-label="Default select example" name="{{ field_name(form.patient.center) }}">
+                                <option value="">Rechercher votre centre en tapant son nom ou bien le département dans lequel il se trouve</option>
+                                {% for option in form.patient.center.vars.choices %}
+                                    {% set selected = patientCenter != null ? (patientCenter.id == option.value ? 'selected' : '') : '' %}
+                                    <option data-tokens="{{ option.label }}" value="{{ option.value }}" {{ selected }}>
+                                        {{ option.data.zipcode }} / {{ option.label }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group col-12">
+                            <label class="pb-1" for="{{ field_name(form.patient.medicalHistory) }}">
+                                {{ field_label(form.patient.medicalHistory) }}
+                            </label>
+                            <textarea
+                                    name="{{ field_name(form.patient.medicalHistory) }}"
+                                    id="{{ field_name(form.patient.medicalHistory) }}"
+                                    class="form-control {% if field_errors(form.patient.medicalHistory) is not empty %}is-invalid{% endif %}"
+                                    rows="5"
+                                    cols="25"
+                                    placeholder="Votre message"
+                            >{{ field_value(form.patient.medicalHistory) }}</textarea>
+                            <div class="invalid-feedback">
+                                {{ form_errors(form.patient.medicalHistory) }}
                             </div>
                         </div>
-                    {{ form_end(form) }}
-                </div>
-            </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 text-center mt-4">
+                            <button type="submit" class="btn primary-solid-btn" >Modifier vos informations</button>
+                        </div>
+                    </div>
+                {{ form_end(form) }}
         </div>
     </section>
     <!--submit request form end-->

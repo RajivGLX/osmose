@@ -40,9 +40,6 @@ class PatientDTO
 
     public ?string $vascular_access_type = null;
 
-    public ?string $renal_failure = null;
-    public ?string $renal_failure_other = null;
-
     public ?string $dialysis_start_date = null;
 
     #[Assert\Type('bool')]

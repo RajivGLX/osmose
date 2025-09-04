@@ -2521,16 +2521,6 @@ pre code {
 }
 
 /* line 6, src/assets/scss/vendors/bootstrap.min.css */
-.form-control:focus {
-  color: #495057;
-  background-color: #fff;
-  border-color: #80bdff;
-  outline: 0;
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-          box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-}
-
-/* line 6, src/assets/scss/vendors/bootstrap.min.css */
 .form-control::-webkit-input-placeholder {
   color: #6c757d;
   opacity: 1;
@@ -50970,7 +50960,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
   color: #1e317f;
 }
 
@@ -51012,7 +51002,7 @@ h4 {
 .lead {
   font-size: 1.125rem;
   font-weight: 400;
-  font-family: Poppins, sans-serif;
+  font-family: Dm Sans, sans-serif;
 }
 
 /* line 111, src/assets/scss/custom/_style.scss */
@@ -51034,14 +51024,14 @@ li {
 /* line 121, src/assets/scss/custom/_style.scss */
 strong, b {
   font-weight: 500 !important;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
 }
 
 /* line 126, src/assets/scss/custom/_style.scss */
 .badge {
   display: inline;
   padding: 0.25rem .45rem;
-  font-family: Poppins, sans-serif;
+  font-family: Dm Sans, sans-serif;
   font-weight: 500;
   font-size: 11px;
   line-height: 11px;
@@ -51203,7 +51193,7 @@ a:hover {
 /* line 256, src/assets/scss/custom/_style.scss */
 .outline-btn, .secondary-solid-btn, .primary-solid-btn, .solid-white-btn, .outline-white-btn, .secondary-outline-btn {
   padding: 12px 28px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
   font-weight: 500;
   font-size: 14px;
   -webkit-transition: all .3s ease-in-out;
@@ -51438,7 +51428,7 @@ select.form-control.has-value {
 /* line 446, src/assets/scss/custom/_style.scss */
 #header-top-bar {
   padding: 0.75rem 0;
-  background: #f1f1f1;
+  background: #f5f6fa;
 }
 
 /* line 450, src/assets/scss/custom/_style.scss */
@@ -51459,7 +51449,7 @@ select.form-control.has-value {
   color: #1e317f;
   font-size: 13px;
   line-height: 15px;
-  font-family: Poppins, sans-serif;
+  font-family: Dm Sans, sans-serif;
 }
 
 /* line 465, src/assets/scss/custom/_style.scss */
@@ -51545,7 +51535,7 @@ select.form-control.has-value {
           align-items: center;
   font-size: 14px;
   font-weight: 500;
-  font-family: Poppins, sans-serif;
+  font-family: Dm Sans, sans-serif;
   color: #1e317f;
 }
 
@@ -51612,7 +51602,7 @@ select.form-control.has-value {
 .custom-nav-link {
   font-size: 14px;
   line-height: 16px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
   font-weight: 500;
   color: #1e317f;
   position: relative;
@@ -51681,7 +51671,7 @@ select.form-control.has-value {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
   color: #1e317f;
 }
 
@@ -52063,7 +52053,7 @@ select.form-control.has-value {
 .u-header__promo-title {
   display: block;
   font-weight: 600;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
   font-size: 14px;
   line-height: 24px;
 }
@@ -52098,7 +52088,7 @@ select.form-control.has-value {
 
 /* line 977, src/assets/scss/custom/_style.scss */
 .u-header__promo-footer-item small, .u-header__promo-footer-item a {
-  font-family: Poppins, sans-serif;
+  font-family: Dm Sans, sans-serif;
 }
 
 /* line 980, src/assets/scss/custom/_style.scss */
@@ -52943,7 +52933,7 @@ svg.shape-bg, svg.promo-bg {
 
 /* line 1712, src/assets/scss/custom/_style.scss */
 .custom-plan-box .slider .tooltip {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
   font-size: 14px;
   font-weight: 700;
 }
@@ -53116,7 +53106,7 @@ svg.shape-bg, svg.promo-bg {
 
 /* line 1865, src/assets/scss/custom/_style.scss */
 .custom-plan-info-box .price {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
   font-size: 30px;
   font-weight: 700;
   color: #3679e4;
@@ -53179,7 +53169,7 @@ svg.shape-bg, svg.promo-bg {
 .pricing-header .price {
   font-size: 35px;
   font-weight: 700;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
   color: #3679e4;
 }
 
@@ -53222,7 +53212,7 @@ svg.shape-bg, svg.promo-bg {
 /* line 1947, src/assets/scss/custom/_style.scss */
 .pricing-feature-list li span {
   font-weight: 700;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
   color: #5a5a5a;
   font-size: 13px;
 }
@@ -53277,7 +53267,7 @@ svg.shape-bg, svg.promo-bg {
   font-size: 12px;
   letter-spacing: 0.5px;
   font-weight: 700;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
 }
 
 /* line 1990, src/assets/scss/custom/_style.scss */
@@ -53626,7 +53616,7 @@ td.td-blank {
 
 /* line 2277, src/assets/scss/custom/_style.scss */
 .accordion-faq .card-header h6 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
   font-weight: 600;
 }
 
@@ -53900,7 +53890,7 @@ a .single-promo-2 p {
 .domain-price h6 {
   font-size: 16px;
   font-weight: 700;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
 }
 
 /* line 2503, src/assets/scss/custom/_style.scss */
@@ -53914,7 +53904,7 @@ a .single-promo-2 p {
   color: #757575;
   font-size: 14px;
   font-weight: 600;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
   opacity: .7;
   text-decoration: line-through;
 }
@@ -53954,7 +53944,7 @@ a .single-promo-2 p {
 /* line 2542, src/assets/scss/custom/_style.scss */
 .feature-tab li a.nav-link {
   border: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
   font-weight: 500;
   color: #333333;
   margin-bottom: 0;
@@ -54036,7 +54026,7 @@ ul.disc-style li {
 .domain-price-list .domain-new-price {
   font-size: 22px;
   line-height: initial;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
   font-weight: 700;
 }
 
@@ -54154,7 +54144,7 @@ ul.disc-style li {
           box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.15);
   font-weight: 500;
   font-size: 14px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
   z-index: 0 !important;
 }
 
@@ -54339,7 +54329,7 @@ ul.disc-style li {
 =====================================================*/
 /* line 2875, src/assets/scss/custom/_style.scss */
 .submit-request-form .form-group label {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
   font-weight: 500;
   margin-bottom: 4px;
 }
@@ -54417,7 +54407,7 @@ span.upfile-btn {
   font-weight: 600;
   text-transform: uppercase;
   vertical-align: middle;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
 }
 
 /* line 2947, src/assets/scss/custom/_style.scss */
@@ -54502,7 +54492,7 @@ span.upfile-btn {
   font-size: 20px;
   font-weight: 700;
   color: #3679e4;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
 }
 
 /* line 3016, src/assets/scss/custom/_style.scss */
@@ -54768,7 +54758,7 @@ table > tbody > tr > td:first-child:before {
 .action-wrap a {
   font-size: 15px;
   font-weight: 400;
-  font-family: Poppins, sans-serif;
+  font-family: Dm Sans, sans-serif;
 }
 
 /* line 3248, src/assets/scss/custom/_style.scss */
@@ -55105,7 +55095,7 @@ a.view-details-link:hover span {
 
 /* line 3512, src/assets/scss/custom/_style.scss */
 .login-signup-form .form-group label {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
   font-weight: 500;
   font-size: 88%;
 }
@@ -55271,7 +55261,7 @@ a.view-details-link:hover span {
 
 /* line 3630, src/assets/scss/custom/_style.scss */
 .single-blog-card a {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
 }
 
 /* line 3633, src/assets/scss/custom/_style.scss */
@@ -55294,7 +55284,7 @@ a.detail-link {
   color: #495057;
   font-weight: 600;
   font-size: 13px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
 }
 
 /* line 3652, src/assets/scss/custom/_style.scss */
@@ -55564,7 +55554,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   line-height: 33px;
   border-radius: 100%;
   padding: inherit;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
   font-weight: 600;
 }
 
@@ -55626,7 +55616,7 @@ button, [type="button"], [type="reset"], [type="submit"] {
 /* line 3897, src/assets/scss/custom/_style.scss */
 .widget .widget-title > h6 {
   text-transform: uppercase;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
   letter-spacing: 1px;
   font-weight: 600;
   font-size: 12px;
@@ -55701,7 +55691,7 @@ button, [type="button"], [type="reset"], [type="submit"] {
   font-size: 9px !important;
   color: #757575;
   font-weight: 500;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
 }
 
 /* line 3956, src/assets/scss/custom/_style.scss */
@@ -55866,7 +55856,7 @@ button.scroll-top:focus {
 .copyright-text {
   font-size: 14px;
   font-weight: 500;
-  font-family: Poppins, sans-serif;
+  font-family: Dm Sans, sans-serif;
 }
 
 /* line 4095, src/assets/scss/custom/_style.scss */
@@ -56017,7 +56007,7 @@ button.scroll-top:focus {
   font-size: 100px;
   line-height: 115px;
   font-weight: 700;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
 }
 
 /* line 4214, src/assets/scss/custom/_style.scss */
@@ -56051,7 +56041,7 @@ button.scroll-top:focus {
 /* line 4233, src/assets/scss/custom/_style.scss */
 .ribbon-2 span {
   font-size: 20px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Dm Sans', sans-serif;
   font-weight: 500;
   padding: 0 15px 0 25px;
 }
@@ -56079,7 +56069,7 @@ button.scroll-top:focus {
   font-size: 30px;
   line-height: 55px;
   font-weight: 600;
-  font-family: Poppins, sans-serif;
+  font-family: Dm Sans, sans-serif;
 }
 
 /* line 4260, src/assets/scss/custom/_style.scss */
@@ -56098,7 +56088,7 @@ button.scroll-top:focus {
 .pass h6 {
   font-size: 14px;
   font-weight: 600;
-  font-family: Poppins, sans-serif;
+  font-family: Dm Sans, sans-serif;
 }
 
 /* line 4273, src/assets/scss/custom/_style.scss */
@@ -56188,7 +56178,7 @@ button.scroll-top:focus {
 
 /* line 4333, src/assets/scss/custom/_style.scss */
 .single-radio-box label {
-  font-family: Poppins, sans-serif;
+  font-family: Dm Sans, sans-serif;
   display: block;
   position: relative;
   padding: 10px;

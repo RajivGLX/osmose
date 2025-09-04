@@ -42,10 +42,6 @@ class Patient
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['info_user', 'info_booking'])]
-    private ?string $renal_failure = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['info_user', 'info_booking'])]
     private ?string $type_dialysis = null;
 
     #[ORM\Column(nullable: true)]
@@ -63,9 +59,6 @@ class Patient
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['info_user', 'info_booking'])]
     private ?string $vascular_access_type = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $renal_failure_other = null;
 
     public function __construct()
     {
@@ -167,18 +160,6 @@ class Patient
         return $this;
     }
 
-    public function getRenalFailure(): ?string
-    {
-        return $this->renal_failure;
-    }
-
-    public function setRenalFailure(?string $renal_failure): static
-    {
-        $this->renal_failure = $renal_failure;
-
-        return $this;
-    }
-
     public function getTypeDialysis(): ?string
     {
         return $this->type_dialysis;
@@ -235,18 +216,6 @@ class Patient
     public function setVascularAccessType(?string $vascular_access_type): static
     {
         $this->vascular_access_type = $vascular_access_type;
-
-        return $this;
-    }
-
-    public function getRenalFailureOther(): ?string
-    {
-        return $this->renal_failure_other;
-    }
-
-    public function setRenalFailureOther(?string $renal_failure_other): static
-    {
-        $this->renal_failure_other = $renal_failure_other;
 
         return $this;
     }

@@ -7,14 +7,15 @@
 
     --dark-blue: #1e317f;
     --light-blue: #3679E4;
-    --grey-light: #f1f1f1;
+    --grey-light: #f5f6fa;
     --white: #ffffff;
     /* Couleurs secondaires */
 
 }
 
+
 body{
-    font-family: 'Poppins', sans-serif!important;
+    font-family: 'DM Sans', sans-serif!important;
     background-color: var(--grey-light)!important;
 }
 
@@ -99,39 +100,71 @@ label{
 label.required::after{
     content: "*";
     color: red;
+    font-size: 20px;
     position: absolute;
     right: -10px;
     top: -10px;
 }
+.form-control:focus {
+    color: #495057;
+    background-color: rgba(245, 246, 250, 0.50);
+    border-color: var(--dark-blue);
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0.2rem var(--dark-blue);
+    box-shadow: 0 0 0 0.2rem var(--dark-blue);
+}
 
 .form-group legend{
     font-weight: 500;
+    font-size: 14px;
     color: var(--dark-blue);
+    margin-bottom: 4px;
+    line-height: 1.75;
+    padding: 0;
 }
 
 .form-group input::placeholder, .form-group textarea::placeholder{
     color: rgba(108, 117, 125, 0.7) !important;
     font-size: 14px;
 }
+.form-group label{
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--dark-blue);
+}
 .form-group input, .form-group textarea{
     font-size: 14px;
     color: var(--dark-blue);
+    background-color: var(--grey-light);
 }
 select.form-control {
     padding: 0 0.85rem;
     font-size: 14px;
     color: var(--dark-blue);
+    background-color: var(--grey-light);
 }
 
 .formRadio{
     display: flex;
+    align-items: center;
+    height: calc(2em + .75rem);
     gap: 15px;
+    border: 1px solid #ebebeb;
+    background-color: var(--grey-light);
+    border-radius: .25rem;
+    background-clip: padding-box;
+    line-height: 1.5;
+    padding: 0 13px;
 }
 .formRadio label, .formRadio input{
     cursor: pointer;
 }
 .formRadio input{
     margin-top: 8px;
+}
+.bootstrap-select>.dropdown-toggle.bs-placeholder{
+    color: var(--dark-blue) !important;
+    background-color: var(--grey-light) !important;
 }
 
 /*-------------------------Alert---------------------*/
@@ -693,6 +726,13 @@ input:checked + .switch span:active::before {
 .statusMode i:last-child{
     display: none;
 }
+/*-------------------PatientInformation------------------*/
+#account_information form{
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 15px;
+}
+
 /*------------------------Booking-----------------------*/
 .bookingContainer h2{
     font-size: 30px;
@@ -837,4 +877,13 @@ dialog + .modalOverlay{
 
 #cgu strong{
     text-decoration: underline;
+}
+#contact .single-promo-card{
+    background-color: var(--white);
+}
+
+#contact form{
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 15px;
 }

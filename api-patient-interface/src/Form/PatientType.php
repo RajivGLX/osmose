@@ -77,19 +77,6 @@ class PatientType extends AbstractType
                 ],
                 'placeholder' => false,
             ])
-            ->add('renalFailure', ChoiceType::class, [
-                'label' => 'Type d\'insuffisance rénale :',
-                'required' => false,
-                'choices' => [
-                    'Non renseigné' => null,
-                    'Diabète' => 'Diabète ',
-                    'Hypertension artérielle' => 'Hypertension artérielle',
-                    'Glomérulonéphrite' => 'Glomérulonéphrite ',
-                    'Maladie polykystique des reins' => 'Maladie polykystique des reins',
-                    'Autre (veuillez préciser)' => 'Autre ',
-                ],
-                'placeholder' => false,
-            ])
             ->add('drugAllergies', ChoiceType::class, [
                 'label' => 'Avez-vous des allergies aux médicaments ?',
                 'required' => false,
@@ -120,10 +107,10 @@ class PatientType extends AbstractType
             ->add('vascularAccessType', ChoiceType::class, [
                 'label' => 'Informations sur l\'accès vasculaires',
                 'required' => false,
-                'expanded' => true,
                 'choices' => [
                     'Non renseigné' => null,
-                    'Fistule artérioveineuse (FAV)' => 'FAV',
+                    'Fistule artérioveineuse native (FAVN)' => 'FAVN',
+                    'Fistule artérioveineuse prothetique (FAVP)' => 'FAVP',
                     'Greffe de ponction veineuse (GPV)' => 'GPV',
                     'Cathéter veineux central (CVC)' => 'CVC',
                 ],

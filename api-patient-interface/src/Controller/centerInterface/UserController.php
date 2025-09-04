@@ -108,7 +108,7 @@ class UserController extends AbstractController
         $requiredFields = ['idUser', 'lastname', 'firstname', 'email', 'checked'];
         $otherFields = [
             'center','phone', 'type_dialysis', 'medical_history', 'dialysis_start_date', 
-            'vascular_access_type', 'renal_failure', 'renal_failure_other','drug_allergies', 'drug_allergie_precise'
+            'vascular_access_type','drug_allergies', 'drug_allergie_precise'
         ];
         $patientDTO = $this->tools->requiredFields($requiredFields, $data, $this->patientDTO);
         $patientDTO = $this->tools->otherFields($otherFields, $data, $patientDTO);
@@ -130,7 +130,7 @@ class UserController extends AbstractController
         $requiredFields = ['lastname', 'firstname', 'email', 'checked'];
         $otherFields = [
             'center', 'phone', 'type_dialysis', 'medical_history', 'dialysis_start_date', 
-            'vascular_access_type', 'renal_failure', 'renal_failure_other','drug_allergies', 'drug_allergie_precise'
+            'vascular_access_type', 'drug_allergies', 'drug_allergie_precise'
         ];
         $patientDTO = $this->tools->requiredFields($requiredFields, $data, $this->patientDTO);
         $patientDTO = $this->tools->otherFields($otherFields, $data, $patientDTO);

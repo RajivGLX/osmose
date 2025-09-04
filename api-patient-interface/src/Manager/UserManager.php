@@ -147,18 +147,12 @@ class UserManager
             $patient->setTypeDialysis($patientDTO->type_dialysis);
             $patient->setMedicalHistory($patientDTO->medical_history);
             $patient->setVascularAccessType($patientDTO->vascular_access_type);
-            $patient->setRenalFailure($patientDTO->renal_failure);
-            $patient->setRenalFailureOther($patientDTO->renal_failure_other);
 
             if ($patientDTO->dialysis_start_date != null) $patient->setDialysisStartDate(new \DateTimeImmutable($patientDTO->dialysis_start_date));
             else $patient->setDialysisStartDate(null);
             
             if ($patientDTO->center != null) $patient->setCenter($this->centerRepository->find($patientDTO->center));
             else $patient->setCenter(null);
-
-            $patient->setRenalFailure($patientDTO->renal_failure);
-            if ($patientDTO->renal_failure == 'Autre') $patient->setRenalFailureOther($patientDTO->renal_failure_other);
-            else $patient->setRenalFailureOther(null);
 
             $patient->setDrugAllergies($patientDTO->drug_allergies);
             if ($patientDTO->drug_allergies == false) $patient->setDrugAllergiePrecise(null);
@@ -198,18 +192,12 @@ class UserManager
             $patient->setTypeDialysis($patientDTO->type_dialysis);
             $patient->setMedicalHistory($patientDTO->medical_history);
             $patient->setVascularAccessType($patientDTO->vascular_access_type);
-            $patient->setRenalFailure($patientDTO->renal_failure);
-            $patient->setRenalFailureOther($patientDTO->renal_failure_other);
 
             if ($patientDTO->dialysis_start_date != null) $patient->setDialysisStartDate(new \DateTimeImmutable($patientDTO->dialysis_start_date));
             else $patient->setDialysisStartDate(null);
             
             if ($patientDTO->center != null) $patient->setCenter($this->centerRepository->find($patientDTO->center));
             else $patient->setCenter(null);
-
-            $patient->setRenalFailure($patientDTO->renal_failure);
-            if($patientDTO->renal_failure == 'Autre') $patient->setRenalFailureOther($patientDTO->renal_failure_other);
-            else $patient->setRenalFailureOther(null);
             
             $patient->setDrugAllergies($patientDTO->drug_allergies);
             if($patientDTO->drug_allergies == false) $patient->setDrugAllergiePrecise(null);

@@ -9,8 +9,11 @@ export class TypeDialysis implements PipeTransform {
     transform(typeDialysis: string): string {
         var translateTypeDialysis: string = ''
         switch (typeDialysis) {
-            case 'FAV':
-                translateTypeDialysis = 'Fistule artérioveineuse (FAV)'
+            case 'FAVN':
+                translateTypeDialysis = 'Fistule artérioveineuse native (FAVN)'
+                break
+            case 'FAVP':
+                translateTypeDialysis = 'Fistule artérioveineuse prothetique (FAVP)'
                 break
             case 'GPV':
                 translateTypeDialysis = 'Greffe de ponction veineuse (GPV)'

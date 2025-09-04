@@ -113,27 +113,6 @@
                     </div>
                 </div>
 
-                <div class="form-line for-two-input d-flex" [formGroup]="renal_failure_form">
-                    <div class="wrapper-input">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Type d'insuffisance rénale :</mat-label>
-                            <mat-select formControlName="renal_failure">
-                                <mat-option [value]="null">Non précisé</mat-option>
-                                @for (renalFailure of listRenalFailure; track $index) {
-                                <mat-option [value]="renalFailure">{{ renalFailure }}</mat-option>
-                                }
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="wrapper-input">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Autre type d'insuffisance rénale :</mat-label>
-                            <input type="text" matInput formControlName="renal_failure_other" #renalFailureOtherInput>
-                            <mat-error>{{ errors.renal_failure_other }}</mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-
                 <div class="form-line radio-wrapper d-flex mb-4" [formGroup]="precise_allergie_form">
                     <label class="hide">Le patient a t'il des allergies aux médicaments :</label>
                     <label>Le patient a t'il des allergies aux médicaments :</label>

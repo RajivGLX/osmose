@@ -25,13 +25,6 @@ export class PatientFormService {
             {validators: confirmPreciseValidators('drug_allergies', 'drug_allergie_precise'),updateOn: 'change'}
         )
 
-    renal_failure_form: FormGroup = this.fb.group({
-        renal_failure: [null],
-        renal_failure_other: [null],
-    },
-        {validators: [confirmPreciseValidators('renal_failure', 'renal_failure_other')],updateOn: 'change'}
-    )
-
     patient_form: FormGroup = this.fb.group({
         lastname: [null, [Validators.required, Validators.minLength(2)]],
         firstname: [null, [Validators.required, Validators.minLength(2)]],
@@ -43,21 +36,11 @@ export class PatientFormService {
         dialysis_start_date: [null],
         vascular_access_type: [null],
         center: [null],
-        renalFailure: this.renal_failure_form,
         drugAllergies: this.precise_allergie_form
     })
 
-    listRenalFailure = [
-        'Insuffisance rénale aiguë', 
-        'Insuffisance rénale chronique',
-        'Hypertension artérielle',
-        'Glomérulonéphrite',
-        'Maladie polykystique des reins',
-        'Diabète',
-        'Autre'
-    ]
     listTypeDialysis = ['Hémodialyse', 'Dialyse péritonéale']
-    listAccessSite = ['FAV', 'GPV', 'CVC']
+    listAccessSite = ['FAVN', 'FAVP', 'GPV', 'CVC']
 
     constructor(
         private fb: FormBuilder, 
@@ -72,7 +55,7 @@ export class PatientFormService {
 
     updatePatientInfo(patientToUpdate: User) {
         this.loadingPatientUpdate.set(true)
-        let formToSend = this.handleFormForSend(this.patient_form, this.renal_failure_form,this.precise_allergie_form, patientToUpdate.id)
+        let formToSend = this.handleFormForSend(this.patient_form, this.precise_allergie_form, patientToUpdate.id)
         this.http.post<{message : string, data : User}>(environment.apiURL + '/api/update-info-patient', formToSend).subscribe({
             next: (response : {message: string, data: User}) => {
                 this.toolsService.openSnackBar(response.message, true)
@@ -90,7 +73,7 @@ export class PatientFormService {
     }
 
     createPatient() {
-        let formToSend = this.handleFormForSend(this.patient_form, this.renal_failure_form,this.precise_allergie_form)
+        let formToSend = this.handleFormForSend(this.patient_form, this.precise_allergie_form)
         this.http.post<{message : string, data : User}>(environment.apiURL + '/api/create-patient', formToSend).subscribe({
             next: (response : {message: string, data: User}) => {
                 this.toolsService.openSnackBar(response.message, true)
@@ -114,7 +97,6 @@ export class PatientFormService {
         });
 
         this.precise_allergie_form?.patchValue(patientToUpdate.patient)
-        this.renal_failure_form?.patchValue(patientToUpdate.patient)
         this.patient_form?.patchValue(patientToUpdate)
         
         console.log('patientToUpdate : ', patientToUpdate)
@@ -123,7 +105,6 @@ export class PatientFormService {
     resetAllForms() {
         this.patient_form.reset()
         this.precise_allergie_form.reset()
-        this.renal_failure_form.reset()
     }
 
     private formatDate(date: string | Date): string {
@@ -136,7 +117,6 @@ export class PatientFormService {
 
     private handleFormForSend(
         patient_form: FormGroup, 
-        renal_failure_form: FormGroup,
         precise_allergie_form: FormGroup,
         idUser: number = 0
     ) {
@@ -152,8 +132,6 @@ export class PatientFormService {
             'medical_history': patient_form.get('medical_history')?.value,
             'dialysis_start_date': patient_form.get('dialysis_start_date')?.value,
             'vascular_access_type': patient_form.get('vascular_access_type')?.value,
-            'renal_failure': renal_failure_form.get('renal_failure')?.value,
-            'renal_failure_other': renal_failure_form.get('renal_failure_other')?.value,
             'drug_allergies': precise_allergie_form.get('drug_allergies')?.value,
             'drug_allergie_precise': precise_allergie_form.get('drug_allergie_precise')?.value
         }

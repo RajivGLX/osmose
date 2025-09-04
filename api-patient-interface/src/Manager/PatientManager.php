@@ -33,7 +33,6 @@ class PatientManager
             $patient->setCenter($dataPatient->getCenter());
             $patient->setChecked($dataPatient->isChecked());
             $patient->setDialysisStartDate($dataPatient->getDialysisStartDate());
-            $patient->setRenalFailure($dataPatient->getRenalFailure());
             $patient->setTypeDialysis($dataPatient->getTypeDialysis());
             $patient->setVascularAccessType($dataPatient->getVascularAccessType());
             $patient->setDrugAllergies($dataPatient->isDrugAllergies());
