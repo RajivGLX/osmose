@@ -140,14 +140,14 @@ class BookingRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('b')
             ->select('COUNT(b.id)')
             ->innerJoin('b.status', 's')
-            ->where('s.id = : $id')
+            ->where('s.id = :id')
             ->setParameter('id', $status->getId())
             ->andWhere('b.patient = :patient')
             ->setParameter('patient', $patient)
             ->andWhere('b.dateReserve > :dateNow')
             ->setParameter('dateNow', $dateNow);
 
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getSingleScalarResult();
     }
 
     public function getBookingCountsByStatus(array $allStatuses, Patient $patient): array
