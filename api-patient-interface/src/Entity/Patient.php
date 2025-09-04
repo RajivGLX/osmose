@@ -60,10 +60,6 @@ class Patient
     #[Groups(['info_user', 'info_booking'])]
     private ?\DateTimeImmutable $dialysis_start_date = null;
 
-    #[ORM\OneToOne(mappedBy: 'patient', cascade: ['persist', 'remove'])]
-    #[Groups(['info_user', 'info_booking'])]
-    private ?Pathologies $pathologies = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['info_user', 'info_booking'])]
     private ?string $vascular_access_type = null;
@@ -227,23 +223,6 @@ class Patient
     public function setDialysisStartDate(?\DateTimeImmutable $dialysis_start_date): static
     {
         $this->dialysis_start_date = $dialysis_start_date;
-
-        return $this;
-    }
-
-    public function getPathologies(): ?Pathologies
-    {
-        return $this->pathologies;
-    }
-
-    public function setPathologies(Pathologies $pathologies): static
-    {
-        // set the owning side of the relation if necessary
-        if ($pathologies->getPatient() !== $this) {
-            $pathologies->setPatient($this);
-        }
-
-        $this->pathologies = $pathologies;
 
         return $this;
     }

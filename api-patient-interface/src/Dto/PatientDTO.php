@@ -49,18 +49,6 @@ class PatientDTO
     public ?bool $drug_allergies = null;
     public ?string $drug_allergie_precise = null;
 
-    #[Assert\Type('bool')]
-    public ?bool $bool_musculoskeletal_problems = null;
-    public ?string $musculoskeletal_problems = null;
-    
-    #[Assert\Type('bool')]
-    public ?bool $bool_diabetes = null;
-    public ?string $diabetes = null;
-    
-    #[Assert\Type('bool')]
-    public ?bool $bool_heart_disease = null;
-    public ?string $heart_disease = null;
-
     public ?array $missingFields = [];
 
 }

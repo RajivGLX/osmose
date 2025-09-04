@@ -3,14 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Center;
-use App\Entity\Pathologies;
 use App\Entity\Patient;
 
-use Doctrine\DBAL\Types\DateImmutableType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -18,7 +15,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Callback;
-use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -136,10 +132,6 @@ class PatientType extends AbstractType
             ->add('center', EntityType::class, [
                 'class' => Center::class,
                 'required' => false,
-            ])
-            ->add('pathologies', PathologiesType::class, [
-                'required' => false,
-                'translator' => $translator,
             ])
         ;
 

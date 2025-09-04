@@ -1,9 +1,7 @@
 import { Center } from "./center.interface";
-import { Pathologies } from './pathologies.interface';
 export interface Patient {
     id: number,
     center: Center,
-    pathologies: Pathologies,
     phone: string,
     medical_history: string,
     checked: boolean,

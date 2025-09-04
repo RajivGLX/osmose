@@ -1,14 +1,12 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
 import { User } from '../../interface/user.interface';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { LoginService } from '../../login/services/login.service';
 import { ToolsService } from '../../shared/services/tools.service';
 import { PatientListService } from '../../patient-list/services/patient-list.service';
 import { confirmPreciseValidators } from '../../shared/validators/confirmPreciseValidators';
 import { environment } from '../../../environment/environment.development';
 import { Observable } from 'rxjs';
-import { Center } from '../../interface/center.interface';
 
 
 @Injectable({
@@ -18,7 +16,7 @@ export class PatientFormService {
     
     loadingPatientUpdate: WritableSignal<boolean> = signal(false)
     loadingPatientCreate: WritableSignal<boolean> = signal(false)
-    
+
     precise_allergie_form: FormGroup = this.fb.group(
             {
                 drug_allergies: [null],
@@ -26,30 +24,6 @@ export class PatientFormService {
             },
             {validators: confirmPreciseValidators('drug_allergies', 'drug_allergie_precise'),updateOn: 'change'}
         )
-
-    precise_heart_disease_form: FormGroup = this.fb.group(
-        {
-            bool_heart_disease: [null],
-            heart_disease: [null],
-        },
-        {validators: [confirmPreciseValidators('bool_heart_disease', 'heart_disease')],updateOn: 'change'}
-    )
-
-    precise_diabetes_form: FormGroup = this.fb.group(
-        {
-            bool_diabetes: [null],
-            diabetes: [null],
-        },
-        {validators: [confirmPreciseValidators('bool_diabetes', 'diabetes')],updateOn: 'change'}
-    )
-
-    precise_musculoskeletal_form: FormGroup = this.fb.group(
-        {
-            bool_musculoskeletal_problems: [null],
-            musculoskeletal_problems: [null],
-        },
-        {validators: [confirmPreciseValidators('bool_musculoskeletal_problems', 'musculoskeletal_problems')],updateOn: 'change'}
-    )
 
     renal_failure_form: FormGroup = this.fb.group({
         renal_failure: [null],
@@ -98,7 +72,7 @@ export class PatientFormService {
 
     updatePatientInfo(patientToUpdate: User) {
         this.loadingPatientUpdate.set(true)
-        let formToSend = this.handleFormForSend(this.patient_form, this.renal_failure_form,this.precise_allergie_form, this.precise_musculoskeletal_form, this.precise_heart_disease_form, this.precise_diabetes_form, patientToUpdate.id)
+        let formToSend = this.handleFormForSend(this.patient_form, this.renal_failure_form,this.precise_allergie_form, patientToUpdate.id)
         this.http.post<{message : string, data : User}>(environment.apiURL + '/api/update-info-patient', formToSend).subscribe({
             next: (response : {message: string, data: User}) => {
                 this.toolsService.openSnackBar(response.message, true)
@@ -116,7 +90,7 @@ export class PatientFormService {
     }
 
     createPatient() {
-        let formToSend = this.handleFormForSend(this.patient_form, this.renal_failure_form,this.precise_allergie_form, this.precise_musculoskeletal_form, this.precise_heart_disease_form, this.precise_diabetes_form)
+        let formToSend = this.handleFormForSend(this.patient_form, this.renal_failure_form,this.precise_allergie_form)
         this.http.post<{message : string, data : User}>(environment.apiURL + '/api/create-patient', formToSend).subscribe({
             next: (response : {message: string, data: User}) => {
                 this.toolsService.openSnackBar(response.message, true)
@@ -142,10 +116,6 @@ export class PatientFormService {
         this.precise_allergie_form?.patchValue(patientToUpdate.patient)
         this.renal_failure_form?.patchValue(patientToUpdate.patient)
         this.patient_form?.patchValue(patientToUpdate)
-
-        this.precise_heart_disease_form?.patchValue(patientToUpdate.patient.pathologies)
-        this.precise_diabetes_form?.patchValue(patientToUpdate.patient.pathologies)
-        this.precise_musculoskeletal_form?.patchValue(patientToUpdate.patient.pathologies)
         
         console.log('patientToUpdate : ', patientToUpdate)
     }
@@ -153,9 +123,6 @@ export class PatientFormService {
     resetAllForms() {
         this.patient_form.reset()
         this.precise_allergie_form.reset()
-        this.precise_heart_disease_form.reset()
-        this.precise_diabetes_form.reset()
-        this.precise_musculoskeletal_form.reset()
         this.renal_failure_form.reset()
     }
 
@@ -169,11 +136,8 @@ export class PatientFormService {
 
     private handleFormForSend(
         patient_form: FormGroup, 
-        renal_failure_form: FormGroup, 
-        precise_allergie_form: FormGroup, 
-        precise_musculoskeletal_form: FormGroup,
-        precise_heart_disease_form: FormGroup,
-        precise_diabetes_form: FormGroup,
+        renal_failure_form: FormGroup,
+        precise_allergie_form: FormGroup,
         idUser: number = 0
     ) {
         return {
@@ -191,13 +155,7 @@ export class PatientFormService {
             'renal_failure': renal_failure_form.get('renal_failure')?.value,
             'renal_failure_other': renal_failure_form.get('renal_failure_other')?.value,
             'drug_allergies': precise_allergie_form.get('drug_allergies')?.value,
-            'drug_allergie_precise': precise_allergie_form.get('drug_allergie_precise')?.value,
-            'bool_musculoskeletal_problems': precise_musculoskeletal_form.get('bool_musculoskeletal_problems')?.value,
-            'musculoskeletal_problems': precise_musculoskeletal_form.get('musculoskeletal_problems')?.value,
-            'bool_heart_disease': precise_heart_disease_form.get('bool_heart_disease')?.value,
-            'heart_disease': precise_heart_disease_form.get('heart_disease')?.value,
-            'bool_diabetes': precise_diabetes_form.get('bool_diabetes')?.value,
-            'diabetes': precise_diabetes_form.get('diabetes')?.value,
+            'drug_allergie_precise': precise_allergie_form.get('drug_allergie_precise')?.value
         }
     }
 }

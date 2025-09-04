@@ -6,7 +6,6 @@ use App\Dto\PatientDTO;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use App\Dto\UserDTO;
 use App\Entity\Administrator;
-use App\Entity\Pathologies;
 use App\Entity\Patient;
 use App\Entity\ResetPassword;
 use App\Entity\User;
@@ -125,7 +124,6 @@ class UserManager
 
             $user = new User();
             $patient = new Patient();
-            $pathologies = new Pathologies();
             $user->setfirstname($patientDTO->firstname);
             $user->setLastname($patientDTO->lastname);
             $user->setValid(true);
@@ -151,7 +149,6 @@ class UserManager
             $patient->setVascularAccessType($patientDTO->vascular_access_type);
             $patient->setRenalFailure($patientDTO->renal_failure);
             $patient->setRenalFailureOther($patientDTO->renal_failure_other);
-            $patient->setPathologies($pathologies);
 
             if ($patientDTO->dialysis_start_date != null) $patient->setDialysisStartDate(new \DateTimeImmutable($patientDTO->dialysis_start_date));
             else $patient->setDialysisStartDate(null);
@@ -167,24 +164,11 @@ class UserManager
             if ($patientDTO->drug_allergies == false) $patient->setDrugAllergiePrecise(null);
             else $patient->setDrugAllergiePrecise($patientDTO->drug_allergie_precise);
 
-            $pathologies->setBoolMusculoskeletalProblems($patientDTO->bool_musculoskeletal_problems);
-            if ($patientDTO->bool_musculoskeletal_problems == false) $pathologies->setMusculoskeletalProblems(null);
-            else $pathologies->setMusculoskeletalProblems($patientDTO->musculoskeletal_problems);
-
-            $pathologies->setBoolDiabetes($patientDTO->bool_diabetes);
-            if ($patientDTO->bool_diabetes == false) $pathologies->setDiabetes(null);
-            else $pathologies->setDiabetes($patientDTO->diabetes);
-
-            $pathologies->setBoolHeartDisease($patientDTO->bool_heart_disease);
-            if ($patientDTO->bool_heart_disease == false) $pathologies->setHeartDisease(null);
-            else $pathologies->setHeartDisease($patientDTO->heart_disease);
-
             // TODO: envoyer un email avec le mot de passe
             // $this->sendPasswordEmail($userDTO->email, $randomPassword);
 
             $this->entityManager->persist($user);
             $this->entityManager->persist($patient);
-            $this->entityManager->persist($pathologies);
 
             $this->entityManager->flush();
             $this->logger->info('Création du patient : ' . $user->getId());
@@ -204,7 +188,6 @@ class UserManager
 
             $user = $this->entityManager->getRepository(user::class)->find($patientDTO->idUser);
             $patient = $user->getPatient();
-            $pathologies = $patient->getPathologies();
             // TODO: catch l'erreur
             $user->setfirstname($patientDTO->firstname);
             $user->setLastname($patientDTO->lastname);
@@ -232,21 +215,8 @@ class UserManager
             if($patientDTO->drug_allergies == false) $patient->setDrugAllergiePrecise(null);
             else $patient->setDrugAllergiePrecise($patientDTO->drug_allergie_precise);
 
-            $pathologies->setBoolMusculoskeletalProblems($patientDTO->bool_musculoskeletal_problems);
-            if($patientDTO->bool_musculoskeletal_problems == false) $pathologies->setMusculoskeletalProblems(null);
-            else $pathologies->setMusculoskeletalProblems($patientDTO->musculoskeletal_problems);
-
-            $pathologies->setBoolDiabetes($patientDTO->bool_diabetes);
-            if($patientDTO->bool_diabetes == false) $pathologies->setDiabetes(null);
-            else $pathologies->setDiabetes($patientDTO->diabetes);
-
-            $pathologies->setBoolHeartDisease($patientDTO->bool_heart_disease);
-            if($patientDTO->bool_heart_disease == false) $pathologies->setHeartDisease(null);
-            else $pathologies->setHeartDisease($patientDTO->heart_disease);
-
             $this->entityManager->persist($user);
             $this->entityManager->persist($patient);
-            $this->entityManager->persist($pathologies);
 
             $this->entityManager->flush();
             $this->logger->info('Modification du patient : ' . $user->getId());

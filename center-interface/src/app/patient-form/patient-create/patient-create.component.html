@@ -154,65 +154,6 @@
                     </div>
                 </div>
 
-                <div class="form-line radio-wrapper d-flex mb-4" [formGroup]="precise_heart_disease_form">
-                    <label class="hide">Le patient a t'il une maladie cardiaque :</label>
-                    <label>Le patient a t'il une maladie cardiaque :</label>
-                    <div class="wrapper-input radio-group">
-                        <mat-radio-group aria-label="maladie cardiaque" formControlName="bool_heart_disease">
-                            <mat-radio-button [value]="null" class="p-2">Non précisé</mat-radio-button>
-                            <mat-radio-button [value]="false" class="p-2">Non</mat-radio-button>
-                            <mat-radio-button [value]="true" class="p-2">Oui</mat-radio-button>
-                        </mat-radio-group>
-                    </div>
-                    <div class="wrapper-input">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Si oui veuillez préciser la maladie cardiaque</mat-label>
-                            <input type="text" matInput formControlName="heart_disease" #heartDiseaseInput>
-                            <mat-error>{{ errors.heart_disease }}</mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-
-                <div class="form-line radio-wrapper d-flex mb-4" [formGroup]="precise_diabetes_form">
-                    <label class="hide">Le patient a t'il du diabéte:</label>
-                    <label>Le patient a t'il du diabéte :</label>
-                    <div class="wrapper-input radio-group">
-                        <mat-radio-group aria-label="diabéte" formControlName="bool_diabetes">
-                            <mat-radio-button [value]="null" class="p-2">Non précisé</mat-radio-button>
-                            <mat-radio-button [value]="false" class="p-2">Non</mat-radio-button>
-                            <mat-radio-button [value]="true" class="p-2">Oui</mat-radio-button>
-                        </mat-radio-group>
-                    </div>
-                    <div class="wrapper-input">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Si oui veuillez préciser le type de diabéte</mat-label>
-                            <input type="text" matInput formControlName="diabetes" #diabetesInput>
-                            <mat-error>{{ errors.diabetes }}</mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-
-                <div class="form-line radio-wrapper d-flex mb-4" [formGroup]="precise_musculoskeletal_form">
-                    <label class="hide">Le patient a t'il des troubles musculosquelettiques :</label>
-                    <label>Le patient a t'il des troubles musculosquelettiques :</label>
-                    <div class="wrapper-input radio-group">
-                        <mat-radio-group aria-label="troubles musculosquelettiques"
-                            formControlName="bool_musculoskeletal_problems">
-                            <mat-radio-button [value]="null" class="p-2">Non précisé</mat-radio-button>
-                            <mat-radio-button [value]="false" class="p-2">Non</mat-radio-button>
-                            <mat-radio-button [value]="true" class="p-2">Oui</mat-radio-button>
-                        </mat-radio-group>
-                    </div>
-                    <div class="wrapper-input">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Si oui veuillez préciser les troubles musculosquelettiques</mat-label>
-                            <input type="text" matInput formControlName="musculoskeletal_problems"
-                                #musculoskeletalProblemsInput>
-                            <mat-error>{{ errors.musculoskeletal_problems }}</mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-
                 <div class="form-line d-flex mb-4">
                     <div class="wrapper-input full">
                         <mat-form-field appearance="outline">
@@ -231,14 +172,7 @@
             }
         </div>
 
-        @if (
-        patient_form.valid
-        && precise_allergie_form.valid
-        && precise_heart_disease_form.valid
-        && precise_heart_disease_form.valid
-        && precise_diabetes_form.valid
-        && precise_musculoskeletal_form.valid
-        ) {
+        @if (patient_form.valid && precise_allergie_form.valid) {
         <div class="wrapper-btn d-flex justify-content-end mt-3">
             <button class="btn custom-btn full" (click)="sendUpdateUserData()">Confirmer les modifications</button>
         </div>

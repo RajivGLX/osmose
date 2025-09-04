@@ -27,7 +27,6 @@ class PatientManager
             ////            }
 
             $dataPatient = $form->get('patient')->getData();
-            $pathologies = $patient->getPathologies();
 
             $patient->setPhone($dataPatient->getPhone());
             $patient->setMedicalHistory($dataPatient->getMedicalHistory());
@@ -45,31 +44,7 @@ class PatientManager
                 $patient->setDrugAllergiePrecise($dataPatient->isDrugAllergies());
             }
 
-            $pathologies->setBoolHeartDisease($pathologies->isBoolHeartDisease());
-            $pathologies->setBoolDiabetes($pathologies->isBoolDiabetes());
-            $pathologies->setBoolMusculoskeletalProblems($pathologies->isBoolMusculoskeletalProblems());
-
-            if ($pathologies->isBoolHeartDisease() === true) {
-                $pathologies->setHeartDisease($pathologies->getHeartDisease());
-            } else {
-                $pathologies->setHeartDisease($pathologies->isBoolHeartDisease());
-            }
-
-            if ($pathologies->isBoolDiabetes() === true) {
-                $pathologies->setDiabetes($pathologies->getDiabetes());
-            } else {
-                $pathologies->setDiabetes($pathologies->isBoolDiabetes());
-            }
-
-            if ($pathologies->isBoolMusculoskeletalProblems() === true) {
-                $pathologies->setMusculoskeletalProblems($pathologies->getMusculoskeletalProblems());
-            } else {
-                $pathologies->setMusculoskeletalProblems($pathologies->isBoolMusculoskeletalProblems());
-            }
-
             $patient->setUser($user);
-            $patient->setPathologies($pathologies);
-
             $this->entityManager->persist($patient);
 
             return true;

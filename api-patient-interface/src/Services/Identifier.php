@@ -52,17 +52,10 @@ Class Identifier
     public function notationByPatient(Patient $patient): float
     {
         $properties = ['getPhone','getCenter', 'getRenalFailure', 'getTypeDialysis', 'isDrugAllergies', 'getDialysisStartDate', 'getVascularAccessType'];
-        $pathologies = ['isBoolHeartDisease', 'isBoolDiabetes', 'isBoolMusculoskeletalProblems'];
         $notation = 0;
 
         foreach ($properties as $property) {
             $notation += ($patient->$property() !== null) ? 1 : 0;
-        }
-
-        if ($patient->getPathologies() !== null) {
-            foreach ($pathologies as $pathology) {
-                $notation += ($patient->getPathologies()->$pathology() !== null) ? 1 : 0;
-            }
         }
 
         return $notation;
