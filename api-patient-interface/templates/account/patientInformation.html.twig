@@ -2,6 +2,8 @@
 
 {% block title %}Vos Informations{% endblock %}
 
+{% form_theme form 'form/bootstrap_custom_layout.html.twig' %}
+
 {% block body %}
 
 <div class="main">
@@ -73,40 +75,28 @@
                             {{ form_row(form.patient.drugAllergiePrecise) }}
                         </div>
                         <div class="form-group col-12">
-                            <label for="selectpicker">Séléctionner votre centre actuel :</label>
-                            {% if field_errors(form.patient.center) is not empty %}
-                                <div class="alert alert-danger" role="alert">{{ "backend.patient.center_error"|trans }}</div>
-                            {% endif %}
-                            <select id="selectpicker" class="selectpicker col-12" data-live-search="true" aria-label="Default select example" name="{{ field_name(form.patient.center) }}">
-                                <option value="">Rechercher votre centre en tapant son nom ou bien le département dans lequel il se trouve</option>
-                                {% for option in form.patient.center.vars.choices %}
-                                    {% set selected = patientCenter != null ? (patientCenter.id == option.value ? 'selected' : '') : '' %}
-                                    <option data-tokens="{{ option.label }}" value="{{ option.value }}" {{ selected }}>
-                                        {{ option.data.zipcode }} / {{ option.label }}
-                                    </option>
-                                {% endfor %}
-                            </select>
+                            {{ form_row(form.patient.center, {
+                                'attr': {
+                                    'class': 'selectpicker col-12',
+                                    'data-live-search': 'true'
+                                },
+                                'label': 'Sélectionner votre centre actuel :'
+                            }) }}
                         </div>
                         <div class="form-group col-12">
-                            <label class="pb-1" for="{{ field_name(form.patient.medicalHistory) }}">
-                                {{ field_label(form.patient.medicalHistory) }}
-                            </label>
-                            <textarea
-                                    name="{{ field_name(form.patient.medicalHistory) }}"
-                                    id="{{ field_name(form.patient.medicalHistory) }}"
-                                    class="form-control {% if field_errors(form.patient.medicalHistory) is not empty %}is-invalid{% endif %}"
-                                    rows="5"
-                                    cols="25"
-                                    placeholder="Votre message"
-                            >{{ field_value(form.patient.medicalHistory) }}</textarea>
-                            <div class="invalid-feedback">
-                                {{ form_errors(form.patient.medicalHistory) }}
-                            </div>
+                            {{ form_row(form.patient.medicalHistory, {
+                                'attr': {
+                                    'rows': '5',
+                                    'cols': '25',
+                                    'placeholder': 'Votre message'
+                                }
+                            }) }}
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 text-center mt-4">
                             <button type="submit" class="btn primary-solid-btn" >Modifier vos informations</button>
                         </div>
                     </div>
+                {{ form_rest(form) }}
                 {{ form_end(form) }}
         </div>
     </section>

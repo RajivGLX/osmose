@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Patient } from '../../interface/patient.interface';
+import {FormatageDatePipe} from "../../utils/pipe/date-format.pipe";
 
 
 @Component({
@@ -13,7 +14,9 @@ export class FolderPatientComponent implements OnInit {
 
     @Input() patient!: Patient
 
-    constructor() {
+    constructor(
+        public formatageDate: FormatageDatePipe
+    ) {
     }
 
     ngOnInit(): void {

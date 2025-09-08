@@ -1,5 +1,12 @@
+@if (loaderCalendar()) {
+    <div class="wrapper-spinner">
+        <div class="mat-spinner">
+            <mat-spinner/>
+        </div>
+    </div>
+}
 <div class="wrapper-component">
-    <div class="container-calendar" *ngIf="formInitialized">
+    <div class="container-calendar">
         <div class="header-calendar d-flex">
             <div class="change-month previous-month" [ngClass]="{'disabled': isFirstMonthReached()}" (click)="prevMonth()">
                 <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -30,21 +37,21 @@
                         <th>Dimanche</th>
                     </tr>
                 </thead>
-
-                <tbody [formGroupName]="generateMonthKey(currentMonth)">
-                    @for (week of weeks; track trackByIndex) {
-                        <tr>
-                            @for (day of week; track day) {
-                                @if (day && day.getMonth() == currentMonth.getMonth() && day > today){
-                                    <td [formGroupName]="generateDateKey(day)">
-                                        <span class="day">{{ day.getDate() }}</span>
-                                        <!-- <div class="wrapper-day"> -->
+                @if (calendarForm.contains(generateMonthKey(currentMonth))){
+                    <tbody [formGroupName]="generateMonthKey(currentMonth)">
+                        @for (week of weeks; track trackByIndex) {
+                            <tr>
+                                @for (day of week; track day) {
+                                    @if (day && day.getMonth() == currentMonth.getMonth() && day > today){
+                                        <td [formGroupName]="generateDateKey(day)">
+                                            <span class="day">{{ day.getDate() }}</span>
+                                            <!-- <div class="wrapper-day"> -->
                                             @for (slot of slots; track trackByPeriod) {
                                                 <div class="input-bloc" [formGroupName]="slot" [ngClass]="{'checked': getSlotChecked(day, slot)}">
                                                     <div class="number-bloc">
                                                         <span (click)="decrement(slot, day)" class="input-number-decrement">–</span>
                                                         <input (input)="onInputChange($event, slot, day)" [formControlName]="'qty'" id="{{day.getDate()}}-{{slot}}-qty"
-                                                            class="input-number" type="text" min="1" max="15">
+                                                               class="input-number" type="text" min="1" max="15">
                                                         <span (click)="increment(slot, day)" class="input-number-increment">+</span>
                                                     </div>
                                                     <div class="booking-badge" *ngIf="getBookingValue(day, slot) > 0">
@@ -53,26 +60,26 @@
                                                     <div class="switch-bloc">
                                                         <label class="switch" for="{{ generateDateKey(day) }}-{{slot}}">
                                                             <input (change)="onCheckboxChange($event, slot, day)" [formControlName]="'check'"
-                                                                id="{{ generateDateKey(day) }}-{{slot}}" type="checkbox">
+                                                                   id="{{ generateDateKey(day) }}-{{slot}}" type="checkbox">
                                                             <span class="slider round"></span>
                                                         </label>
                                                     </div>
                                                 </div>
                                             }
-                                        <!-- </div> -->
-                                    </td>
-                                }@else if (day && day.getDate() === today.getDate() && day.getMonth() === currentMonth.getMonth()){
-                                    <td class="current-day"></td>
-                                }@else if (day && day < today && day.getMonth() === currentMonth.getMonth()){
-                                    <td class="past-day"></td>
-                                }@else{
-                                    <td class="outside-month"></td>
+                                            <!-- </div> -->
+                                        </td>
+                                    }@else if (day && day.getDate() === today.getDate() && day.getMonth() === currentMonth.getMonth()){
+                                        <td class="current-day"></td>
+                                    }@else if (day && day < today && day.getMonth() === currentMonth.getMonth()){
+                                        <td class="past-day"></td>
+                                    }@else{
+                                        <td class="outside-month"></td>
+                                    }
                                 }
-                            }
-                        </tr>
-                    }
-                </tbody>
-
+                            </tr>
+                        }
+                    </tbody>
+                }
             </table>
         </div>
         <div class="footer-calendar">

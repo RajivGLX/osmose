@@ -1,5 +1,5 @@
 import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {Injectable, signal, WritableSignal} from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../../environment/environment.development';
 import { GroupAvailability } from '../../interface/groupAvailability.interface';
@@ -27,6 +27,13 @@ export class CenterCalendarServices {
         return this._idCenter$.asObservable();
     }
 
+    public _originalGroupAvailability$ = new BehaviorSubject<GroupAvailability>({});
+    get originalGroupAvailability$() {
+        return this._originalGroupAvailability$.asObservable();
+    }
+
+    public loaderCalendar: WritableSignal<boolean> = signal(true)
+
     constructor(
         private http: HttpClient,
         private toolsService: ToolsService
@@ -39,19 +46,12 @@ export class CenterCalendarServices {
     }
 
     sendAvailability() {
-        this.http.post<JsonResponseInterface>(environment.apiURL + '/api/send-availability', {
+        return this.http.post<JsonResponseInterface>(environment.apiURL + '/api/send-availability', {
             availability: this._groupAvailabilityChanged$.value,
             idCenter: this._idCenter$.value
-        }).subscribe({
-            next: (data: JsonResponseInterface) => {
-                this.toolsService.openSnackBar(data.message, true);
-            },
-            error: (err: HttpErrorResponse) => {
-                console.log(err)
-                this.toolsService.openSnackBar(err.error.message, false);
-            }
         });
     }
+
 
   // getAvailabilityCenter(idCenter: number) {
   //   this.http.post<GroupAvailability>(environment.apiURL + '/api/availability-center', idCenter).subscribe({

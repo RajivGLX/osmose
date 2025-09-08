@@ -58,6 +58,12 @@ Class Identifier
             $notation += ($patient->$property() !== null) ? 1 : 0;
         }
 
+        if ($notation != 0) {
+            $notation += 4;
+        }else{
+            $notation = 1;
+        }
+
         return $notation;
     }
 

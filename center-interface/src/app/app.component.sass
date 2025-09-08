@@ -3,8 +3,50 @@
 .main
     display: flex
     background-color: $bg-gris
+
     app-sidebar
         width: 15%
-        min-width: 290px
+        min-width: 220px
+
     app-main
         width: 100%
+
+//############-MEDIA QUERIES-############//
+// X-LARGE //
+@media(min-width: 1920px)
+
+// LARGE //
+@media (min-width: 1280px) and (max-width: 1919.98px)
+
+// MEDIUM + SMALL + X-SMALL //
+@media (max-width: 1279.98px)
+    .main app-sidebar
+        width: 15%
+        min-width: 190px
+
+// SMALL + X-SMALL //
+@media (max-width: 959.98px)
+    app-main
+        margin-top: 85px
+    .main
+        flex-direction: column
+
+        app-sidebar
+            width: 100%
+            position: fixed
+            height: 60px
+            //background-color: $bg-gris
+            background: linear-gradient(to left, $main-blue 0%, #f8f9fa 100%, #ffffff 50%)
+            z-index: 9999
+            top: 0
+            transition: top 0.2s ease
+
+        &.scrolled app-sidebar
+            top: 0
+
+        app-main.connected
+            width: 100%
+            margin-top: 85px
+
+// X-SMALL //
+@media (max-width: 599.98px)

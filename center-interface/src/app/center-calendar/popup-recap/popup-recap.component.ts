@@ -7,6 +7,9 @@ import { SlotPipe } from '../../utils/pipe/slot.pipe'
 import { GroupAvailability } from '../../interface/groupAvailability.interface'
 import { SortDaysPipe } from '../../utils/pipe/sort-days.pipe'
 import { SortSlotsPipe } from '../../utils/pipe/sort-slots.pipe'
+import {JsonResponseInterface} from "../../shared/interfaces/json-response-interface";
+import {HttpErrorResponse} from "@angular/common/http";
+import {ToolsService} from "../../shared/services/tools.service";
 
 @Component({
     selector: 'app-popup-recap',
@@ -32,7 +35,8 @@ export class PopupRecapComponent implements OnInit {
 
     constructor(
         private dialog: Dialog,
-        public centerCalendarServices : CenterCalendarServices
+        public centerCalendarServices : CenterCalendarServices,
+        public toolsService : ToolsService
     ) { }
 
     ngOnInit(): void {
@@ -80,8 +84,20 @@ export class PopupRecapComponent implements OnInit {
 
     sendDataToBack() {
         this.closeModal();
-        this.centerCalendarServices.sendAvailability();
+        this.centerCalendarServices.loaderCalendar.set(true);
+
+        this.centerCalendarServices.sendAvailability().subscribe({
+            next: (data: JsonResponseInterface) => {
+                this.centerCalendarServices.loaderCalendar.set(false);
+                this.toolsService.openSnackBar(data.message, true);
+            },
+            error: (err: HttpErrorResponse) => {
+                this.centerCalendarServices.loaderCalendar.set(false);
+                this.toolsService.openSnackBar(err.error.message, false);
+            }
+        });
     }
+
 
     trackByMonth(index: number, item: any): string {
         return item.key;

@@ -74,6 +74,7 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
         $this->create_at = new \DateTimeImmutable('now', new \DateTimeZone('Europe/Paris'));
     }
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -213,8 +214,6 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
             return $this->isValid() &&
                 !$this->isDeleted() &&
                 $this->getPassword() == $user->getPassword() &&
-                $this->getFirstname() == $user->getFirstname() &&
-                $this->getLastname() == $user->getLastname() &&
                 $this->getEmail() == $user->getEmail();
         }
 

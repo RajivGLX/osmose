@@ -80,17 +80,19 @@ class BookingRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findFuturBookingsByCenter($center): array
+    public function findFuturBookingsByCenter($centers): array
     {
         $dateNow = new \DateTime();
         $qb = $this->createQueryBuilder('b')
-            ->where('b.center = :center')
-            ->setParameter('center', $center)
+            ->where('b.center IN (:centers)')
+            ->setParameter('centers', $centers)
             ->andWhere('b.dateReserve > :dateNow')
-            ->setParameter('dateNow', $dateNow);
+            ->setParameter('dateNow', $dateNow)
+            ->orderBy('b.dateReserve', 'ASC');
 
         return $qb->getQuery()->getResult();
     }
+
 
     public function findOldBookingsByPatient(Patient $patient): array
     {
@@ -103,13 +105,14 @@ class BookingRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function findPastBookingsByCenter($center): array
+    public function findPastBookingsByCenter($centers): array
     {
         $qb = $this->createQueryBuilder('b')
-            ->where('b.center = :center')
-            ->setParameter('center', $center)
+            ->where('b.center IN (:centers)')
+            ->setParameter('centers', $centers)
             ->andWhere('b.dateReserve < :dateNow')
-            ->setParameter('dateNow', new \DateTime());
+            ->setParameter('dateNow', new \DateTime())
+            ->orderBy('b.dateReserve', 'DESC');
 
         return $qb->getQuery()->getResult();
     }
@@ -140,14 +143,14 @@ class BookingRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('b')
             ->select('COUNT(b.id)')
             ->innerJoin('b.status', 's')
-            ->where('s.id = :id')
+            ->where('s.id = : $id')
             ->setParameter('id', $status->getId())
             ->andWhere('b.patient = :patient')
             ->setParameter('patient', $patient)
             ->andWhere('b.dateReserve > :dateNow')
             ->setParameter('dateNow', $dateNow);
 
-        return $qb->getQuery()->getSingleScalarResult();
+        return $qb->getQuery()->getResult();
     }
 
     public function getBookingCountsByStatus(array $allStatuses, Patient $patient): array

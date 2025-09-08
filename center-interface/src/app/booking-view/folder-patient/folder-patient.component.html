@@ -1,13 +1,84 @@
 <section class="wrapper-folder-patient">
     <div class="wrapper-box">
-        <span class="title">Changer les statuts des autres des autres demandes</span>
+        <span class="title">Information sur le centre</span>
+        @if (patient.center) {
+            <div class="row mb-4">
+                <div class="col-4">
+                    <label>Nom du centre :</label>
+                    <span>{{ patient.center.name }}</span>
+                </div>
+                <div class="col-4">
+                    <label>Téléphone :</label>
+                    <span>{{ patient.center.phone }}</span>
+                </div>
+                <div class="col-4">
+                    <label>Email :</label>
+                    <span>{{ patient.center.email }}</span>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-4">
+                    <label>Site web :</label>
+                    <a href="{{ patient.center.url }}" target="_blank">{{ patient.center.url }}</a>
+                </div>
+                <div class="col-4">
+                    <label>Groupe d'appartenance :</label>
+                    <span>{{ patient.center.band }}</span>
+                </div>
+                <div class="col-4">
+                    <label>Coordonnées GPS :</label>
+                    <span>{{ patient.center.latitude_longitude }}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label>Informations supplémentaires :</label>
+                    <span>{{ patient.center.information }}</span>
+                </div>
+            </div>
+        } @else {
+            <div class="alert alert-warning" role="alert">
+                Aucune information sur le centre n'a été communiqué par ce patient.
+            </div>
+        }
     </div>
+
     <div class="wrapper-box">
-        <span class="title">Changer les statuts des autres des autres demandes</span>
+        <span class="title">Informations médicale communiqué</span>
+        <div class="row mb-4">
+            <div class="col-6">
+                <label>Date de la premiere dialyse :</label>
+                <span>{{ this.formatageDate.transform(patient.dialysis_start_date) }}</span>
+            </div>
+            <div class="col-6">
+                <label>Type de dialyse :</label>
+                <span>{{ patient.type_dialysis }}</span>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-6">
+                <label>Allergies aux médicaments :</label>
+                @if (patient.drug_allergies) {
+                    <span>Oui : {{ patient.drug_allergie_precise }}</span>
+                } @else {
+                    <span>Non</span>
+                }
+            </div>
+            <div class="col-6">
+                <label>Informations sur l'accès vasculaires :</label>
+                <span>{{ patient.vascular_access_type }}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <label>Information médical spécifique :</label>
+                <span>{{ patient.medical_history }}</span>
+            </div>
+        </div>
     </div>
-    <div class="wrapper-box">
-        <span class="title">Changer les statuts des autres des autres demandes</span>
-    </div>
+
 </section>
 
 

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import {Component, EventEmitter, Input, OnInit, Output, signal, WritableSignal} from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -16,6 +16,7 @@ import { LoginService } from '../login/services/login.service';
 import { User } from '../interface/user.interface';
 import { Center } from '../interface/center.interface';
 import { values } from 'lodash';
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 
 type Slot = 'morning' | 'afternoon' | 'evening';
@@ -30,6 +31,7 @@ type Slot = 'morning' | 'afternoon' | 'evening';
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
+        MatProgressSpinner,
     ],
     templateUrl: './center-calendar.component.html',
     styleUrl: './center-calendar.component.sass'
@@ -45,8 +47,7 @@ export class CenterCalendarComponent implements OnInit {
     daysInMonth: Date[] = []
     weeks: (Date | null)[][] = []
     groupAvailability$!: Observable<GroupAvailability>
-    formInitialized = false
-
+    loaderCalendar: WritableSignal<boolean>
     minMonth: Date
     maxMonth: Date
 
@@ -61,6 +62,7 @@ export class CenterCalendarComponent implements OnInit {
         this.calendarForm = this.formBuilder.group({})
         this.minMonth = subMonths(this.today, 0)
         this.maxMonth = addMonths(this.today, 12)
+        this.loaderCalendar = this.centerCalendarService.loaderCalendar
     }
 
     @Output() closeVueDetaillee = new EventEmitter<boolean>(false)
@@ -80,7 +82,6 @@ export class CenterCalendarComponent implements OnInit {
                 this.weeks = this.getWeeksInMonth();
                 this.createForm();
                 this.initializeForm();
-                this.formInitialized = true
             }
         })
 
@@ -151,9 +152,10 @@ export class CenterCalendarComponent implements OnInit {
 
     initializeForm(): void {
         const monthKey = this.generateMonthKey(this.currentMonth);
-        // Récupérer les données de disponibilité et les insérer dans le formulaire
-        this.groupAvailability$.subscribe(data => {  
-            console.log('groupAvailability',data);  
+        this.groupAvailability$.subscribe(data => {
+            // Stocker les données originales
+            this.centerCalendarService._originalGroupAvailability$.next(data);
+
             const availabilityData = data[monthKey as keyof GroupAvailability];
             if (availabilityData) {
                 Object.keys(availabilityData).forEach(dayKey => {
@@ -173,10 +175,9 @@ export class CenterCalendarComponent implements OnInit {
                         });
                     }
                 });
-                console.log('back',availabilityData);
-                console.log(this.calendarForm.value[monthKey]);
             }
-        });
+            this.centerCalendarService.loaderCalendar.set(false);
+        })
     }
 
     nextMonth() {
@@ -188,6 +189,7 @@ export class CenterCalendarComponent implements OnInit {
     }
 
     changeMonth(direction: number) {
+        this.centerCalendarService.loaderCalendar.set(true);
         const newMonth = addMonths(this.currentMonth, direction)
         if (newMonth <= this.maxMonth && newMonth >= this.minMonth) {
             this.currentMonth = newMonth
@@ -262,14 +264,80 @@ export class CenterCalendarComponent implements OnInit {
         const dateKeyMonth = this.generateMonthKey(day);
         const dateKey = this.generateDateKey(day);
         const dayGroup = this.calendarForm.get(dateKeyMonth)?.get(dateKey) as FormGroup;
+
         if (dayGroup) {
             const checkControl = dayGroup.get(slot)?.get('check') as FormControl;
             const qtyControl = dayGroup.get(slot)?.get('qty') as FormControl;
-            this.updateDataForSend(slot, day, checkControl, qtyControl);
+
             if (checkControl) {
                 checkControl.setValue(isChecked);
             }
+
+            if (!isChecked) {
+                // Remettre à zéro le champ quantity quand décoché
+                if (qtyControl) {
+                    qtyControl.setValue(1);
+                }
+                // Supprimer de la popup recap
+                this.removeFromDataForSend(slot, day);
+            } else {
+                // Si coché, mais quantité à 0, remettre à 1
+                if (qtyControl && qtyControl.value < 1) {
+                    qtyControl.setValue(1);
+                }
+                // Ajouter/mettre à jour dans la popup recap
+                this.updateDataForSend(slot, day, checkControl, qtyControl);
+            }
         }
+    }
+
+    removeFromDataForSend(slot: Slot, day: Date): void {
+        const currentAvailability = {...this.centerCalendarService._groupAvailabilityChanged$.value};
+        const monthKey = this.generateMonthKey(day);
+        const dayKey = this.generateDateKey(day);
+
+        // Vérifier si la valeur existait initialement (patchValue)
+        const originalValue = this.getOriginalSlotValue(day, slot);
+        console.log('originalValue', originalValue);
+        if (originalValue && originalValue.check) {
+            // Si c'était initialement coché, garder l'entrée avec check: false
+            if (!currentAvailability[monthKey]) {
+                currentAvailability[monthKey] = {};
+            }
+            if (!currentAvailability[monthKey][dayKey]) {
+                currentAvailability[monthKey][dayKey] = {};
+            }
+
+            currentAvailability[monthKey][dayKey][slot] = {
+                qty: 0, // Quantité à 0 pour indiquer la désactivation
+                check: false,
+                booking: originalValue.booking || 0
+            };
+        } else {
+            // Comportement normal pour les nouvelles entrées
+            if (currentAvailability[monthKey]?.[dayKey]?.[slot]) {
+                delete currentAvailability[monthKey][dayKey][slot];
+
+                if (Object.keys(currentAvailability[monthKey][dayKey]).length === 0) {
+                    delete currentAvailability[monthKey][dayKey];
+                }
+
+                if (Object.keys(currentAvailability[monthKey]).length === 0) {
+                    delete currentAvailability[monthKey];
+                }
+            }
+        }
+
+        this.centerCalendarService._groupAvailabilityChanged$.next(currentAvailability);
+    }
+
+    getOriginalSlotValue(day: Date, slot: Slot): any {
+        const monthKey = this.generateMonthKey(day);
+        const dayKey = this.generateDateKey(day);
+
+        // Récupérer les données originales stockées
+        const originalData = this.centerCalendarService._originalGroupAvailability$.value;
+        return originalData?.[monthKey]?.[dayKey]?.[slot];
     }
 
     getBookingValue(day: Date, slot: Slot): number {
@@ -395,7 +463,6 @@ export class CenterCalendarComponent implements OnInit {
         });
         return allChecked;
     }
-
 
     // Génère une clé pour le jour
     generateDateKey(day: Date): string {

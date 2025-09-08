@@ -1,0 +1,20 @@
+{% block form_errors %}
+    {# Désactive le rendu global des erreurs (empêche l'affichage automatique entre label et input) #}
+{% endblock %}
+
+{% block form_row %}
+    <div class="form-group">
+        {{ form_label(form) }}
+        {% set attr = attr|default({}) %}
+        {% set classes = ((attr.class|default('')) ~ (errors|length > 0 ? ' is-invalid' : ''))|trim %}
+        {{ form_widget(form, {'attr': attr|merge({'class': classes})}) }}
+        {% if errors|length > 0 %}
+            <div class="invalid-feedback d-block">
+                {% for error in errors %}
+                    {{ error.message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+

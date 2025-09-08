@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ToolsService } from '../../shared/services/tools.service';
 import { FormatageDatePipe } from '../../utils/pipe/date-format.pipe';
+import {SlotPipe} from "../../utils/pipe/slot.pipe";
 
 
 @Component({
@@ -109,7 +110,8 @@ export class OtherBookingComponent implements OnInit {
         private bookingViewService: BookingViewService,
         private fb: FormBuilder,
         private toolsService: ToolsService,
-        private formatageDate: FormatageDatePipe
+        private formatageDate: FormatageDatePipe,
+        private slotPipe: SlotPipe,
     ) {
         this.statusMultipleForm = this.fb.group({
             idStatus: ['', Validators.required], // Initialisation du champ 'status'
@@ -152,7 +154,7 @@ export class OtherBookingComponent implements OnInit {
             this.rowData.push({
                 id: value.id,
                 patient: value.patient,
-                slotName: value.availability.slot.name,
+                slotName: this.slotPipe.transform(value.availability.slot.name),
                 availability: value.availability,
                 dateReserve: this.formatageDate.transform(value.dateReserve),
                 createAt: this.formatageDate.transform(value.createAt),
