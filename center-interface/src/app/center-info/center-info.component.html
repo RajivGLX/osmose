@@ -1,4 +1,11 @@
 @if (currentCenter) {
+    @if (loaderDataCenter()) {
+        <div class="wrapper-spinner">
+            <div class="mat-spinner">
+                <mat-spinner/>
+            </div>
+        </div>
+    }
     @if(switchView == 'centerInfo'){
         <section class="wrapper-component">
             <div class="header-center">
