@@ -11,13 +11,17 @@ use Symfony\Component\Routing\RouterInterface;
 class MaintenanceListener
 {
     public function __construct(
-        private RouterInterface $router
+        private RouterInterface $router,
+        private bool $maintenanceMode = false
     )
     {}
 
     #[AsEventListener(event: KernelEvents::REQUEST)]
     public function onKernelRequest(RequestEvent $event)
     {
+        if (!$this->maintenanceMode) {
+            return;
+        }
 
         $request = $event->getRequest();
         $route = $request->attributes->get('_route');

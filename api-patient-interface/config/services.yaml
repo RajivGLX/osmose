@@ -6,6 +6,7 @@
 parameters:
     locale: 'fr'
     app.jwt_secret: '%env(JWT_SECRET)%'
+    maintenance_mode: '%env(bool:MAINTENANCE_MODE)%'
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -23,3 +24,9 @@ services:
             $identifier: '@App\Services\Identifier'
         tags:
             - { name: twig.extension }
+
+    App\EventListener\MaintenanceListener:
+        arguments:
+            $maintenanceMode: '%maintenance_mode%'
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
