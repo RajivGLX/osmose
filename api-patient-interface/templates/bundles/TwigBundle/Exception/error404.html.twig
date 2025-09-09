@@ -1,11 +1,11 @@
-{% extends '../../../base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Page introuvrable -  - Dialyzone{% endblock %}
 
 {% block body %}
 	<div class="main">
 
-		<section class="gradient-bg ptb-100 height-lg-100vh d-flex align-items-center" style="background: url('{{ asset('assets/img/hero-bg-4.jpg') }}')no-repeat center center / cover">
+		<section class="gradient-bg ptb-100 height-lg-100vh d-flex align-items-center" style="background: url('{{ asset('img/hero-bg-4.jpg') }}')no-repeat center center / cover">
 			<div class="container">
 				<div class="row align-items-center justify-content-center">
 					<div class="col-md-9 col-lg-7">
@@ -27,6 +27,5 @@
 	</div>
 {% endblock %}
 
-{% block footer %}{% endblock %}
 
 {% block components %}{% endblock %}

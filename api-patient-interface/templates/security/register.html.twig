@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="main register">
-        <section class="gray-light-bg">
+        <section class="white-bg">
             <div class="container-fluid">
                 <div class="row justify-content-between">
 
@@ -187,10 +187,10 @@
                                 <button class="btn btn-block primary-solid-btn border-radius mt-4 mb-3" type="submit" name="{{ field_name(form.submit) }}">
                                     Créer son compte
                                 </button>
-                                <div class="text-center">
-                                    <small class="text-muted text-center">
+                                <div class="text- w-100">
+                                    <span class="text-muted text-center">
                                         Vous avez déjà un compte Dialyzone ? <a href="{{ path('app_user_login') }}">Connexion</a>.
-                                    </small>
+                                    </span>
                                 </div>
                             {{ form_end(form) }}
                         </div>

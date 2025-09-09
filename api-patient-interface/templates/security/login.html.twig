@@ -5,7 +5,7 @@
 
 {% block body %}
     <div class="main">
-        <section class="gray-light-bg">
+        <section class="white-bg">
             <div class="container-fluid">
                 <div class="row align-items-center justify-content-between">
                     <div class="col-12 col-md-7 col-lg-6 col-xl-7 d-none d-lg-block p-0">
@@ -156,7 +156,7 @@
                                     </div>
                                 </div>
                                 <div class="">
-                                    <a href="{{ path('app_reset_password') }}" class="form-text small text-muted">
+                                    <a href="{{ path('app_reset_password') }}" class="form-text  text-muted">
                                         Mot de passe oublié ?
                                     </a>
                                 </div>
@@ -166,10 +166,10 @@
                                 </button>
 
                                 <!-- Link -->
-                                <p class="text-center">
-                                    <small class="text-muted text-center">
+                                <p class="text-center w-100">
+                                    <span class="text-muted text-center">
                                         Vous n'avez pas de compte ? <a href="{{ path('register') }}">Inscription</a>.
-                                    </small>
+                                    </span>
                                 </p>
                                 <input type="hidden" name="_csrf_token"
                                        value="{{ csrf_token('authenticate') }}"
