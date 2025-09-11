@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@ang
 import { User } from "../../../../interface/user.interface";
 import { Observable } from "rxjs";
 import { JsonResponseInterface } from "../../../../shared/interfaces/json-response-interface";
-import { environment } from "../../../../../environment/environment.development";
+import { environment } from "../../../../../environment/environment";
 import { HttpClient } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
 

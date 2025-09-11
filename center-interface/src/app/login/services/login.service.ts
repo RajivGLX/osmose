@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { environment } from '../../../environment/environment.development';
+import { environment } from '../../../environment/environment';
 import { User } from '../../interface/user.interface';
 import { Center } from '../../interface/center.interface';
 import { ToolsService } from '../../shared/services/tools.service';

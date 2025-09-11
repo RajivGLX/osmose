@@ -3,7 +3,7 @@ import { Injectable, signal, WritableSignal } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { LoginService } from '../../login/services/login.service';
 import { confirmEqualValidators } from '../../shared/validators/confirmEqualValidators';
-import { environment } from '../../../environment/environment.development';
+import { environment } from '../../../environment/environment';
 import { User } from '../../interface/user.interface';
 import { ToolsService } from '../../shared/services/tools.service';
 import { Center } from '../../interface/center.interface';

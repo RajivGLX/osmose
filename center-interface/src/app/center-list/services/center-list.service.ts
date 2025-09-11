@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, of } from 'rxjs';
 import { Center } from '../../interface/center.interface';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from '../../../environment/environment.development';
+import { environment } from '../../../environment/environment';
 import { ToolsService } from '../../shared/services/tools.service';
 
 @Injectable({

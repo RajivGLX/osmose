@@ -87,6 +87,10 @@ Commandes utiles :
 PMA username : `admin_immo_user`
 PMA password : `StreetwarriorCity!`
 
+### Script de déploiement
+deploy.sh : script bash pour déployer l’application sur le serveur de production OVH.
+commande pour les log : tail -n 100 /var/log/osmose-deploy.log
+
 ### Mode maintenance
 Id : guilloux
 Mot de passe : Dialyseprojet2025

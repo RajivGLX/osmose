@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
-import { environment } from '../../../environment/environment.development';
+import { environment } from '../../../environment/environment';
 import { noms, numerosMobiles, numerosTelephone, prenoms, siren } from '../donnees/fake';
 import { confirmEqualValidators } from '../../shared/validators/confirmEqualValidators';
 

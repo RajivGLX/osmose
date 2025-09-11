@@ -1,7 +1,7 @@
 import { Injectable, signal, WritableSignal} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from '../../../environment/environment.development';
+import { environment } from '../../../environment/environment';
 import { tap, Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { facturationValidator } from '../../shared/validators/facturationValidator';

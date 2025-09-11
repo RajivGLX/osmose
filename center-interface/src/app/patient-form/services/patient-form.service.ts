@@ -5,7 +5,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ToolsService } from '../../shared/services/tools.service';
 import { PatientListService } from '../../patient-list/services/patient-list.service';
 import { confirmPreciseValidators } from '../../shared/validators/confirmPreciseValidators';
-import { environment } from '../../../environment/environment.development';
+import { environment } from '../../../environment/environment';
 import { Observable } from 'rxjs';
 
 

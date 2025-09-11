@@ -1,6 +1,6 @@
 import { HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from "@angular/common/http";
 import { Observable, startWith } from 'rxjs';
-import { environment } from "../../../environment/environment.development";
+import { environment } from "../../../environment/environment";
 
 export const AuthInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
 

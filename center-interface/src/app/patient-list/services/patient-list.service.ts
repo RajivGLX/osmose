@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Patient } from '../../interface/patient.interface';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ToolsService } from '../../shared/services/tools.service';
-import { environment } from '../../../environment/environment.development';
+import { environment } from '../../../environment/environment';
 import { User } from '../../interface/user.interface';
 
 @Injectable({

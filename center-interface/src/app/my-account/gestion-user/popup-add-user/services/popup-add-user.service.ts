@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { confirmEqualValidators } from '../../../../shared/validators/confirmEqualValidators';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../environment/environment.development';
+import { environment } from '../../../../../environment/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {ErrorHandler} from "../../../../shared/handlers/error.handler";
 import { ToolsService } from '../../../../shared/services/tools.service';

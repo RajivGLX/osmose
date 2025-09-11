@@ -1,7 +1,7 @@
 import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Injectable, signal, WritableSignal} from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { environment } from '../../../environment/environment.development';
+import { environment } from '../../../environment/environment';
 import { GroupAvailability } from '../../interface/groupAvailability.interface';
 import { JsonResponseInterface } from '../../shared/interfaces/json-response-interface';
 import { ToolsService } from '../../shared/services/tools.service';
