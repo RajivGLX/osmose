@@ -91,7 +91,6 @@ PMA password : `StreetwarriorCity!`
 deploy.sh : script bash pour déployer l’application sur le serveur de production OVH.
 commande pour les log : tail -n 100 /var/log/osmose-deploy.log
 commande suppression log : sudo rm -rf /var/log/osmose-deploy.log
-commande suppression log : echo "" > /var/log/osmose-deploy.log
 commande lancer le script : /var/www/osmose/deploy.sh
 
 ### Verifier l'etat du serveur
