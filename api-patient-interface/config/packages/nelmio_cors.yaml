@@ -1,14 +1,11 @@
 nelmio_cors:
     defaults:
-        origin_regex: true
-        allow_origin: ['%env(CORS_ALLOW_ORIGIN)%']
-        allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']
-        allow_headers: ['Content-Type', 'Authorization']
-        expose_headers: ['Link']
+        allow_credentials: false           # true seulement si tu utilises des cookies cross-site
+        allow_origin: ['https://admin.osmose-dialyse.fr']
+        allow_headers: ['Content-Type', 'Authorization', 'X-Requested-With']
+        expose_headers: ['Link', 'Location']
+        allow_methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
         max_age: 3600
+        hosts: []                          # vide = toutes les routes cibles
     paths:
-        '^/api/':
-            allow_origin: ['http://localhost:4200']
-            allow_headers: ['X-Custom-Auth', 'Content-Type', 'Authorization']
-            allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS']
-            max_age: 3600
+        '^/api/': ~                        # n’applique que pour tes endpoints d’API

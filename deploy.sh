@@ -58,8 +58,8 @@ if changed_any "^center-interface/|^package(-lock)?\.json|^angular\.json"; then
   NODE_OPTIONS="$NODE_OPTIONS_DEF" npx ng build --configuration production --source-map=false --verbose
 else
   # Même si rien n'a changé, tu peux forcer un rebuild en décommentant la ligne suivante
-   echo "-> Rien changé côté Angular, rebuild forcé"; cd "$SPA_DIR"; npm ci; NODE_OPTIONS="$NODE_OPTIONS_DEF" npx ng build --configuration production --source-map=false
-#  echo "-> build Angular sauté (pas de changement détecté)"
+#   echo "-> Rien changé côté Angular, rebuild forcé"; cd "$SPA_DIR"; npm ci; NODE_OPTIONS="$NODE_OPTIONS_DEF" npx ng build --configuration production --source-map=false
+  echo "-> build Angular sauté (pas de changement détecté)"
 fi
 
 # ---------- 3) Déploiement des fichiers Angular vers Nginx ----------
