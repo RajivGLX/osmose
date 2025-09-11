@@ -1,3 +1,4 @@
+admin-app/
 # Ignorer les dépendances Node.js (Angular)
 center-interface/node_modules/
 center-interface/dist/
@@ -14,6 +15,7 @@ api-patient-interface/node_modules/
 api-patient-interface/.env.local
 api-patient-interface/.env.test.local
 api-patient-interface/.env.*.local
+appi-patient-interface/public/
 
 # Fichiers système
 .DS_Store
