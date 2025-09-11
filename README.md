@@ -90,6 +90,20 @@ PMA password : `StreetwarriorCity!`
 ### Script de déploiement
 deploy.sh : script bash pour déployer l’application sur le serveur de production OVH.
 commande pour les log : tail -n 100 /var/log/osmose-deploy.log
+commande suppression log : sudo rm -rf /var/log/osmose-deploy.log
+commande suppression log : echo "" > /var/log/osmose-deploy.log
+commande lancer le script : /var/www/osmose/deploy.sh
+
+### Verifier l'etat du serveur
+sudo systemctl status nginx
+sudo systemctl status php8.3-fpm
+sudo systemctl status mysql
+### Redémarrer les services
+sudo systemctl restart nginx
+sudo systemctl restart php8.3-fpm
+sudo systemctl restart mysql
+sudo systemctl enable nginx
+
 
 ### Mode maintenance
 Id : guilloux
