@@ -48,6 +48,7 @@ security:
 
 
     access_control:
+        - { path: ^/api/login_check, roles: PUBLIC_ACCESS }
         - { path: ^/compte, roles: ROLE_PATIENT }
         - { path: ^/centre, roles: ROLE_PATIENT }
         - { path: ^/admin/login, roles: PUBLIC_ACCESS }
