@@ -103,6 +103,8 @@ sudo systemctl restart php8.3-fpm
 sudo systemctl restart mysql
 sudo systemctl enable nginx
 
+### Commandes utiles
+Vérfier les autorisations du dossier : ls -la 
 
 ### Mode maintenance
 Id : guilloux
