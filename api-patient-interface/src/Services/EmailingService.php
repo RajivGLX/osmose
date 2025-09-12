@@ -26,7 +26,7 @@ class EmailingService
         $email = (new TemplatedEmail())
             ->from($_ENV['MAILER_FROM'])
             ->to($user->getEmail())
-            ->subject('Activation de compte Dialyzone')
+            ->subject('Activation de compte Osmose')
             ->htmlTemplate('/email/emailActivateAccount.txt.twig')
             ->htmlTemplate('/email/emailActivateAccount.html.twig')
             ->context([
@@ -34,7 +34,7 @@ class EmailingService
                 'user' => $user,
                 'lien' => $tokenLink,
                 'entreprise' => [
-                    "nom" => 'Dialyzone',
+                    "nom" => 'Osmose',
                     "adresse" => '10 avenue de Provence',
                     "cp" => '91940',
                     "ville" => "Les Ulis",
@@ -53,7 +53,7 @@ class EmailingService
         $email = (new TemplatedEmail())
             ->from($_ENV['MAILER_FROM'])
             ->to($user->getEmail())
-            ->subject('Réinitialisation de mot de passe Dialyzone')
+            ->subject('Réinitialisation de mot de passe Osmose Dialyse')
             ->textTemplate('/email/resetPassword.txt.twig')
             ->htmlTemplate('/email/resetPassword.html.twig')
             ->context([
@@ -71,8 +71,8 @@ class EmailingService
     {
         $email = (new TemplatedEmail())
             ->from($_ENV['MAILER_FROM'])
-            ->to('contact@dialyzone.com')
-            ->subject('Contact Dialyzone : '.$object)
+            ->to('contact@osmose.com')
+            ->subject('Contact Osmose : '.$object)
             ->textTemplate('/email/EmailContact.txt.twig')
             ->htmlTemplate('/email/EmailContact.html.twig')
             ->context([

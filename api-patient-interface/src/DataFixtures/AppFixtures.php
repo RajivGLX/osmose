@@ -185,7 +185,7 @@ class AppFixtures extends Fixture
     public function loadUser($manager): void
     {
         $roles = [
-            'ROLE_ADMIN_DIALYZONE' => 'Admin Dialyzone',
+            'ROLE_ADMIN_OSMOSE' => 'Admin Osmose',
             'ROLE_SUPER_ADMIN' => 'Super Admin',
             'ROLE_ADMIN' => 'Admin',
             'ROLE_PATIENT' => 'Patient',
@@ -205,7 +205,7 @@ class AppFixtures extends Fixture
         if (!$manager->find(User::class, 1)) {
             $user->setFirstname('admin');
             $user->setLastname('admin');
-            $user->setRoles(['ROLE_ADMIN_DIALYZONE']);
+            $user->setRoles(['ROLE_ADMIN_OSMOSE']);
             $user->setPassword($this->userPasswordHasher->hashPassword($user, 'admin'));
             $user->setEmail('admin@admin.com');
             $user->setValid(true);

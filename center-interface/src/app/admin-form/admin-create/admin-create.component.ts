@@ -46,7 +46,7 @@ export class AdminCreateComponent {
     email_form = this.adminFormService.email_form
     loadingAdmin: WritableSignal<boolean> = this.adminFormService.loadingAdmin
     allCenter: Observable<Center[]> =  this.centerListService.allCenter$
-    listAllRoles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN', 'ROLE_ADMIN_DIALYZONE'];
+    listAllRoles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN', 'ROLE_ADMIN_OSMOSE'];
     
     hide: boolean = true;
     errors : any = {};

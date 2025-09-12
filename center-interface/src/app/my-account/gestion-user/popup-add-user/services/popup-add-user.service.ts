@@ -74,12 +74,12 @@ export class PopupAddUserService {
 			'center_array': [center.id],
 		}).subscribe({
 			next: (response : {message: string, data: User, reload: boolean}) => {
-				this.toolsService.openSnackBar(response.message, true)
+				this.toolsService.openSnackBar('success',response.message)
 				this.gestionUserService.addAdminToList(response.data)
 			},
 			error: (response: HttpErrorResponse) => {
 				console.log(response)
-				this.toolsService.openSnackBar(response.error.message, false)
+				this.toolsService.openSnackBar('error',response.error.message)
 			}
 		})
 	}

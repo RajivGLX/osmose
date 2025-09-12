@@ -36,9 +36,9 @@ class RegisterController extends AbstractController
 
             if ($result) {
                 $this->emailingService->sendMailActivateAccount($user);
-                $this->addFlash('notice', ['nature' => 'success', 'message' => 'Votre compte Dialyzone a bien été créé. <br> Nous venons de vous envoyer un lien par mail pour confirmer votre compte : <br> (pensez à regarder vos spams ou messages indésirables).<br> Merci de cliquer sur le lien pour confirmer votre compte.']);
+                $this->addFlash('notice', ['nature' => 'success', 'message' => 'Votre compte Osmose a bien été créé. <br> Nous venons de vous envoyer un lien par mail pour confirmer votre compte : <br> (pensez à regarder vos spams ou messages indésirables).<br> Merci de cliquer sur le lien pour confirmer votre compte.']);
             } else {
-                $this->addFlash('notice', ['nature' => 'danger', 'message' => 'Une erreur est survenue lors de la création de votre compte Dialyzone. Veuillez réessayer ou appeler le support technique.']);
+                $this->addFlash('notice', ['nature' => 'danger', 'message' => 'Une erreur est survenue lors de la création de votre compte Osmose. Veuillez réessayer ou appeler le support technique.']);
             }
 
             return $this->redirectToRoute('app_user_login');
@@ -68,7 +68,7 @@ class RegisterController extends AbstractController
                         $this->addFlash('notice', ['nature' => 'success', 'message' => 'Votre compte <span class="font-weight-bold">a déjà été vérifié.</span> <br> Vous pouvez donc vous connecter avec les identifiants que vous avez renseignés lors de votre inscription.']);
                     }
                 } else {
-                    $this->addFlash('notice', ['nature' => 'danger', 'message' => 'Une erreur est survenue lors de la validation de votre compte Dialyzone.<br> Veuillez réessayer ou appeler le support technique.']);
+                    $this->addFlash('notice', ['nature' => 'danger', 'message' => 'Une erreur est survenue lors de la validation de votre compte Osmose.<br> Veuillez réessayer ou appeler le support technique.']);
                 }
             } else {
                 return $this->render('security/confirmExpired.html.twig', ['id' => $payload['user_id']]);
@@ -83,7 +83,7 @@ class RegisterController extends AbstractController
     public function resendToken(User $user): Response
     {
         if (!$user) {
-            $this->addFlash('notice', ['nature' => 'info', 'danger' => 'Une erreur est survenue lors de la validation de votre compte Dialyzone.<br> Veuillez réessayer ou appeler le support technique.']);
+            $this->addFlash('notice', ['nature' => 'info', 'danger' => 'Une erreur est survenue lors de la validation de votre compte Osmose.<br> Veuillez réessayer ou appeler le support technique.']);
             return $this->redirectToRoute('app_user_login');
         }
         if ($user->getPatient()->isChecked()) {
@@ -91,7 +91,7 @@ class RegisterController extends AbstractController
             return $this->redirectToRoute('app_user_login');
         } else {
             $this->emailingService->sendMailActivateAccount($user);
-            $this->addFlash('notice', ['nature' => 'success', 'message' => 'Un nouveau lien de vérification a été envoyé à l\'adresse e-mail communiquer lors de votre inscription à Dialyzone. <br> (pensez à regarder vos spams ou messages indésirables).']);
+            $this->addFlash('notice', ['nature' => 'success', 'message' => 'Un nouveau lien de vérification a été envoyé à l\'adresse e-mail communiquer lors de votre inscription à Osmose. <br> (pensez à regarder vos spams ou messages indésirables).']);
             return $this->redirectToRoute('app_user_login');
         }
     }

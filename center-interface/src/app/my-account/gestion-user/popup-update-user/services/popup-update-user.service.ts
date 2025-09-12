@@ -5,7 +5,6 @@ import { Observable } from "rxjs";
 import { JsonResponseInterface } from "../../../../shared/interfaces/json-response-interface";
 import { environment } from "../../../../../environment/environment";
 import { HttpClient } from "@angular/common/http";
-import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +13,7 @@ export class PopupUpdateUserService {
     updateUserForm!: FormGroup;
     listeRoles = ['ROLE_ADMIN', 'ROLE_COMPTABLE', 'ROLE_NOTAIRE'];
 
-    constructor(private fb: FormBuilder, private http: HttpClient, private _snackBar: MatSnackBar) {
+    constructor(private fb: FormBuilder, private http: HttpClient) {
     }
     getListeRoles(): Array<string> {
         return this.listeRoles
@@ -47,15 +46,5 @@ export class PopupUpdateUserService {
 
     updateUserInfos(): Observable<JsonResponseInterface> {
         return this.http.post<JsonResponseInterface>(environment.apiURL + '/api/updateUserInfos', this.updateUserForm.value);
-    }
-
-
-    openSnackBar(msg: string, type: boolean) {
-        this._snackBar.open(msg, 'fermer', {
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            duration: 6000,
-            panelClass: !type ? 'error' : 'success'
-        });
     }
 }

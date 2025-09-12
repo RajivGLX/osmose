@@ -63,7 +63,7 @@ export class CenterFormComponent implements OnInit {
         this.loginService._userConnected$.subscribe((userData) => {
             if (userData) {
                 this.currentUser = userData
-                this.idCenter = userData.adminDialyzone ? this.currentCenter.id : userData.administrator.centers[0].id
+                this.idCenter = userData.adminOsmose ? this.currentCenter.id : userData.administrator.centers[0].id
                 
             }
         })

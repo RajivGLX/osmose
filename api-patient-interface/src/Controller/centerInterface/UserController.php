@@ -39,7 +39,7 @@ class UserController extends AbstractController
     #[Route('/api/get-all-admins', name: 'api_all_admins', methods: ['GET'])]
     public function getAllAdmins(): Response
     {
-        if ($this->identifier->isAdminDialyzone($this->getUser())) {
+        if ($this->identifier->isadminOsmose($this->getUser())) {
             $allAdmins = $this->userRepository->getAllAdmins();
             return $this->json(['data' => $allAdmins, 'message' => 'Chargement des administrateurs reussis'], 200, [], ['groups' => 'info_user']);
         } else {
@@ -149,7 +149,7 @@ class UserController extends AbstractController
     #[Route('/api/get-all-patients', name: 'api_all_patients', methods: ['GET'])]
     public function getAllPatients(): Response
     {
-        if ($this->identifier->isAdminDialyzone($this->getUser())) {
+        if ($this->identifier->isadminOsmose($this->getUser())) {
             $allPatients = $this->userRepository->getAllPatients();
             return $this->json(['data' => $allPatients, 'message' => 'Chargement des patients reussis'], 200, [], ['groups' => 'info_user']);
         } else {

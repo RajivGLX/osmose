@@ -40,7 +40,7 @@ export class AdminListService {
             error: (error: HttpErrorResponse) => {
                 this.loaderAgGrid$.next(false)
                 console.log(error)
-                this.toolsService.openSnackBar(error.error, false);
+                this.toolsService.openSnackBar('error',error.error);
             }
         })
     }
@@ -50,10 +50,10 @@ export class AdminListService {
         this.http.post<{ data: User, message: string }>(environment.apiURL + '/api/user-change-status', {id:user.id, valid:newStatus}).subscribe({
             next: (response : {message: string, data: User}) => {
                 this.updateAdminInList(response.data)
-                this.toolsService.openSnackBar(response.message, true)
+                this.toolsService.openSnackBar('success',response.message)
             },
             error: (error: HttpErrorResponse) => {
-                this.toolsService.openSnackBar(error.error.message, false)
+                this.toolsService.openSnackBar('error',error.error.message)
             }
         });
     }

@@ -38,7 +38,7 @@ security:
 
 
     role_hierarchy:
-        ROLE_ADMIN_DIALYZONE:
+        ROLE_ADMIN_OSMOSE:
             - ROLE_SUPER_ADMIN
             - ROLE_ADMIN
         ROLE_SUPER_ADMIN:
@@ -54,6 +54,6 @@ security:
         - { path: ^/admin/login, roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/admin, roles: ROLE_SUPER_ADMIN }
-        - { path: ^/admin, roles: ROLE_ADMIN_DIALYZONE }
+        - { path: ^/admin, roles: ROLE_ADMIN_OSMOSE }
 
 

@@ -16,14 +16,14 @@ Class Identifier
         $this->centerRepository = $centerRepository;
     }
     
-    public function isAdminDialyzone(UserInterface $user = null): bool
+    public function isadminOsmose(UserInterface $user = null): bool
     {
         if ($user == null){
             return false;
         }
         $roleUser = $user->getRoles();
-        $adminDialyzone = 'ROLE_ADMIN_DIALYZONE';
-        if (in_array($adminDialyzone, $roleUser)) {
+        $adminOsmose = 'ROLE_ADMIN_OSMOSE';
+        if (in_array($adminOsmose, $roleUser)) {
             return true;
         }else{
             return false;
@@ -34,7 +34,7 @@ Class Identifier
     {
         if ($user == null){
             return false;
-        }elseif ($this->isAdminDialyzone($user)){
+        }elseif ($this->isAdminOsmose($user)){
             return true;
         }else{
             $centerForAdmin = $this->centerRepository->findCenterForAdmin($user->getAdministrator()->getId());

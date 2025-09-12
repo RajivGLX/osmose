@@ -69,7 +69,7 @@ export class AdminListComponent {
             if(user){
                 this.currentAdmin = user
                 this.adminListService.getAllAdmins();
-                if(this.currentAdmin.adminDialyzone) {
+                if(this.currentAdmin.adminOsmose) {
                     this.adminListService.listAllAdmin$.subscribe(allAdmins => {
                         this.setRowData(allAdmins)
                     }) 

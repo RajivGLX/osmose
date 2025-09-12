@@ -27,7 +27,7 @@ class UserDTO
 
     #[Assert\All([
         new Assert\Length(min: 1),
-        new Assert\Choice(choices: ["ROLE_ADMIN", "ROLE_SUPER_ADMIN", "ROLE_PATIENT", "ROLE_ADMIN_DIALYZONE"], message: "Le role ne correspond pas au valeurs attendues")]
+        new Assert\Choice(choices: ["ROLE_ADMIN", "ROLE_SUPER_ADMIN", "ROLE_PATIENT", "ROLE_ADMIN_OSMOSE"], message: "Le role ne correspond pas au valeurs attendues")]
     )]
     #[Assert\Count(
         min: 1,

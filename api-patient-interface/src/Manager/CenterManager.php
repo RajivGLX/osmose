@@ -206,7 +206,7 @@ class CenterManager
 
     public function changeStatusCenter($user, CenterDTO $centerDTO): array
     {
-        if (!$this->identifier->isAdminDialyzone($user)) {
+        if (!$this->identifier->isadminOsmose($user)) {
             return ['message' => 'Vous n\'avez pas les droits pour effectuer cette action', 'code' => 403];
         }
 

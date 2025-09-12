@@ -26,7 +26,7 @@ Class Mail
 
         $token = $this->jwt->generate(['user_id' => $user->getId()], $_ENV['JWT_SECRET']);
         $tokenLink = $this->urlGenerator->generate('verify_user', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
-        $subject = 'Validation de votre compte Dialyzone.';
+        $subject = 'Validation de votre compte Osmose.';
         $templateId = 5717634;
         $variables = [
             'token' => $tokenLink,
@@ -38,7 +38,7 @@ Class Mail
     }
 
     public function sendMailForResetPassword(User $user, string $token){
-        $subject = 'Réinitialisation de votre mot de passe Dialyzone.';
+        $subject = 'Réinitialisation de votre mot de passe Osmose.';
         $templateId = 5714781;
         $tokenLink = $this->urlGenerator->generate('update_password', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
         $variables = [
@@ -57,7 +57,7 @@ Class Mail
                 [
                     'From' => [
                         'Email' => "matisse-canal@outlook.fr",
-                        'Name' => "Dialyzone"
+                        'Name' => "Osmose"
                     ],
                     'To' => [
                         [
@@ -88,7 +88,7 @@ Class Mail
                 [
                     'From' => [
                         'Email' => "matisse-canal@outlook.fr",
-                        'Name' => "Dialyzone"
+                        'Name' => "Osmose"
                     ],
                     'To' => [
                         [

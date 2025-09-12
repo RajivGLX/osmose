@@ -102,7 +102,7 @@ class BookingController extends AbstractController
     public function getAllFuturBooking(): Response
     {
         $user = $this->getUser();
-        if($this->identifier->isAdminDialyzone($user)){
+        if($this->identifier->isadminOsmose($user)){
             $allBooking = $this->bookingRepository->findAll();
         } else {
             $allBooking = $this->bookingRepository->findFuturBookingsByCenter($user->getAdministrator()->getCenters());
@@ -114,7 +114,7 @@ class BookingController extends AbstractController
     public function getAllPastBooking(): Response
     {
         $user = $this->getUser();
-        if($this->identifier->isAdminDialyzone($user)){
+        if($this->identifier->isadminOsmose($user)){
             $allBooking = $this->bookingRepository->findAll();
         } else {
             $allBooking = $this->bookingRepository->findPastBookingsByCenter($user->getAdministrator()->getCenters());
@@ -127,7 +127,7 @@ class BookingController extends AbstractController
     {
         $user = $this->getUser();
         $allstatus = $this->statusRepository->findAll();
-        if ($this->identifier->isAdminDialyzone($user)) {
+        if ($this->identifier->isadminOsmose($user)) {
             return $this->json($allstatus, 200, [], ['groups' => 'status_admin']);
         } else {
             $statusForAdmin = [];

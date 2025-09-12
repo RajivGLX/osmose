@@ -5,7 +5,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginService } from './services/login.service';
@@ -34,22 +33,16 @@ export class LoginComponent implements OnInit {
     constructor(
         private fb: FormBuilder, 
         private loginService: LoginService, 
-        private _snackBar: MatSnackBar
     ) { }
 
-    formValid = true;
     loader: boolean = false
-    showAlertMessageSuccess: boolean = false;
-    showAlertMessageError: boolean = false;
     loginForm!: FormGroup
     hide: boolean = true;
 
     loading: Observable<boolean> = this.loginService.loading$
-    errorMsg: Observable<string> = this.loginService.errorMsg$
-    successMsg: Observable<string> = this.loginService.successMsg$
 
-    horizontalPosition: MatSnackBarHorizontalPosition = 'center';
-    verticalPosition: MatSnackBarVerticalPosition = 'top';
+    displayAttemptRemaining = this.loginService.displayAttemptRemaining;
+    displayAccountBlocked = this.loginService.displayAccountBlocked;
 
     ngOnInit(): void {
 

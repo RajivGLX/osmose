@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Patient } from '../../interface/patient.interface';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ToolsService } from '../../shared/services/tools.service';
 import { environment } from '../../../environment/environment';
@@ -25,10 +24,10 @@ export class PatientListService {
     ) { }
 
     getAllPatients(forceReload: boolean = false) {
-        if (Date.now() - this.listAllPatientLoaded <= 1200000 && forceReload == false) {
+        if (Date.now() - this.listAllPatientLoaded <= 1200000 && !forceReload) {
             return
         }
-        if(forceReload == false){
+        if(!forceReload){
             this.loaderAgGrid$.next(true)
         }
         this.http.get<{ data: User[], message: string }>(environment.apiURL + '/api/get-all-patients').subscribe({
@@ -40,7 +39,7 @@ export class PatientListService {
             error: (error: HttpErrorResponse) => {
                 this.loaderAgGrid$.next(false)
                 console.log(error)
-                this.toolsService.openSnackBar(error.error.message, false);
+                this.toolsService.openSnackBar('error',error.error.message);
             }
         })
     }
@@ -49,10 +48,10 @@ export class PatientListService {
         this.http.post<{ data: User, message: string }>(environment.apiURL + '/api/user-change-status', {id:user.id, valid:newStatus}).subscribe({
             next: (response : {message: string, data: User}) => {
                 this.updatePatientInList(response.data)
-                this.toolsService.openSnackBar(response.message, true)
+                this.toolsService.openSnackBar('success',response.message)
             },
             error: (error: HttpErrorResponse) => {
-                this.toolsService.openSnackBar(error.error.message, false)
+                this.toolsService.openSnackBar('error',error.error.message)
             }
         });
     }

@@ -148,7 +148,7 @@ class BookingManager
     public function changeStatusBookingBatch(UserInterface $user, Status $status, $bookingsToChange): bool
     {
         try {
-            if ($this->identifier->isAdminDialyzone($user)) {
+            if ($this->identifier->isadminOsmose($user)) {
                 foreach ($bookingsToChange as $booking) {
                     $this->changeStatusBooking($status, $user, $booking);
                 }
@@ -208,7 +208,7 @@ class BookingManager
             return true;
         }
 
-        if ($this->identifier->isAdminDialyzone($user)) {
+        if ($this->identifier->isadminOsmose($user)) {
             return true;
         }
 

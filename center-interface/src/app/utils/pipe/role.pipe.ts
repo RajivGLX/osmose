@@ -18,8 +18,8 @@ export class RolePipe implements PipeTransform {
             case 'ROLE_PATIENT':
                 traductionRole = 'Patient'
                 break
-            case 'ROLE_ADMIN_DIALYZONE':
-                traductionRole = 'Administrateur Dialyzone'
+            case 'ROLE_ADMIN_OSMOSE':
+                traductionRole = 'Administrateur Osmose'
                 break
             default:
                 break

@@ -29,7 +29,7 @@
                         </svg>
                     </div>
                 </div>
-                @if(user.roles[0] != 'ROLE_ADMIN_DIALYZONE'){
+                @if(user.roles[0] != 'ROLE_ADMIN_OSMOSE'){
                     <div class="infos-etude bloc-compte d-flex">
                         <div class="d-flex fisrt-bloc-infos">
                             <div class="img-etude">
@@ -56,14 +56,14 @@
                     </div>
                 }
             </div>
-            @if(checkRoles(['ROLE_ADMIN_DIALYZONE', 'ROLE_SUPER_ADMIN'])){
+            @if(checkRoles(['ROLE_ADMIN_OSMOSE', 'ROLE_SUPER_ADMIN'])){
                 <div class="container-onglet-categories">
                     <div class="categories">
                         <ul>
                             <li class="cat" (click)="switchOnglet(1)" [ngClass]="ongletToDisplay == 1 ? 'active' : ''">
                                 Informations du compte
                             </li>
-                            @if(user.roles[0] != 'ROLE_ADMIN_DIALYZONE'){
+                            @if(user.roles[0] != 'ROLE_ADMIN_OSMOSE'){
                                 <li class="cat" (click)="switchOnglet(2)" [ngClass]="ongletToDisplay == 2 ? 'active' : ''">
                                     Gestion des utilisateurs
                                 </li>

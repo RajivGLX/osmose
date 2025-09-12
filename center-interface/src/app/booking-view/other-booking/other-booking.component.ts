@@ -172,7 +172,7 @@ export class OtherBookingComponent implements OnInit {
         }
         const selectedNodes = this.gridBookingList.getSelectedNodes()
         if (selectedNodes.length === 0) {
-            this.toolsService.openSnackBar('Veuillez sélectionner au moins une réservation', true)
+            this.toolsService.openSnackBar('success','Veuillez sélectionner au moins une réservation')
             return
         }
         const arrayIdBooking = selectedNodes.map((item: any) => item.data.id)

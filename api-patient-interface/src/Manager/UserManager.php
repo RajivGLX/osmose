@@ -216,31 +216,6 @@ class UserManager
         }
     }
 
-    // public function changeStatusUser($user, UserDTO $userDTO): array
-    // {
-    //     if (!$this->identifier->isAdminDialyzone($user)) {
-    //         return ['message' => 'Vous n\'avez pas les droits pour effectuer cette action', 'data' => null,'code' => 403];
-    //     }
-
-    //     $validationResult = $this->tools->handleValidationErrors($this->validator->validate($userDTO));
-    //     if ($validationResult) return $validationResult;
-
-    //     try {
-    //         $user = $this->entityManager->getRepository(User::class)->find($userDTO->id);
-    //         $user->setValid($userDTO->valid);
-
-    //         $this->entityManager->persist($user);
-    //         $this->entityManager->flush();
-    //         $this->logger->info('Modification du status du centre : ' . $user->getId());
-
-    //         return ['message' => 'Le status du l\'utilisateur a bien été modifié', 'data' => $user, 'code' => 200];
-    //     } catch (\Exception $e) {
-    //         $this->logger->error('Probléme lors de la sauvegarde du status du user : ' . $e->getMessage());
-    //         return ['message' => 'Probléme lors de la sauvegarde du status de l\'utilisateur', 'data' => null, 'code' => 400];
-    //     }
-
-    // }
-
     public function changeStatusUser($currentUser, UserDTO $userDTO): array
     {
         try {
@@ -254,12 +229,8 @@ class UserManager
                 return ['message' => 'Utilisateur non trouvé', 'data' => null, 'code' => 404];
             }
 
-            // Si c'est un admin Dialyzone, il a tous les droits
-            if ($this->identifier->isAdminDialyzone($currentUser)) {
-                // Autoriser la modification
-            }
-            // Sinon vérifier si l'utilisateur à modifier est sous sa supervision
-            else {
+            // Vérifier si l'utilisateur à modifier est sous sa supervision
+            if (!$this->identifier->isadminOsmose($currentUser)) {
                 $adminBySuperAdmin = $this->adminRepository->findAdminsBySuperAdmin($currentUser);
                 // Vérifier si l'utilisateur à modifier est dans cette liste
                 $userFound = false;
@@ -425,8 +396,8 @@ class UserManager
     public function saveRole(FormInterface $form, User $user, bool $isAdmin): bool
     {
         try {
-            if ($isAdmin && $this->identifier->isAdminDialyzone($this->security->getUser())) {
-                return $this->saveRoleByAdminDialyzone($form, $user);
+            if ($isAdmin && $this->identifier->isadminOsmose($this->security->getUser())) {
+                return $this->saveRoleByadminOsmose($form, $user);
             } else {
                 return $this->saveRoleBySimpleUser($user, $isAdmin);
             }
@@ -451,14 +422,14 @@ class UserManager
         }
     }
 
-    public function saveRoleByAdminDialyzone(FormInterface $form, User $user): bool
+    public function saveRoleByadminOsmose(FormInterface $form, User $user): bool
     {
         try {
             $arrayRole = [0 => $form->get('role')->getData()->getRoleName(), 1 => 'ROLE_USER'];
             $user->setRoles($arrayRole);
             return true;
         } catch (\Exception $e) {
-            $this->logger->error('Sauvegarde des rôles émit par un administrateur Dialyzone : ' . $e->getMessage());
+            $this->logger->error('Sauvegarde des rôles émit par un administrateur Osmose : ' . $e->getMessage());
             return false;
         }
     }

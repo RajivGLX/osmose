@@ -76,7 +76,7 @@ export class CenterCalendarComponent implements OnInit {
         this.loginService._userConnected$.subscribe((userData) => {
             if (userData) {
                 this.currentUser = userData
-                this.currentCenter = userData.adminDialyzone ? this.currentCenter : userData.administrator.centers[0]
+                this.currentCenter = userData.adminOsmose ? this.currentCenter : userData.administrator.centers[0]
                 this.centerCalendarService._idCenter$.next(this.currentCenter.id)
                 this.groupAvailability$ = this.centerCalendarService.fetchGroupAvailability(this.currentCenter.id);
                 this.weeks = this.getWeeksInMonth();

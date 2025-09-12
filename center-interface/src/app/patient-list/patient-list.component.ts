@@ -73,7 +73,7 @@ export class PatientListComponent {
             if(user){
                 this.currentAdmin = user
                 this.patientListService.getAllPatients();
-                if(this.currentAdmin.adminDialyzone) {
+                if(this.currentAdmin.adminOsmose) {
                     this.patientListService.listAllPatients$.subscribe(allPatients => {
                         this.setRowData(allPatients)
                     }) 

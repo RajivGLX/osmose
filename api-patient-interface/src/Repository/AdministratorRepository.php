@@ -64,7 +64,7 @@ class AdministratorRepository extends ServiceEntityRepository
     public function getCentersAdmin(User $user, $arrayId = false): array
     {
         $userAdmin = $this->findOneBy(['user' => $user]);
-        if ($this->identifier->isAdminDialyzone($user)) {
+        if ($this->identifier->isadminOsmose($user)) {
             $centerOfSuperAdmin = [];
             return $centerOfSuperAdmin;
         }else{

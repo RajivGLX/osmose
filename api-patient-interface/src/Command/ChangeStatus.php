@@ -54,11 +54,11 @@ class ChangeStatus extends Command {
                 return Command::FAILURE;
             }
 
-//            $adminDialyzone = $this->userRepository->findOneBy(['roles' => ["ROLE_ADMIN_DIALYZONE"]]);
-            $adminDialyzone = null;
-            if (empty($adminDialyzone)) {
-                $this->logger->error('Admin Dialyzone n\'a pas été trouvé.');
-                $io->error('Admin Dialyzone n\'a pas été trouvé.');
+//            $adminOsmose = $this->userRepository->findOneBy(['roles' => ["ROLE_ADMIN_OSMOSE"]]);
+            $adminOsmose = null;
+            if (empty($adminOsmose)) {
+                $this->logger->error('Admin Osmose n\'a pas été trouvé.');
+                $io->error('Admin Osmose n\'a pas été trouvé.');
                 return Command::FAILURE;
             }
 
@@ -70,7 +70,7 @@ class ChangeStatus extends Command {
             }
 
             $numberBookings = count($bookings);
-            $result = $this->bookingManager->changeStatusBookingBatch($adminDialyzone, $statusFinish, $bookings);
+            $result = $this->bookingManager->changeStatusBookingBatch($adminOsmose, $statusFinish, $bookings);
             if($result){
                 $io->success(sprintf('Modification de "%d" status de reservation passé.', $numberBookings));
                 $this->logger->info(sprintf('Modification de "%d" status de reservation passé.', $numberBookings));

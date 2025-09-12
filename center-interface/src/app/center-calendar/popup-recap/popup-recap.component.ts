@@ -89,11 +89,11 @@ export class PopupRecapComponent implements OnInit {
         this.centerCalendarServices.sendAvailability().subscribe({
             next: (data: JsonResponseInterface) => {
                 this.centerCalendarServices.loaderCalendar.set(false);
-                this.toolsService.openSnackBar(data.message, true);
+                this.toolsService.openSnackBar('success',data.message);
             },
             error: (err: HttpErrorResponse) => {
                 this.centerCalendarServices.loaderCalendar.set(false);
-                this.toolsService.openSnackBar(err.error.message, false);
+                this.toolsService.openSnackBar('error',err.error.message);
             }
         });
     }

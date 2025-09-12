@@ -22,7 +22,7 @@ class AdminController extends AbstractController
     public function getListeUserCenter(): Response
     {
         $user = $this->getUser();
-        if ($this->identifier->isAdminDialyzone($user)) {
+        if ($this->identifier->isadminOsmose($user)) {
             $allUsers = $this->userRepository->findAdminOrPatient(true);
         } else {
             $adminBySuperAdmin = $this->adminRepository->findAdminsBySuperAdmin($user);

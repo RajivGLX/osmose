@@ -38,7 +38,7 @@ export class GestionUserService {
     getListeUsersCenter(forceReload: boolean = false) {
         // requete par heure
         this._loading$.next(true)
-        if (Date.now() - this.listeUsersEtudeLoaded <= 3600000 && forceReload == false) {
+        if (Date.now() - this.listeUsersEtudeLoaded <= 3600000 && !forceReload) {
             this._loading$.next(false)
             return;
         }
@@ -53,26 +53,6 @@ export class GestionUserService {
             error: (err: Error) => {
                 this._loading$.next(false)
                 console.log('erreur ' + err);
-
-            }
-        });
-    }
-
-
-    updateUserStatus(userId: number, accountStatus: boolean) {
-        this._statusLoading$.next(true)
-        this.http.post<JsonResponseInterface>(environment.apiURL + '/api/userDesactivatedByAdmin', {
-            id: userId,
-            accountStatus
-        }).subscribe({
-            next: (data: JsonResponseInterface) => {
-                this._statusLoading$.next(false)
-                this.toolsService.openSnackBar(data.message, data.success);
-                this.getListeUsersCenter(true);
-            },
-            error: (err: HttpErrorResponse) => {
-                this._statusLoading$.next(false)
-                this.toolsService.openSnackBar(err.error.message, false);
 
             }
         });

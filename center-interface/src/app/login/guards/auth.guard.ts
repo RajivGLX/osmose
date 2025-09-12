@@ -2,16 +2,24 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { LoginService } from '../services/login.service';
 import { User } from '../../interface/user.interface';
+import { catchError, map, Observable, of } from "rxjs";
 
 export function isLogged(): CanActivateFn {
     return () => {
         const oauthService: LoginService = inject(LoginService);
         const router: Router = inject(Router);
+        const nav = router.getCurrentNavigation();
+        const target = nav?.extractedUrl?.queryParams?.['target']
+        if(target == 'activate-account'){
+            return router.parseUrl('/activate-account/'+nav?.extractedUrl?.queryParams['token']);
+        }
+        if(target == 'reset-password'){
+            return router.parseUrl('/reset-password/'+nav?.extractedUrl?.queryParams['token']+ '/' +nav?.extractedUrl?.queryParams['context']);
+        }
         if (oauthService.isTokenExpire()) {
-
-            router.navigate(['/login']);
             oauthService._isLogged$.next(false)
-            return false;
+            return router.parseUrl('/login');
+
         }
         oauthService._isLogged$.next(true)
         return true;
@@ -31,31 +39,39 @@ export function isGuest(): CanActivateFn {
 }
 
 export function hasAccess(role: string[]): CanActivateFn {
-    return () => {
-        var accessOK = false
-        const oauthService: LoginService = inject(LoginService);
-        const router: Router = inject(Router)
-        // oauthService.userConnected$.subscribe({
-        //     next: (u) => {
-        //         if (u !== null) {
-        //             if (u.roles.some(r => role.includes(r))) {
-        //                 accessOK = true
-        //             } else {
-        //                 router.navigate(["/"]);
-        //                 accessOK = false
-        //             }
-        //         } else {
-        //             router.navigate(["/"]);
-        //             accessOK = false
-        //         }
-        //     },
-        //     error: (e: Error) => {
-        //         console.log(e.message)
-        //         accessOK = false
-        //     }
-        // })
+    return (): Observable<boolean> => {
+        const oauthService = inject(LoginService);
+        const router = inject(Router);
+        const user = oauthService._userConnected$.getValue();
 
-        return accessOK
+        if (user) {
+            if (user.roles.some(r => role.includes(r))) {
+                return of(true);
+            } else {
+                router.parseUrl('/');
+                return of(false);
+            }
+        } else {
+            return oauthService.userConnected$.pipe(
+                map((value: User | null) => {
+                    if (value) {
+                        if (value.roles.some(r => role.includes(r))) {
+                            return true;
+                        } else {
+                            router.parseUrl('/');
+                            return false;
+                        }
+                    } else {
+                        router.parseUrl('/');
+                        return false;
+                    }
+                }),
+                catchError(error => {
+                    router.parseUrl('/');
+                    return of(false);
+                })
+            );
+        }
     }
 }
 

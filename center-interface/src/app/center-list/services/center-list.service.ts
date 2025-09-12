@@ -45,7 +45,7 @@ export class CenterListService {
             },
             error: (error: HttpErrorResponse) => {
                 this.loaderAgGrid$.next(false)
-                this.toolsService.openSnackBar(error.error, false);
+                this.toolsService.openSnackBar('error',error.error);
             }
         })
     }
@@ -61,7 +61,7 @@ export class CenterListService {
                 this.getAllCenterReload = Date.now()
             },
             error: (error: HttpErrorResponse) => {
-                this.toolsService.openSnackBar(error.error, false);
+                this.toolsService.openSnackBar('error',error.error);
             }
         })
     }
@@ -70,11 +70,11 @@ export class CenterListService {
         this.http.post<{ data: Center, message: string }>(environment.apiURL + '/api/center-change-status', {id:center.id, active:status}).subscribe({
             next: (response : {message: string, data: Center}) => {
                 this.updateCenterInList(response.data)
-                this.toolsService.openSnackBar(response.message, true);
+                this.toolsService.openSnackBar('success',response.message);
             },
             error: (error: HttpErrorResponse) => {
                 this.updateCenterInList(center)
-                this.toolsService.openSnackBar(error.error.message, false);
+                this.toolsService.openSnackBar('error',error.error.message);
             }
         });
     }

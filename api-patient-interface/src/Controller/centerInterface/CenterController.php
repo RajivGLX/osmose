@@ -70,7 +70,7 @@ class CenterController extends AbstractController
     #[Route('/api/get-list-center', name: 'api_list_center', methods: ['GET'])]
     public function getListCenters(): Response
     {
-        if ($this->identifier->isAdminDialyzone($this->getUser())) {
+        if ($this->identifier->isadminOsmose($this->getUser())) {
             $listCenters = $this->centerRepository->findAll();
             return $this->json(['data' => $listCenters, 'message' => 'Chargement des centres reussis'], 200, [], ['groups' => 'info_center']);
         } else {

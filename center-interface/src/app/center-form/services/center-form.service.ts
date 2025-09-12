@@ -99,14 +99,14 @@ export class CenterFormService {
         this.loadingCreate.set(true)
         this.http.post<{message : string, data : Center}>(environment.apiURL + '/api/create-center', this.center_create_form.value).subscribe({
             next: (response : {message: string, data: Center}) => {
-                this.toolsService.openSnackBar(response.message, true)
+                this.toolsService.openSnackBar('success',response.message)
                 this.centerListService.addCenterToList(response.data)
                 this.loadingCreate.set(false)
             },
             error: (response: HttpErrorResponse) => {
                 this.loadingCreate.set(false)
                 console.log(response)
-                this.toolsService.openSnackBar(response.error.message, false)
+                this.toolsService.openSnackBar('error',response.error.message)
             }
         })
     }
@@ -115,9 +115,9 @@ export class CenterFormService {
         this.loadingInfoCenter.set(true)
         this.http.post<{message : string, data : Center}>(environment.apiURL + '/api/update-center-info', this.center_info_form.value).subscribe({
             next: (response : {message: string, data: Center}) => {
-                this.toolsService.openSnackBar(response.message, true)
+                this.toolsService.openSnackBar('success',response.message)
                 this.initializeFormCenterInfoAndAddress(response.data)
-                if(currentUser.adminDialyzone){
+                if(currentUser.adminOsmose){
                     this.centerListService.updateCenterInList(response.data) 
                 }else{
                     this.loginService.getConnectedUser()
@@ -126,7 +126,7 @@ export class CenterFormService {
             error: (response: HttpErrorResponse) => {
                 this.loadingInfoCenter.set(false)
                 console.log(response)
-                this.toolsService.openSnackBar(response.error.message, false);
+                this.toolsService.openSnackBar('error',response.error.message);
             }
         })
     }
@@ -136,8 +136,8 @@ export class CenterFormService {
         this.http.post<{message : string, data : Center}>(environment.apiURL + '/api/update-center-address', this.center_adress_form.value).subscribe({
             next: (response : {message: string, data: Center}) => {
                 console.log('updateCenterAddress response : ',response)
-                this.toolsService.openSnackBar(response.message, true)
-                if(currentUser.adminDialyzone){
+                this.toolsService.openSnackBar('success',response.message)
+                if(currentUser.adminOsmose){
                     this.initializeFormCenterInfoAndAddress(response.data)
                 }else{
                     this.loginService.getConnectedUser()
@@ -146,7 +146,7 @@ export class CenterFormService {
             error: (response: HttpErrorResponse) => {
                 this.loadingInfoAddress.set(false)
                 console.log(response)
-                this.toolsService.openSnackBar(response.error.message, false)
+                this.toolsService.openSnackBar('error',response.error.message)
             }
         })
     }
@@ -156,14 +156,14 @@ export class CenterFormService {
         this.http.post<{message : string, data : Center}>(environment.apiURL + '/api/update-center-day', { id: center.id, center_day: centerDay }).subscribe({
             next: (response : {message: string, data: Center}) => {
                 this.initializeFormCenterDay(response.data)
-                this.toolsService.openSnackBar(response.message, true)
-                if(!currentUser.adminDialyzone){
+                this.toolsService.openSnackBar('success',response.message)
+                if(!currentUser.adminOsmose){
                     this.loginService.getConnectedUser()
                 }
             },
             error: (response: HttpErrorResponse) => {
                 this.loadingCenterDay.set(false)
-                this.toolsService.openSnackBar(response.error.message, false)
+                this.toolsService.openSnackBar('error',response.error.message)
             }
         })
     }

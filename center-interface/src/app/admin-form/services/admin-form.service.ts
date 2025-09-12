@@ -104,14 +104,14 @@ export class AdminFormService {
             'center_array': this.update_admin_form.get('center_array')?.value.map((center: Center) => center.id),
         }).subscribe({
             next: (response : {message: string, data: User, reload: boolean}) => {
-                this.toolsService.openSnackBar(response.message, true)
-                if(response.data.adminDialyzone){
+                this.toolsService.openSnackBar('success',response.message)
+                if(response.data.adminOsmose){
                     this.initializeForm(response.data)
                     this.loginService.getConnectedUser()
                 }else{
                     if(response.reload == true){
                         this.loginService.logout()
-                        this.toolsService.openSnackBar('Vos informations ont bien été modifié. Nous vous avons deconnecter, veuillez vous reconnecter avec vos nouveau identifiants', true)
+                        this.toolsService.openSnackBar('success','Vos informations ont bien été modifié. Nous vous avons deconnecter, veuillez vous reconnecter avec vos nouveau identifiants')
                     }else{
                         this.loginService.getConnectedUser()
                     }
@@ -123,7 +123,7 @@ export class AdminFormService {
             error: (response: HttpErrorResponse) => {
                 this.loadingAdmin.set(false)
                 console.log(response)
-                this.toolsService.openSnackBar(response.error.message, false);
+                this.toolsService.openSnackBar('error',response.error.message);
             }
         })
     }
@@ -137,13 +137,13 @@ export class AdminFormService {
             'center_array': this.create_admin_form.get('center_array')?.value.map((center: Center) => center.id),
         }).subscribe({
             next: (response : {message: string, data: User, reload: boolean}) => {
-                this.toolsService.openSnackBar(response.message, true)
+                this.toolsService.openSnackBar('success',response.message)
                 this.adminListService.addAdminToList(response.data)
                 this.resetEmailForm()
             },
             error: (response: HttpErrorResponse) => {
                 console.log(response)
-                this.toolsService.openSnackBar(response.error.message, false)
+                this.toolsService.openSnackBar('error',response.error.message)
             }
         })
     }

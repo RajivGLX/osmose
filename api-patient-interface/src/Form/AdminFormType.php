@@ -57,7 +57,7 @@ class AdminFormType extends AbstractType
                 'class' => Center::class,
                 'query_builder' => function (EntityRepository $er) use ($userAdmin) {
                     $user = $this->security->getUser()->getRoles();
-                    if ($user[0] == 'ROLE_ADMIN_DIALYZONE'){
+                    if ($user[0] == 'ROLE_ADMIN_OSMOSE'){
                         $qb = $er->createQueryBuilder('c');
                         $qb->select('c');
                         return $qb;

@@ -46,7 +46,7 @@ class ResetPasswordController extends AbstractController
             }else{
                 $this->addFlash('notice',[
                     'nature' => 'danger',
-                    'message' => 'Votre adresse mail : <strong>'.$request->get('email').'</strong><br> ne correspond avec aucun compte dialyzone'
+                    'message' => 'Votre adresse mail : <strong>'.$request->get('email').'</strong><br> ne correspond avec aucun compte osmose'
                 ]);
 
             }

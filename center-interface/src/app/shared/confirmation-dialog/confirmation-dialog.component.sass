@@ -1,0 +1,109 @@
+@use '../../../variables' as *
+
+.container-confirm
+    padding: 20px
+
+    .wrapper-cross-btn
+        display: flex
+        justify-content: end
+        .cross-btn
+            background-color: rgba(21, 89, 121, 0.13)
+            color: #155979
+            font-weight: bold
+            padding: 10px
+            border-radius: 8px
+            cursor: pointer
+            transition: 0.3s all
+            border: none
+            display: flex
+            justify-content: center
+            align-items: center
+
+            svg
+                fill: $main-blue
+                width: 25px
+                height: 25px
+                transition: 0.3s all
+
+            &:hover
+                svg
+                    fill: $error-color
+
+    .wrapper-svg
+        display: flex
+        justify-content: center
+        align-items: center
+
+    .separator
+        width: 80%
+        height: 1px
+        background: #f5f6fa
+        margin: 0 auto
+
+    .wrapper-title, .wrapper-msg
+        text-align: center
+
+    mat-dialog-actions
+        justify-content: center
+
+        .wrapper-cta
+            display: flex
+            flex-direction: raw
+            align-items: center
+            justify-content: center
+            width: 100%
+            gap: 20px
+
+            .custom-btn
+                width: 50%
+                background: $main-blue
+                color: #ffffff
+                border-radius: 60px
+                &:hover
+                    background: $main-blue-hover
+
+            .btn-main-outline.cancel
+                
+                width: 35%
+                border: 2px solid $main-blue
+                border-radius: 50px
+                padding: 10px 20px
+                background: transparent
+                color: $main-blue
+                transition: 0.3s all
+                font-weight: 600
+
+                &.disabled
+                    color: lighten($main-blue, 20%)
+                    border-color: lighten($main-blue, 20%)
+                    cursor: default !important
+
+                    span
+                        color: lighten($main-blue, 20%)
+
+                &:not(.disabled):hover
+                    color: #ffffff !important
+                    background: $main-blue
+
+
+                    span
+                        color: #ffffff !important
+                        color: $main-blue
+                        background: none
+                        border: none
+                        &:hover
+                            background: none !important
+
+    .message
+        display: flex
+        flex-direction: column
+
+    .countdown-message
+        text-align: center
+        margin-top: 15px
+        font-size: 14px
+        color: $error-color
+
+        strong
+            color: $error-color
+            font-size: 16px

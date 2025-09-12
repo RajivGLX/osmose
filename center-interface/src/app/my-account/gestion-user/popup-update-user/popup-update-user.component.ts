@@ -12,6 +12,7 @@ import {JsonResponseInterface} from '../../../shared/interfaces/json-response-in
 import {HttpErrorResponse} from "@angular/common/http";
 import {ErrorHandler} from "../../../shared/handlers/error.handler";
 import { PopupUpdateUserService } from './services/popup-update-user.service';
+import {ToolsService} from "../../../shared/services/tools.service";
 
 @Component({
     selector: 'app-popup-update-user',
@@ -34,7 +35,7 @@ export class PopupUpdateUserComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: User, 
         private dialog: MatDialog,
         private popupUpdateUserService: PopupUpdateUserService,
-        // private gestionUserService: GestionUtilisateursService,
+        private toolsService: ToolsService,
         private errorHandler: ErrorHandler
     ) { }
 
@@ -57,14 +58,14 @@ export class PopupUpdateUserComponent implements OnInit {
         this.loading = true;
         this.popupUpdateUserService.updateUserInfos().subscribe({
             next: (data: JsonResponseInterface) => {
-                this.popupUpdateUserService.openSnackBar(data.message, data.success);
+                this.toolsService.openSnackBar('success',data.message);
                 this.closeModal();
                 // this.gestionUserSer.getListeUsersCenter(true);
             },
             error: (err: HttpErrorResponse) => {
                 console.log(err)
                 err.error.message.forEach((erreur: string) => {
-                    this.popupUpdateUserService.openSnackBar(erreur, false);
+                    this.toolsService.openSnackBar('error',erreur);
                     this.loading = false;
                 })
 

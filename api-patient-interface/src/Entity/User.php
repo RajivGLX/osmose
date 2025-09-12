@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\EquatableInterface;
@@ -68,6 +69,21 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
     #[ORM\Column]
     #[Groups(['info_user', 'info_booking'])]
     private ?\DateTimeImmutable $create_at = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $token_reset_password = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $token_active_account = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $password_update_at = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $nb_connection_attempt = null;
+
+    #[ORM\Column]
+    private ?bool $blocked_account = null;
 
     public function __construct()
     {
@@ -173,20 +189,6 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
         $this->password = $password;
 
         return $this;
-    }
-
-
-    public function getColorCode(): string
-    {
-        $code = dechex(crc32($this->getFirstname()));
-        $code = substr($code, 0, 6);
-
-        return '#' . $code;
-    }
-
-    public function getAvatarUrl(): string
-    {
-        return "https://ui-avatars.com/api/?background=0D8ABC&color=fff&name=" . $this->firstname . '+' . $this->lastname;
     }
 
 
@@ -318,5 +320,65 @@ class User implements UserInterface, EquatableInterface, PasswordAuthenticatedUs
     {
         $timezone = new \DateTimeZone('Europe/Paris');
         $this->create_at = new \DateTimeImmutable('now', $timezone);
+    }
+
+    public function getTokenResetPassword(): ?string
+    {
+        return $this->token_reset_password;
+    }
+
+    public function setTokenResetPassword(?string $token_reset_password): static
+    {
+        $this->token_reset_password = $token_reset_password;
+
+        return $this;
+    }
+
+    public function getTokenActiveAccount(): ?string
+    {
+        return $this->token_active_account;
+    }
+
+    public function setTokenActiveAccount(?string $token_active_account): static
+    {
+        $this->token_active_account = $token_active_account;
+
+        return $this;
+    }
+
+    public function getPasswordUpdateAt(): ?\DateTimeImmutable
+    {
+        return $this->password_update_at;
+    }
+
+    public function setPasswordUpdateAt(?\DateTimeImmutable $password_update_at): static
+    {
+        $this->password_update_at = $password_update_at;
+
+        return $this;
+    }
+
+    public function getNbConnectionAttempt(): ?float
+    {
+        return $this->nb_connection_attempt;
+    }
+
+    public function setNbConnectionAttempt(?float $nb_connection_attempt): static
+    {
+        $this->nb_connection_attempt = $nb_connection_attempt;
+
+        return $this;
+    }
+
+    public function isBlockedAccount(): ?bool
+    {
+        return $this->blocked_account;
+    }
+
+    public function setBlockedAccount(bool $blocked_account): static
+    {
+        $this->blocked_account = $blocked_account;
+
+        return $this;
     }
 }

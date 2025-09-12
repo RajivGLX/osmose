@@ -1,8 +1,11 @@
 @use '../../variables' as *
-.container-dashboard
+.dashboard-wrapper
     padding: 40px
     gap: 40px
     min-height: 100%
+
+    a
+        text-decoration: none
 
     .dashboard-container
         gap: 20px
@@ -18,20 +21,44 @@
             display: flex
             align-items: center
             justify-content: space-between
+            flex-wrap: wrap
+
             .picto-title
                 display: flex
                 align-items: center
                 gap: 15px
-                .picto-erp, .picto-urba
+
+                .picto
                     background-color: $main-blue
                     padding: 10px
                     width: 55px
                     height: 55px
                     border-radius: 15px
+
                     svg
                         fill: #fff
-            a
-                text-decoration: none
+
+            .task-form-container
+                width: 100%
+                transition: max-height 0.3s ease-out
+                max-height: 0
+                overflow: hidden
+
+                &.expanded
+                    max-height: 100px
+
+            .task-form
+                padding-top: 25px
+
+                .form-content
+                    display: flex
+                    gap: 10px
+
+                    .full-width
+                        width: 100%
+
+                    button
+                        margin-top: 7px
 
             .add-action
                 background-color: $main-blue
@@ -42,10 +69,12 @@
                 display: flex
                 gap: 15px
                 cursor: pointer
+
                 span
                     color: #fff
                     display: flex
                     align-items: center
+
                 svg
                     max-width: 25px
                     max-height: 25px
@@ -67,6 +96,54 @@
             display: flex
             flex-direction: column
             height: 100%
+            position: relative
+
+            .loading-tasks
+                position: absolute
+                top: calc(50% - 30px)
+                left: calc(50% - 30px)
+
+            .empty-tasks
+                padding: 50px
+                text-align: center
+
+            .task-list
+                margin-top: 15px
+
+                .task-item
+                    display: flex
+                    justify-content: space-between
+                    align-items: center
+                    padding: 10px 20px
+                    border-bottom: 1px solid $bg-gris
+
+                    &:last-child
+                        border-bottom: none
+
+                    &.completed
+                        opacity: 0.6
+                        text-decoration: line-through
+                        background-color: rgba(0, 0, 0, 0.05)
+
+                    .task-description
+                        flex: 1
+
+            .task-item
+                display: flex
+                justify-content: space-between
+                align-items: center
+                padding: 10px 20px
+                border-bottom: 1px solid $bg-gris
+                transition: all 0.5s ease
+
+                &:last-child
+                    border-bottom: none
+
+                &.completed
+                    opacity: 0.6
+                    text-decoration: line-through
+                    background-color: rgba(0, 0, 0, 0.05)
+
 
             .wrapper-cta-listing
                 display: flex
@@ -86,6 +163,7 @@
                     background-color: transparent !important
                     border: 1px solid $main-blue !important
                     color: $main-blue !important
+
                 select
                     padding: 0 15px
                     min-width: 80px
@@ -95,6 +173,7 @@
             .body-listing
 
                 flex-grow: 1
+
                 &.empty
                     border: 2px dashed $main-blue
                     border-bottom-left-radius: 15px
@@ -106,6 +185,7 @@
                     align-items: center
                     gap: 10px
                     padding: 50px
+
                     svg
                         max-width: 40px
                         min-width: 40px
@@ -113,6 +193,7 @@
                     button
                         &:hover
                             color: #fff !important
+
                 .wrapper-listing-line
                     display: flex
                     justify-content: space-between
@@ -123,69 +204,33 @@
                     transition: 0.3s all
                     cursor: pointer
 
-                    .erp.status, .urbanisme.status
-                        transition: 0.3s all
 
-                    &:last-of-type
-                        border-bottom: none
+//############-MEDIA QUERIES-############//
+// X-LARGE //
+@media(min-width: 1920px)
 
-                    &:hover
-                        background-color: $bg-gris
+// LARGE //
+@media (min-width: 1280px) and (max-width: 1919.98px)
 
-                        .erp.status, .urbanisme.status
-                            background-color: #fff
+// MEDIUM + SMALL + X-SMALL //
+@media (max-width: 1279.98px)
+    .dashboard-wrapper
+        padding: 20px
+        gap: 20px
+        min-height: 100%
+        
+        .dashboard-container
+            .entete-recap
+                padding: 15px
 
-                    &.erp
-                        .nom
-                            width: 20%
-                        .adresse
-                            width: 30%
-                        .erp-date,.erp.status
-                            width: 25%
 
-                    &.urbanisme
-                        .pieces-urbanisme
-                            cursor: default
-                            width: 10%
-                        .nom
-                            width: 20%
-                        .adresse
-                            width: 30%
-                        .urbanisme-date, .urbanisme.status
-                            width: 20%
+// SMALL + X-SMALL //
+@media (max-width: 959.98px)
+    .dashboard-wrapper
+        flex-direction: column
 
-                    .adresse
-                        display: flex
-                        flex-direction: column
-                    .status
-                        display: flex
-                        background-color: $bg-gris
-                        border-radius: 10px
-                        min-width: 160px
-                        justify-content: start
-                        gap: 20px
-                        padding: 10px 15px
-                        align-items: center
-                        span.libelle-status
-                            font-weight: bold
+        .dashboard-container
+            width: 100%
 
-                        span.pastille
-                            width: 15px
-                            height: 15px
-                            border-radius: 50px
-                            &.violet
-                                background-color: $pastille-etat-violet
-                            &.rouge
-                                background-color: $pastille-etat-rouge
-                            &.orange
-                                background-color: $pastille-etat-orange
-                            &.vert
-                                background-color: $pastille-etat-vert
-
-                    .pieces-urbanisme
-                        span
-                            background-color: $main-blue
-                            padding: 5px
-                            color: #fff
-                            border-radius: 8px
-                            width: auto
+// X-SMALL //
+@media (max-width: 599.98px)

@@ -63,12 +63,12 @@ export class BookingViewService {
         this._loaderOneStatus$.next(true)
         this.http.post<Booking>(environment.apiURL + '/api/add-status-admin', statusForm).subscribe({
             next: (booking: Booking) => {
-                this.toolsService.openSnackBar('Le statut a bien été ajouté', true)
+                this.toolsService.openSnackBar('success','Le statut a bien été ajouté')
                 this._bookingByPatient$.next(booking)
                 this._loaderOneStatus$.next(false)
             },
             error: () => {
-                this.toolsService.openSnackBar('Une erreur est survenue lors de l\'ajout du statut', false)
+                this.toolsService.openSnackBar('error','Une erreur est survenue lors de l\'ajout du statut')
                 this._loaderOneStatus$.next(false)
             }
         })
@@ -79,13 +79,13 @@ export class BookingViewService {
         this.http.post<Booking[]>(environment.apiURL + '/api/add-multiple-status-admin', statusForm.value).subscribe({
             next: (booking: Booking[]) => {
                 console.log('return :',booking)
-                this.toolsService.openSnackBar('Les statuts ont bien été ajouter', true)
+                this.toolsService.openSnackBar('success','Les statuts ont bien été ajouter')
                 this._allBookingsByPatient$.next(booking)
                 this.loaderAllStatus$.next(false)
             },
             error: (e: Error) => {
                 console.log('error', e.message)
-                this.toolsService.openSnackBar('Une erreur est survenue lors de l\'ajout des statuts', false)
+                this.toolsService.openSnackBar('error','Une erreur est survenue lors de l\'ajout des statuts')
                 this.loaderAllStatus$.next(false)
             }
         })

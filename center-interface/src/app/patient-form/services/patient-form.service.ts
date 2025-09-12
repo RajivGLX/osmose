@@ -58,7 +58,7 @@ export class PatientFormService {
         let formToSend = this.handleFormForSend(this.patient_form, this.precise_allergie_form, patientToUpdate.id)
         this.http.post<{message : string, data : User}>(environment.apiURL + '/api/update-info-patient', formToSend).subscribe({
             next: (response : {message: string, data: User}) => {
-                this.toolsService.openSnackBar(response.message, true)
+                this.toolsService.openSnackBar('success',response.message)
                 this.initializeForm(response.data)
                 this.initializeForm(response.data)
                 this.patientListService.updatePatientInList(response.data)
@@ -66,7 +66,7 @@ export class PatientFormService {
             },
             error: (response: HttpErrorResponse) => {
                 this.loadingPatientUpdate.set(false)
-                this.toolsService.openSnackBar(response.error.message, false);
+                this.toolsService.openSnackBar('error',response.error.message);
                 console.log(response)
             }
         })
@@ -76,12 +76,12 @@ export class PatientFormService {
         let formToSend = this.handleFormForSend(this.patient_form, this.precise_allergie_form)
         this.http.post<{message : string, data : User}>(environment.apiURL + '/api/create-patient', formToSend).subscribe({
             next: (response : {message: string, data: User}) => {
-                this.toolsService.openSnackBar(response.message, true)
+                this.toolsService.openSnackBar('success',response.message)
                 this.patientListService.addPatientToList(response.data)
             },
             error: (response: HttpErrorResponse) => {
                 console.log(response)
-                this.toolsService.openSnackBar(response.error.message, false);
+                this.toolsService.openSnackBar('error',response.error.message);
             }
         })
     }

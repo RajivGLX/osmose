@@ -3,11 +3,10 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, ParamMap, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { confirmEqualValidators } from '../../shared/validators/confirmEqualValidators';
 import { LoginService } from '../services/login.service';
-import { RegisterService } from '../../register/services/register.service';
+import {ToolsService} from "../../shared/services/tools.service";
 
 @Component({
 	selector: 'app-reset-password',
@@ -25,7 +24,13 @@ export class ResetPasswordComponent implements OnInit {
 	tokenActivateAccount: string = "";
 	errorMessage = "";
 
-	constructor(private fb: FormBuilder, private route: ActivatedRoute, private loginService: LoginService, private _snackbar: MatSnackBar, private router: Router, private _snackBar: MatSnackBar, private registerService: RegisterService) { }
+	constructor(
+        private fb: FormBuilder,
+        private route: ActivatedRoute,
+        private loginService: LoginService,
+        private toolsService: ToolsService,
+        private router: Router
+    ) { }
 
 	ngOnInit(): void {
 		// Définition du formulaire de changement de mdp
@@ -46,26 +51,6 @@ export class ResetPasswordComponent implements OnInit {
 				console.log(this.tokenActivateAccount);
 			}
 		});
-		if (this.tokenActivateAccount !== 'reset') {
-			this.registerService.activateAccount(this.tokenActivateAccount).subscribe({
-				next: (v: any) => {
-					this.openSnackBar(v.message, true)
-				},
-				error: (e: Error) => {
-					this.openSnackBar(e.message, true)
-				}
-			});
-
-		}
-
-	}
-	openSnackBar(msg: string, type: boolean) {
-		this._snackBar.open(msg, 'fermer', {
-			horizontalPosition: 'center',
-			verticalPosition: 'top',
-			duration: 6000,
-			panelClass: type == false ? 'error' : 'success'
-		});
 	}
 
 	// Envoi du formulaire
@@ -74,7 +59,7 @@ export class ResetPasswordComponent implements OnInit {
 		if (this.resetPasswordForm.valid) {
 			this.loginService.resetPassword(this.token, this.resetPasswordForm.value).subscribe({
 				next: (v: any) => {
-					this._snackbar.open(v.message + 'Vous allez être redirigé vers la page de connexion', '', { duration: 4000 });
+					this.toolsService.openSnackBar('success',v.message + 'Vous allez être redirigé vers la page de connexion');
 					setTimeout(() => {
 						this.router.navigateByUrl('/login')
 					}, 5000);
