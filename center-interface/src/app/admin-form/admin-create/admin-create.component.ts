@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, Output, WritableSignal } from '@angular/core';
-import { User } from '../../interface/user.interface';
+import { Component, EventEmitter, Output, WritableSignal } from '@angular/core';
 import { AdminFormService } from '../services/admin-form.service';
 import { ErrorHandler } from "../../shared/handlers/error.handler";
 import { CommonModule } from '@angular/common';

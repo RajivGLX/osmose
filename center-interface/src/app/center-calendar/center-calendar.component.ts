@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {Component, EventEmitter, Input, OnInit, Output, signal, WritableSignal} from '@angular/core'
+import {Component, EventEmitter, Input, OnInit, Output, WritableSignal} from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -15,7 +15,6 @@ import { PopupRecapComponent } from './popup-recap/popup-recap.component';
 import { LoginService } from '../login/services/login.service';
 import { User } from '../interface/user.interface';
 import { Center } from '../interface/center.interface';
-import { values } from 'lodash';
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 
@@ -482,7 +481,7 @@ export class CenterCalendarComponent implements OnInit {
         return slots;
     }
 
-    trackByIndex(index: number, item: any): number {
+    trackByIndex(index: number): number {
         return index;
     }
 }

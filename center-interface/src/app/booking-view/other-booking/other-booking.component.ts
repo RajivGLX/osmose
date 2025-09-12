@@ -2,14 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Booking } from '../../interface/booking.interface';
 import { BookingViewService } from '../services/booking-view.service';
 import { localeTextFr } from '../../utils/translation/localTextFr';
-import { ColDef, GridApi, GridOptions } from 'ag-grid-community';
-import { GridReadyEvent } from './../../../../node_modules/ag-grid-community/dist/types/core/events.d';
+import {ColDef, GridApi, GridOptions, GridReadyEvent} from 'ag-grid-community';
 import { AgGridAngular } from 'ag-grid-angular';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Status } from '../../interface/status.interface';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ReactiveFormsModule, FormArray, FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ToolsService } from '../../shared/services/tools.service';
@@ -69,7 +68,6 @@ export class OtherBookingComponent implements OnInit {
         { field: "dateReserve", headerName: "Date reservation", lockPosition: "left",
             minWidth: 200,
             cellRenderer: (value: any) => {
-                sort:'desc'
                 return `<span >${value.value} </span>`
             }
         },
@@ -183,12 +181,10 @@ export class OtherBookingComponent implements OnInit {
     }
 
     checkIfStatusIsUpdatable(booking: Booking): boolean {
-        const statusActive = booking.statusBookings.find(item => item.status_active === true)
+        const statusActive = booking.statusBookings.find(item => item.status_active)
         console.log('statusActive :',statusActive)
-        if (statusActive && (statusActive.status.name === 'confirmé' || statusActive.status.name === 'annulé' || statusActive.status.name === 'refusé')) {
-            return false
-        }
-        return true
+        return !(statusActive && (statusActive.status.name === 'confirmé' || statusActive.status.name === 'annulé' || statusActive.status.name === 'refusé'));
+
     }
 
     toTitleCase(value: string): string {

@@ -8,6 +8,7 @@ use App\Repository\StatusRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,21 +18,20 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ChangeStatus extends Command {
     private $bookingRepository;
     private $statusRepository;
-    private $userRepository;
     private $bookingManager;
-    private $entityManager;
     private $logger;
 
-    public function __construct(BookingRepository $bookingRepository, StatusRepository $statusRepository,
-                                UserRepository $userRepository, BookingManager $bookingManager,
-                                EntityManagerInterface $entityManager, LoggerInterface $dbLogger)
+    public function __construct(
+        BookingRepository $bookingRepository,
+        StatusRepository $statusRepository,
+        BookingManager $bookingManager,
+        LoggerInterface $dbLogger
+    )
     {
         parent::__construct();
         $this->bookingRepository = $bookingRepository;
         $this->statusRepository = $statusRepository;
-        $this->userRepository = $userRepository;
         $this->bookingManager = $bookingManager;
-        $this->entityManager = $entityManager;
         $this->logger = $dbLogger;
     }
 

@@ -1,6 +1,6 @@
 // front/src/app/shared/services/form-error.service.ts
 import {Injectable} from '@angular/core';
-import {AbstractControl, FormArray, FormControl, FormGroup, ValidationErrors} from '@angular/forms';
+import {AbstractControl, FormArray, FormGroup, ValidationErrors} from '@angular/forms';
 import {Subject} from "rxjs";
 
 @Injectable({

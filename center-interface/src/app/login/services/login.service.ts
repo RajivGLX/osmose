@@ -114,13 +114,13 @@ export class LoginService {
         this.router.navigateByUrl('/login')
     }
 
-    isLoggedIn() {
-        if (this.isTokenExpire() == false) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    // isLoggedIn() {
+    //     if (this.isTokenExpire() == false) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
     sendMailForgotPassword(email: string) {
         return this.http.post(environment.apiURL + '/reset-password-mail', email);

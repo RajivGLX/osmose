@@ -43,7 +43,7 @@ export class BookingViewService {
     ) { }
 
     getStatuses(forceReload: boolean = false) {
-        if (Date.now() - this.listStatusLoaded <= 1200000 && forceReload == false) {
+        if (Date.now() - this.listStatusLoaded <= 1200000 && !forceReload) {
             return
         }
 
@@ -94,7 +94,7 @@ export class BookingViewService {
     getAllBookingsByPatientId(patientId: number, forceReload: boolean = false) {
         this.listBookingsByPatientLoaded$.subscribe({
             next: (value: number) => {
-                if (Date.now() - value <= 1200000 && forceReload == false) {
+                if (Date.now() - value <= 1200000 && !forceReload) {
                     return
                 }
             }

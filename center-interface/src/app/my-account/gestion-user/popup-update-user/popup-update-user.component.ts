@@ -17,7 +17,7 @@ import {ToolsService} from "../../../shared/services/tools.service";
 @Component({
     selector: 'app-popup-update-user',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, MatInput, MatFormField, MatLabel, MatCheckbox, RolePipe, LoaderComponent, MatRadioButton, MatError],
+    imports: [CommonModule, ReactiveFormsModule, MatInput, MatFormField, MatLabel, RolePipe, LoaderComponent, MatError],
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './popup-update-user.component.html',
     styleUrl: './popup-update-user.component.sass'

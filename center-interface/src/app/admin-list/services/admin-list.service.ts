@@ -25,10 +25,10 @@ export class AdminListService {
     ) { }
 
     getAllAdmins(forceReload: boolean = false) {
-        if (Date.now() - this.listAllAdminLoaded <= 1200000 && forceReload == false) {
+        if (Date.now() - this.listAllAdminLoaded <= 1200000 && !forceReload) {
             return
         }
-        if(forceReload == false){
+        if(!forceReload){
             this.loaderAgGrid$.next(true)
         }
         this.http.get<{ data: User[], message: string }>(environment.apiURL + '/api/get-all-admins').subscribe({

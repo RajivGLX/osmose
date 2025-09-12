@@ -3,8 +3,6 @@
 namespace App\Services;
 
 use App\Entity\User;
-use Mailjet\Client;
-use Mailjet\Resources;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -51,62 +49,62 @@ Class Mail
 
     public function sendContact(string $email, string $firstname, string $lastname, string $request_contact)
     {
-        $mj = new Client($this->api_key, $this->api_key_secret, true, ['version' => 'v3.1']);
-        $body = [
-            'Messages' => [
-                [
-                    'From' => [
-                        'Email' => "matisse-canal@outlook.fr",
-                        'Name' => "Osmose"
-                    ],
-                    'To' => [
-                        [
-                            'Email' => 'rajiv_91@hotmail.fr',
-                            'Name' => $lastname,
-                        ]
-                    ],
-                    'TemplateID' => 5722671,
-                    'TemplateLanguage' => true,
-                    'Subject' => 'Demandes de contact',
-                    'Variables' => [
-                        'firstname' => $firstname,
-                        'lastname' => $lastname,
-                        'email_user' => $email,
-                        'request_contact' => $request_contact,
-                    ]
-                ]
-            ]
-        ];
-        $response = $mj->post(Resources::$Email, ['body' => $body]);
-        return $response;
+//        $mj = new Client($this->api_key, $this->api_key_secret, true, ['version' => 'v3.1']);
+//        $body = [
+//            'Messages' => [
+//                [
+//                    'From' => [
+//                        'Email' => "matisse-canal@outlook.fr",
+//                        'Name' => "Osmose"
+//                    ],
+//                    'To' => [
+//                        [
+//                            'Email' => 'rajiv_91@hotmail.fr',
+//                            'Name' => $lastname,
+//                        ]
+//                    ],
+//                    'TemplateID' => 5722671,
+//                    'TemplateLanguage' => true,
+//                    'Subject' => 'Demandes de contact',
+//                    'Variables' => [
+//                        'firstname' => $firstname,
+//                        'lastname' => $lastname,
+//                        'email_user' => $email,
+//                        'request_contact' => $request_contact,
+//                    ]
+//                ]
+//            ]
+//        ];
+//        $response = $mj->post(Resources::$Email, ['body' => $body]);
+//        return $response;
     }
     private function sendMail(string $toEmail, string $toName, string $subject, array $variables, int $templateId)
     {
-        $mj = new Client($this->api_key, $this->api_key_secret, true, ['version' => 'v3.1']);
-        $body = [
-            'Messages' => [
-                [
-                    'From' => [
-                        'Email' => "matisse-canal@outlook.fr",
-                        'Name' => "Osmose"
-                    ],
-                    'To' => [
-                        [
-                            'Email' => $toEmail,
-                            'Name' => $toName
-                        ]
-                    ],
-                    'TemplateID' => $templateId,
-                    'TemplateLanguage' => true,
-                    'Subject' => $subject,
-                    'Variables' => $variables
-                ]
-            ]
-        ];
-
-        $response = $mj->post(Resources::$Email, ['body' => $body]);
-
-        return $response;
+//        $mj = new Client($this->api_key, $this->api_key_secret, true, ['version' => 'v3.1']);
+//        $body = [
+//            'Messages' => [
+//                [
+//                    'From' => [
+//                        'Email' => "matisse-canal@outlook.fr",
+//                        'Name' => "Osmose"
+//                    ],
+//                    'To' => [
+//                        [
+//                            'Email' => $toEmail,
+//                            'Name' => $toName
+//                        ]
+//                    ],
+//                    'TemplateID' => $templateId,
+//                    'TemplateLanguage' => true,
+//                    'Subject' => $subject,
+//                    'Variables' => $variables
+//                ]
+//            ]
+//        ];
+//
+//        $response = $mj->post(Resources::$Email, ['body' => $body]);
+//
+//        return $response;
     }
 
 

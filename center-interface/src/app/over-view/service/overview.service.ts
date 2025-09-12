@@ -4,7 +4,6 @@ import { map, Observable} from 'rxjs';
 import {environment} from '../../../environment/environment';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Task} from "../../interface/task.interface";
-import {ToolsService} from "../../shared/services/tools.service";
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +16,6 @@ export class OverviewService {
 
     constructor(
         private http: HttpClient,
-        private toolsService: ToolsService,
     ) {
     }
 

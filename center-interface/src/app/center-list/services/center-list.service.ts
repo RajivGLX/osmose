@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, Observable, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Center } from '../../interface/center.interface';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environment/environment';
@@ -31,10 +31,10 @@ export class CenterListService {
     ) { }
 
     getListCenters(forceReload: boolean = false) {
-        if (Date.now() - this.getListCentersReload <= 1200000 && forceReload == false) {
+        if (Date.now() - this.getListCentersReload <= 1200000 && !forceReload) {
             return
         }
-        if(forceReload == false){
+        if(!forceReload){
             this.loaderAgGrid$.next(true)
         }
         this.http.get<{ data: Center[], message: string }>(environment.apiURL + '/api/get-list-center').subscribe({
@@ -51,7 +51,7 @@ export class CenterListService {
     }
 
     getAllCenters(forceReload: boolean = false): void {
-        if (Date.now() - this.getAllCenterReload <= 1200000 && forceReload == false) {
+        if (Date.now() - this.getAllCenterReload <= 1200000 && !forceReload) {
             return
         }
         this.http.get<{ data: Center[], message: string }>(environment.apiURL + '/api/get-list-center').subscribe({

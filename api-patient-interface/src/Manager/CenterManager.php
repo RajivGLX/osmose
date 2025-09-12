@@ -4,15 +4,12 @@ namespace App\Manager;
 
 use App\Dto\CenterDTO;
 use App\Entity\Center;
-use App\Entity\DaySlot;
-use App\Entity\Region;
 use App\Repository\RegionRepository;
 use App\Repository\SlotsRepository;
 use App\Services\Identifier;
 use App\Services\Tools;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class CenterManager
@@ -24,47 +21,7 @@ class CenterManager
         private Tools $tools,
         private EntityManagerInterface $entityManager,
         private RegionRepository $regionRepository,
-        private SlotsRepository $slotsRepository
     ) {}
-
-    //ANCIENNE VERSION
-    // public function saveCenter(FormInterface $form, Center $center = null,Region $region =null): bool
-    // {
-    //     $this->entityManager->beginTransaction();
-    //     try {
-    //         if ($center === null) {
-    //             $center = new Center();
-    //         }
-    //         if ($region === null) {
-    //             $region = $form->get('region')->getData();
-    //         }
-
-    //         $center = $form->getData();
-    //         $center->setRegion($region);
-    //         $center->setDeleted(false);
-
-    //         $this->entityManager->persist($center);
-    //         $this->entityManager->flush();
-    //         $this->logger->info('Création / Modification d\'un centre : ' . $center->getId());
-
-    //         return true;
-    //     } catch (\Exception $e) {
-    //         $this->logger->error('Probléme lors de la sauvegarde du centre : ' . $e->getMessage());
-    //         return false;
-    //     }
-    // }
-
-    // public function initializeDaySlots(Center $center): Center
-    // {
-    //     if ($center->getDaySlots()->isEmpty()) {
-    //         $slots = $this->slotsRepository->findAll();
-    //         foreach ($slots as $slot) {
-    //             $daySlot = new DaySlot();
-    //             $center->addDaySlot($daySlot);
-    //         }
-    //     }
-    //     return $center;
-    // }
 
     public function deleteCenter(Center $center): Center
     {

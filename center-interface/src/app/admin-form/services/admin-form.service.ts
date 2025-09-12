@@ -109,7 +109,7 @@ export class AdminFormService {
                     this.initializeForm(response.data)
                     this.loginService.getConnectedUser()
                 }else{
-                    if(response.reload == true){
+                    if(response.reload){
                         this.loginService.logout()
                         this.toolsService.openSnackBar('success','Vos informations ont bien été modifié. Nous vous avons deconnecter, veuillez vous reconnecter avec vos nouveau identifiants')
                     }else{

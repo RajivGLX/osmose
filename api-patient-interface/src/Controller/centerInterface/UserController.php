@@ -5,7 +5,6 @@ namespace App\Controller\centerInterface;
 use App\Dto\PatientDTO;
 use App\Dto\UserDTO;
 use App\Manager\UserManager;
-use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use App\Services\Identifier;
 use App\Services\Tools;
@@ -20,7 +19,6 @@ class UserController extends AbstractController
 
     public function __construct(
         private UserRepository $userRepository,
-        private RoleRepository $roleRepository,
         private UserManager $userManager,
         private UserDTO $userDTO,
         private PatientDTO $patientDTO,

@@ -1,19 +1,15 @@
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {User} from '../../../interface/user.interface';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {environment} from '../../../../environment/environment';
-import {JsonResponseInterface} from '../../../shared/interfaces/json-response-interface';
-import { ToolsService } from '../../../shared/services/tools.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class GestionUserService {
 
-    constructor(
-        private http: HttpClient, 
-        private toolsService: ToolsService,) {
+    constructor(private http: HttpClient) {
     }
 
     private _listeAdminCenter$ = new BehaviorSubject<User[]>([]);

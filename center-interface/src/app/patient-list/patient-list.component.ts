@@ -11,8 +11,6 @@ import { localeTextFr } from '../utils/translation/localTextFr';
 import { CellActionUserComponent } from '../shared/custom-cell/cell-action-user/cell-action-user.component';
 import { RolePipe } from '../utils/pipe/role.pipe';
 import { LoginService } from '../login/services/login.service';
-import { PatientFormService } from '../patient-form/services/patient-form.service';
-import { Patient } from '../interface/patient.interface';
 import { PatientListService } from './services/patient-list.service';
 
 

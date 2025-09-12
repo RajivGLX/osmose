@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, WritableSignal } from '@angular/core';
+import { Component, Input, WritableSignal } from '@angular/core';
 import { User } from '../../interface/user.interface';
 import { ErrorHandler } from "../../shared/handlers/error.handler";
 import { CommonModule } from '@angular/common';

@@ -13,9 +13,9 @@ import { MyAccountComponent } from './my-account/my-account.component';
 import { ForgotPasswordComponent } from "./login/forgot-password/forgot-password.component";
 
 const ADMIN_OSMOSE = 'ROLE_ADMIN_OSMOSE'
-const SUPER_ADMIN = 'ROLE_SUPER_ADMIN'
-const ADMIN = 'ROLE_ADMIN'
-const COMPTABLE = 'ROLE_COMPTABLE'
+// const SUPER_ADMIN = 'ROLE_SUPER_ADMIN'
+// const ADMIN = 'ROLE_ADMIN'
+// const COMPTABLE = 'ROLE_COMPTABLE'
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },

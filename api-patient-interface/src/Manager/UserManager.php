@@ -34,7 +34,6 @@ class UserManager
         private ValidatorInterface $validator,
         private UserRepository $userRepository,
         private CenterRepository $centerRepository,
-        private Administrator $administrator,
         private AdministratorRepository $adminRepository,
     ) {}
 
@@ -136,7 +135,6 @@ class UserManager
             $user->setPassword($this->passwordHash->hashPassword($user, $randomPassword));
             $existingUser = $this->userRepository->findOneBy(['email' => $patientDTO->email]);
             if ($existingUser) {
-                throw new \Exception('L\'email existe déjà.');
                 return ['message' => 'L\'email est associé a un autre compte, veuillez en choisir une autre', 'data' => null, 'code' => 500];
             }
             $user->setEmail($patientDTO->email);
