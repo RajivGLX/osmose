@@ -62,13 +62,14 @@ else
   echo "-> build Angular sauté (pas de changement détecté)"
 fi
 
-# ---------- 3) Déploiement des fichiers Angular vers Nginx ----------
+# ---------- 3) Déploiement Angular ----------
 if [[ -d "$SPA_DIST/browser" ]]; then
   echo "-> rsync du build Angular vers $SPA_TARGET"
-  sudo mkdir -p "$SPA_TARGET"
-  # On synchronise tout le dossier (qui contient 'browser/')
-  rsync -a --delete "$SPA_DIST"/ "$SPA_TARGET"/
-  sudo chown -R www-data:www-data "$SPA_TARGET"
+  mkdir -p "$SPA_TARGET"
+  # -a inclut -g (group) et -p (perms) -> on les neutralise
+  rsync -rltD --delete --no-perms --no-group "$SPA_DIST"/ "$SPA_TARGET"/
+  # (optionnel) si tu veux forcer les perms après copie :
+  chmod -R g+rwX "$SPA_TARGET"
 else
   echo "ATTENTION: Dossier $SPA_DIST/browser introuvable. Build Angular raté ?"
 fi
