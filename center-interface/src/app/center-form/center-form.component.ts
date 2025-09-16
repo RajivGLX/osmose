@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
 import { LoginService } from '../login/services/login.service'
 import { ReactiveFormsModule } from '@angular/forms'
 import { MatFormFieldModule } from '@angular/material/form-field'
@@ -17,12 +17,12 @@ import { CenterCreateComponent } from './center-create/center-create.component'
     selector: 'app-center-form',
     standalone: true,
     imports: [
-        CommonModule, 
-        ReactiveFormsModule, 
-        MatFormFieldModule, 
-        MatInputModule, 
-        MatIconModule, 
-        MatCheckboxModule, 
+        CommonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        MatCheckboxModule,
         CenterUpdateComponent,
         CenterCreateComponent
     ],
@@ -46,7 +46,6 @@ export class CenterFormComponent implements OnInit {
     currentUser!: User
     allRegions!: Array<Region>
 
-    
     constructor(
         private loginService: LoginService,
     ) { }

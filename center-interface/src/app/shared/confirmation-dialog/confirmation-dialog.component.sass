@@ -1,5 +1,8 @@
 @use '../../../variables' as *
 
+.mat-mdc-dialog-container .mdc-dialog__surface
+    --mdc-dialog-container-shape: 16px
+
 .container-confirm
     padding: 20px
 
@@ -11,7 +14,7 @@
             color: #155979
             font-weight: bold
             padding: 10px
-            border-radius: 8px
+
             cursor: pointer
             transition: 0.3s all
             border: none
@@ -57,32 +60,33 @@
                 width: 50%
                 background: $main-blue
                 color: #ffffff
-                border-radius: 60px
+                border: 2px solid $main-blue
                 &:hover
                     background: $main-blue-hover
+                    border: 2px solid $main-blue-hover
 
             .btn-main-outline.cancel
-                
+                height: 100%
                 width: 35%
-                border: 2px solid $main-blue
+                border: 2px solid $error-color
                 border-radius: 50px
                 padding: 10px 20px
                 background: transparent
-                color: $main-blue
+                color: $error-color
                 transition: 0.3s all
                 font-weight: 600
 
                 &.disabled
-                    color: lighten($main-blue, 20%)
-                    border-color: lighten($main-blue, 20%)
+                    color: lighten($error-color, 20%)
+                    border-color: lighten($error-color, 20%)
                     cursor: default !important
 
                     span
-                        color: lighten($main-blue, 20%)
+                        color: lighten($error-color, 20%)
 
                 &:not(.disabled):hover
                     color: #ffffff !important
-                    background: $main-blue
+                    background: $error-color
 
 
                     span

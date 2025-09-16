@@ -140,7 +140,7 @@ export class CenterCalendarComponent implements OnInit {
         const dayGroup = this.formBuilder.group({});
         this.slots.forEach(slot => {
             const slotGroup = this.formBuilder.group({
-                'qty': this.formBuilder.control(1),
+                'qty': this.formBuilder.control(this.currentCenter?.place_available || 1),
                 'check': this.formBuilder.control(false),
                 'booking': this.formBuilder.control(0)
             });
@@ -161,15 +161,24 @@ export class CenterCalendarComponent implements OnInit {
                     const dayData = (availabilityData as Record<string, any>)[dayKey];
                     const dayGroup = this.calendarForm.get(`${monthKey}.${dayKey}`) as FormGroup;
                     if (dayGroup) {
+                        console.log('dayData', dayData);
                         Object.keys(dayData).forEach(slot => {
                             const slotData = dayData[slot];
                             const slotGroup = dayGroup.get(slot) as FormGroup;
                             if (slotGroup) {
                                 slotGroup.patchValue({
-                                    'qty': slotData.qty,
+                                    'qty': slotData.qty || this.currentCenter?.place_available || 1,
                                     'check': slotData.check,
                                     'booking': slotData.booking
                                 });
+                                // Ajouter au récapitulatif si la case est cochée
+                                if (slotData.check) {
+                                    const [year, month, day] = dayKey.split('/');
+                                    const date = new Date(Number(year), Number(month) - 1, Number(day));
+                                    const checkControl = slotGroup.get('check') as FormControl;
+                                    const qtyControl = slotGroup.get('qty') as FormControl;
+                                    this.updateDataForSend(slot as Slot, date, checkControl, qtyControl);
+                                }
                             }
                         });
                     }
@@ -210,7 +219,7 @@ export class CenterCalendarComponent implements OnInit {
             const quantityControl = dayGroup.get(slot)?.get('qty') as FormControl;
             const checkControl = dayGroup.get(slot)?.get('check') as FormControl;
             if (quantityControl) {
-                const currentValue = quantityControl.value || 1;
+                const currentValue = quantityControl.value || this.currentCenter?.place_available;
                 quantityControl.setValue(currentValue + 1);
             }
             if (checkControl.value) {
@@ -229,6 +238,7 @@ export class CenterCalendarComponent implements OnInit {
 
             if (quantityControl) {
                 const currentValue = quantityControl.value || 0;
+                const minValue = this.currentCenter?.place_available || 1;
                 if (currentValue > 1) {
                     quantityControl.setValue(currentValue - 1);
                 }
@@ -275,14 +285,15 @@ export class CenterCalendarComponent implements OnInit {
             if (!isChecked) {
                 // Remettre à zéro le champ quantity quand décoché
                 if (qtyControl) {
-                    qtyControl.setValue(1);
+                    qtyControl.setValue(this.currentCenter?.place_available || 1);
                 }
                 // Supprimer de la popup recap
                 this.removeFromDataForSend(slot, day);
             } else {
-                // Si coché, mais quantité à 0, remettre à 1
-                if (qtyControl && qtyControl.value < 1) {
-                    qtyControl.setValue(1);
+                // Si coché, mais quantité à 0, remettre à la valeur par défaut
+                const defaultValue = this.currentCenter?.place_available || 1;
+                if (qtyControl && qtyControl.value < defaultValue) {
+                    qtyControl.setValue(defaultValue);
                 }
                 // Ajouter/mettre à jour dans la popup recap
                 this.updateDataForSend(slot, day, checkControl, qtyControl);
@@ -408,7 +419,6 @@ export class CenterCalendarComponent implements OnInit {
         return dayGroup?.get(slot)?.get('check')?.value || false;
     }
 
-    // Cocher ou décocher toutes les cases à cocher
     toggleAllCheckboxes(event: Event): void {
         const isChecked = (event.target as HTMLInputElement).checked;
         const monthKey = this.generateMonthKey(this.currentMonth);
@@ -424,12 +434,23 @@ export class CenterCalendarComponent implements OnInit {
                             const checkControl = slotGroup.get('check') as FormControl;
                             const qtyControl = slotGroup.get('qty') as FormControl;
                             checkControl.setValue(isChecked);
-                            
-                            // Mise à jour des données pour l'envoi
+
+                            const [year, month, day] = dateKey.split('/');
+                            const date = new Date(Number(year), Number(month) - 1, Number(day));
+
                             if (isChecked) {
-                                const [year, month, day] = dateKey.split('/');
-                                const date = new Date(Number(year), Number(month) - 1, Number(day));
+                                // Si on coche, remettre à la valeur par défaut si nécessaire
+                                const defaultValue = this.currentCenter?.place_available || 1;
+                                if (qtyControl && qtyControl.value < defaultValue) {
+                                    qtyControl.setValue(defaultValue);
+                                }
                                 this.updateDataForSend(slot, date, checkControl, qtyControl);
+                            } else {
+                                // Si on décoche, supprimer du récapitulatif
+                                if (qtyControl) {
+                                    qtyControl.setValue(this.currentCenter?.place_available || 1);
+                                }
+                                this.removeFromDataForSend(slot, date);
                             }
                         }
                     });
@@ -437,6 +458,7 @@ export class CenterCalendarComponent implements OnInit {
             });
         }
     }
+
 
     // Vérifie si toutes les cases à cocher sont cochées
     areAllChecked(): boolean {

@@ -109,7 +109,7 @@ class LoginController extends AbstractController
 
             $user->setPassword($this->passwordHasher->hashPassword($user, $data['newPassword']));
             $user->setTokenResetPassword(null);
-            $user->setNbConnectionAttemps(0);
+            $user->setNbConnectionAttempt(0);
 
             $manager->persist($user);
             $manager->flush();
@@ -119,48 +119,6 @@ class LoginController extends AbstractController
             ], Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->json(['message' => 'Ce lien est expiré. Veuillez refaire une demande de réinitialisation.'], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    #[Route('/api/token/refresh', methods: ['POST'])]
-    public function refreshToken(Request $request, JWTTokenManagerInterface $jwtManager): JsonResponse
-    {
-        try {
-            // Récupérer le token depuis l'en-tête Authorization
-            $authHeader = $request->headers->get('Authorization');
-            if (!$authHeader || !str_starts_with($authHeader, 'Bearer ')) {
-                return $this->json(['message' => 'Token manquant'], Response::HTTP_UNAUTHORIZED);
-            }
-
-            $token = substr($authHeader, 7); // Supprimer "Bearer"
-
-            // Décoder le token pour récupérer l'utilisateur
-            $decodedToken = $jwtManager->parse($token);
-            $username = $decodedToken['username'] ?? null;
-
-            if (!$username) {
-                return $this->json(['message' => 'Token invalide'], Response::HTTP_UNAUTHORIZED);
-            }
-
-            $user = $this->getUser();
-
-            if (!$user) {
-                return $this->json(['message' => 'Utilisateur non trouvé'], Response::HTTP_UNAUTHORIZED);
-            }
-
-
-            // Générer un nouveau token
-            $newToken = $jwtManager->create($user);
-
-            return $this->json([
-                'token' => $newToken,
-                'message' => 'Token rafraîchi avec succès'
-            ], Response::HTTP_OK);
-
-        } catch (JWTDecodeFailureException $e) {
-            return $this->json(['message' => 'Token invalide ou expiré'], Response::HTTP_UNAUTHORIZED);
-        } catch (\Exception $e) {
-            return $this->json(['message' => 'Erreur lors du rafraîchissement du token'], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

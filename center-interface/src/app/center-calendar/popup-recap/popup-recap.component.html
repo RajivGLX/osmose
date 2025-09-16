@@ -16,7 +16,7 @@
                     <mat-expansion-panel [expanded]="expandedMonths[month.key]" class="wrapper-accordion">
                         <mat-expansion-panel-header (click)="toggleMonth(month.key)" class="month-header">
                             <mat-panel-title class="month-title">
-                                {{ month.key }}
+                                {{ month.key | date:'MM/yyyy' }}
                             </mat-panel-title>
                         </mat-expansion-panel-header>
                         <div class="month-body">
@@ -24,7 +24,7 @@
                                 <mat-expansion-panel [expanded]="expandedDays[day.key]">
                                     <mat-expansion-panel-header (click)="toggleDay(day.key)" class="day-header">
                                         <mat-panel-title>
-                                            <span class="day">{{ day.key }}</span>
+                                            <span class="day">{{ day.key | date:'dd/MM/yyyy' }}</span>
                                         </mat-panel-title>
                                     </mat-expansion-panel-header>
                 

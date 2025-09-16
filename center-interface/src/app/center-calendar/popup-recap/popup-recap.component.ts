@@ -15,9 +15,9 @@ import {ToolsService} from "../../shared/services/tools.service";
     selector: 'app-popup-recap',
     standalone: true,
     imports: [
-        CommonModule, 
-        KeyValuePipe, 
-        MatExpansionModule, 
+        CommonModule,
+        KeyValuePipe,
+        MatExpansionModule,
         SlotPipe,
         SortDaysPipe,
         SortSlotsPipe

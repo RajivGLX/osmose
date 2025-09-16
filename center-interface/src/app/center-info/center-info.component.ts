@@ -1,10 +1,10 @@
-import {Component, OnInit, signal, WritableSignal} from '@angular/core'
+import {Component, OnInit} from '@angular/core'
 import { LoginService } from '../login/services/login.service'
 import { Center } from '../interface/center.interface'
 import { User } from '../interface/user.interface'
 import { KeyValuePipe, KeyValue } from '@angular/common'
 import { CenterFormComponent } from '../center-form/center-form.component'
-import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {PopupInfoComponent} from "../shared/popup-info/popup-info.component";
 
 @Component({
     selector: 'app-center-info',
@@ -12,7 +12,7 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     imports: [
         KeyValuePipe,
         CenterFormComponent,
-        MatProgressSpinner
+        PopupInfoComponent
     ],
     templateUrl: './center-info.component.html',
     styleUrl: './center-info.component.sass'
@@ -22,7 +22,6 @@ export class CenterInfoComponent implements OnInit {
     currentUser!: User
     currentCenter!: Center
     switchView: 'centerForm' | 'centerInfo'  = 'centerInfo'
-    loaderDataCenter: WritableSignal<boolean> = signal(true)
 
     constructor(
         private loginService: LoginService,

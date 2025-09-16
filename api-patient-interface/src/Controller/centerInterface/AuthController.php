@@ -53,7 +53,7 @@ class AuthController extends AbstractController
         return $this->json(['message' => 'User registered successfully']);
     }
 
-    #[\Symfony\Component\Routing\Attribute\Route('/api/token/refresh', methods: ['POST'])]
+    #[Route('/api/token/refresh', methods: ['POST'])]
     public function refreshToken(Request $request, JWTTokenManagerInterface $jwtManager): JsonResponse
     {
         try {
@@ -67,7 +67,7 @@ class AuthController extends AbstractController
 
             // Décoder le token pour récupérer l'utilisateur
             $decodedToken = $jwtManager->parse($token);
-            $userEmail = $decodedToken['email'] ?? null;
+            $userEmail = $decodedToken['username'] ?? null;
 
             if (!$userEmail) {
                 return $this->json(['message' => 'Token invalide'], Response::HTTP_UNAUTHORIZED);

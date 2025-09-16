@@ -222,7 +222,7 @@ export class LoginService {
                     showCountdown: true,
                     countdown: 60
                 },
-                width: '35%',
+                width: '40%',
                 panelClass: 'confirm-dialog',
                 disableClose: true
             });

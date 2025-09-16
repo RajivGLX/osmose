@@ -1,11 +1,4 @@
 @if (currentCenter) {
-    @if (loaderDataCenter()) {
-        <div class="wrapper-spinner">
-            <div class="mat-spinner">
-                <mat-spinner/>
-            </div>
-        </div>
-    }
     @if(switchView == 'centerInfo'){
         <section class="wrapper-component">
             <div class="header-center">
@@ -28,12 +21,23 @@
                         <span>{{ currentCenter.name }}</span>
                     </div>
                     <div class="col-4">
+                        <label>Email :</label>
+                        <span>{{ currentCenter.email }}</span>
+                    </div>
+                    <div class="col-2">
                         <label>Téléphone :</label>
                         <span>{{ currentCenter.phone }}</span>
                     </div>
-                    <div class="col-4">
-                        <label>Email :</label>
-                        <span>{{ currentCenter.email }}</span>
+                    <div class="col-2">
+                        <label>
+                            Nombre de place :
+                            <app-popup-info
+                                    message="La configuration par defaut du nombre de place par créneaux qui sera affichée dans le calendrier des disponibilitées."
+                                    position="above">
+                            </app-popup-info>
+
+                        </label>
+                        <span>{{ currentCenter.place_available }}</span>
                     </div>
                 </div>
         

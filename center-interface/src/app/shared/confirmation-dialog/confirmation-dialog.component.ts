@@ -32,7 +32,10 @@ export class ConfirmationDialogComponent {
     btnCancelText!: string;
     countdown: number = 60;
     private countdownSubscription?: Subscription;
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<ConfirmationDialogComponent>) {
+    constructor(
+        @Inject(MAT_DIALOG_DATA) public data: any,
+        private dialogRef: MatDialogRef<ConfirmationDialogComponent>
+    ) {
 
         this.title = this.data.title;
         this.message = this.data.message;
