@@ -57,6 +57,7 @@ class BookingManager
             return false;
         }
     }
+
     public function createBooking(FormInterface $form, Center $center, Patient $patient, Availability $availability, \DateTime $dateReserve, Slots $timeSlot): bool
     {
         try {
@@ -85,6 +86,7 @@ class BookingManager
             return false;
         }
     }
+
     public function updateBooking(FormInterface $form): bool
     {
         try {
@@ -132,6 +134,7 @@ class BookingManager
             return false;
         }
     }
+
     public function changeStatusBooking(Status $status, UserInterface $user, Booking $booking, bool $flush = true): bool
     {
         if ($this->isUserAuthorizedToChangeStatus($user, $booking, $status)) {
@@ -182,6 +185,7 @@ class BookingManager
         }
         return false;
     }
+
     public function disabledStatus(Booking $booking): bool
     {
         try {
@@ -238,6 +242,42 @@ class BookingManager
             return false;
         } else {
             return true;
+        }
+    }
+
+    public function deleteBooking(int $idBooking): array
+    {
+        try {
+            $booking = $this->bookingRepository->find($idBooking);
+            if (!$booking) {
+                return ['message' => 'Réservation non trouvée', 'data' => null, 'code' => 404];
+            }
+            $this->entityManager->remove($booking);
+            $this->entityManager->flush();
+            $this->logger->info('La suppression de la réservation id ' . $booking->getId() . ' a bien été engistré');
+            return ['message' => 'La reservation a bien été supprimé a bien été supprimé', 'data' => null, 'code' => 200];
+        } catch (\Exception $e) {
+            $this->logger->error('Problème lors de la suppression de la réservation : ' . $e->getMessage());
+            return ['message' => 'Problème lors de la suppression de la réservation', 'data' => null, 'exception' => $e->getMessage(),'code' => 500];
+        }
+    }
+
+    public function deleteMultipleBooking(array $listIdBooking): array
+    {
+        try {
+            $listBooking = $this->bookingRepository->findBookingByArrayIdBooking($listIdBooking);
+            if (count($listBooking) === 0) {
+                return ['message' => 'Aucune réservation trouvée', 'code' => 404];
+            }
+            foreach ($listBooking as $booking) {
+                $this->entityManager->remove($booking);
+            }
+            $this->entityManager->flush();
+            $this->logger->info('La suppression de plusieurs réservations a bien été engistré');
+            return ['message' => 'Les réservations ont bien été supprimées', 'code' => 200];
+        } catch (\Exception $e) {
+            $this->logger->error('Problème lors de la suppression des réservations : ' . $e->getMessage());
+            return ['message' => 'Problème lors de la suppression des réservations', 'exception' => $e->getMessage(), 'code' => 500];
         }
     }
 }

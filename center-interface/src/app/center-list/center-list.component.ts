@@ -52,7 +52,7 @@ export class CenterListComponent {
     colDefs: ColDef[] = [
         { field: "id", headerName: "id", lockPosition: "left",width: 50 },
         { field: "name", headerName: "Nom du centre", lockPosition: "left",width: 150 },
-        { field: "city", headerName: "City", lockPosition: "left",width: 75 },
+        { field: "city", headerName: "Ville", lockPosition: "left",width: 75 },
         { field: "zipcode", headerName: "Code Postal", lockPosition: "left",width: 50 },
         { field: "bande", headerName: "Groupe", lockPosition: "left",width: 75 },
         { field: "action", headerName: "Action", lockPosition: "left", cellClass: 'justify-content-center', width: 120,

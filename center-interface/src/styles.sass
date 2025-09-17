@@ -104,6 +104,16 @@ body
             background-color: rgba(83, 83, 83,0.1) !important
             color: rgba(87, 87, 87, 0.6) !important
 
+    .btn-red
+        background-color: $error-color
+        color: #fff
+        border: 1px solid $error-color
+
+        &:hover
+            background-color: $error-color-middle
+            color: #fff
+            border: 1px solid $error-color-middle
+
     .mat-mdc-form-field-type-mat-select > div,
     .mat-mdc-form-field > div
         background-color: $bg-input !important
@@ -328,5 +338,73 @@ body
 ::ng-deep .mdc-radio__outer-circle
     border-color: $text-color-gris !important  
 
-//---------------ng select-----------------//
+//---------------AG-GRID-----------------//
+ag-grid-angular
+
+    .ag-header
+        border-color: $border-input
+        background: $main-blue
+
+        .ag-header-cell
+            background: $main-blue
+            color: #fff
+
+            .ag-icon
+                color: #fff
+
+    .ag-header-cell-label
+        justify-content: center
+
+    .ag-root-wrapper.ag-layout-normal
+        border-radius: 15px
+        border-color: $border-input
+
+        .ag-paging-panel
+            border-top: none
+
+        .ag-cell-value
+            display: flex
+            align-items: center
+            .notif-input
+                display: flex
+                align-items: center
+
+        .ag-row-hover:before
+            background: $bg-gris
+
+        .ag-body-viewport,
+        .ag-body-vertical-scroll-viewport
+            scrollbar-color: $main-blue #f0f0f0
+            border-radius: 10px
+
+    .ag-cell-value
+        .edit
+            width: 45px
+            height: 45px
+            background-color: $bg-gris
+            display: flex
+            justify-content: center
+            align-items: center
+            border-radius: 8px
+            cursor: pointer
+
+            &.small
+                width: 30px
+                height: 30px
+                svg
+                    width: 15px
+                    height: 15px
+
+            svg
+                width: 18px
+                height: 18px
+                fill: $text-color-gris
+
+    .ag-column-last .ag-header-cell-resize
+        display: none
+
+
+
+
+
 

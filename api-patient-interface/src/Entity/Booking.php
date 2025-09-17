@@ -55,7 +55,7 @@ class Booking
     #[Groups(['booking', 'info_booking'])]
     private ?string $reason = null;
 
-    #[ORM\OneToMany(mappedBy: 'booking', targetEntity: StatusBooking::class)]
+    #[ORM\OneToMany(mappedBy: 'booking', targetEntity: StatusBooking::class, cascade: ['remove'], orphanRemoval: true)]
     #[Groups(['booking','availability', 'info_booking'])]
     private Collection $statusBookings;
 

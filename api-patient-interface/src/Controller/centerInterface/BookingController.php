@@ -4,6 +4,8 @@ namespace App\Controller\centerInterface;
 
 use App\Entity\Patient;
 use App\Repository\SlotsRepository;
+use App\Services\Tools;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Manager\AvailabilityManager;
 use App\Manager\BookingManager;
@@ -31,7 +33,8 @@ class BookingController extends AbstractController
         private SlotsRepository $slotsRepository,
         private StatusRepository $statusRepository,
         private AvailabilityManager $availabilityManager,
-        private BookingManager $bookingManager
+        private BookingManager $bookingManager,
+        private LoggerInterface $logger,
     ) {}
 
     #[Route(path: '/admin/rendez-vous/{slug}/{monday}/{month}/{year}', name: 'app_admin_booking', requirements: ['monday' => '\d+', 'month' => '\d+', 'year' => '\d+'])]
@@ -79,7 +82,6 @@ class BookingController extends AbstractController
         ]);
     }
 
-
     #[Route('/api/send-availability', name: 'api_send_availability', methods: ['POST'])]
     public function availabilityCenter(Request $request): Response
     {
@@ -97,13 +99,12 @@ class BookingController extends AbstractController
 
     }
 
-
     #[Route('/api/get-all-futur-booking', name: 'api_all_futur_booking', methods: ['GET'])]
     public function getAllFuturBooking(): Response
     {
         $user = $this->getUser();
         if($this->identifier->isadminOsmose($user)){
-            $allBooking = $this->bookingRepository->findAll();
+            $allBooking = $this->bookingRepository->findAllFutureBookings();
         } else {
             $allBooking = $this->bookingRepository->findFuturBookingsByCenter($user->getAdministrator()->getCenters());
         }
@@ -115,7 +116,7 @@ class BookingController extends AbstractController
     {
         $user = $this->getUser();
         if($this->identifier->isadminOsmose($user)){
-            $allBooking = $this->bookingRepository->findAll();
+            $allBooking = $this->bookingRepository->findAllPastBookings();
         } else {
             $allBooking = $this->bookingRepository->findPastBookingsByCenter($user->getAdministrator()->getCenters());
         }
@@ -182,4 +183,51 @@ class BookingController extends AbstractController
 
         return $this->json($allBooking, 200, [], ['groups' => 'info_booking']);
     }
+
+    #[Route('/api/delete-booking', name: 'api_delete_booking', methods: ['POST'])]
+    public function deleteBooking(Request $request): Response
+    {
+        if (!$this->isGranted('ROLE_ADMIN_OSMOSE')) {
+            return $this->json(['message' => 'Accès interdit'], 403);
+        }
+        $data = json_decode($request->getContent(), true);
+        $idBooking = intval($data['id']) ?? null;
+
+        if ($idBooking === null) {
+            $this->logger->error('Champs vide lors de la suppression du booking : id manquant');
+            return $this->json(['message' => 'Champs vide lors de l\'envoie du formulaire'], 400);
+        }
+
+        $result = $this->bookingManager->deleteBooking($idBooking);
+
+        return $this->json(
+            ['message' => $result['message'], 'data' => $result['data'],'exception'=>$result['exception'] ?? null],
+            $result['code'], [], ['groups' => 'info_booking']
+        );
+    }
+
+    #[Route('/api/delete-multiple-bookings', name: 'api_delete_multiple_booking', methods: ['POST'])]
+    public function deleteMultipleBooking(Request $request): Response
+    {
+        if (!$this->isGranted('ROLE_ADMIN_OSMOSE')) {
+            return $this->json(['message' => 'Accès interdit'], 403);
+        }
+        $data = json_decode($request->getContent(), true);
+        $listIdBooking = $data['listIdBooking'] ?? null;
+
+        if ($listIdBooking === null) {
+            $this->logger->error('Champs vide lors de la suppression du booking : id manquant');
+            return $this->json(['message' => 'Champs vide lors de l\'envoie du formulaire'], 400);
+        }
+
+        $result = $this->bookingManager->deleteMultipleBooking($listIdBooking);
+
+        return $this->json(
+            ['message' => $result['message'], 'data' => $result['data'] ?? null,'exception'=>$result['exception'] ?? null],
+            $result['code'], [], ['groups' => 'info_booking']
+        );
+    }
+
+
+
 }

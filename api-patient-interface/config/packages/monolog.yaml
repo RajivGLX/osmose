@@ -7,13 +7,9 @@ when@dev:
                 max_files: 360
                 level: info
                 formatter: monolog.formatter.line
-                date_format: 'Y-m-d'  # Format de la date utilisé dans le nom de fichier (Année-Mois-Jour)
-                channels: [ "!event" ]
-            nested:
-                type: rotating_file
-                path: '%kernel.logs_dir%/app.log'
-                level: notice
-                formatter: monolog.formatter.line
+                channels: ['!event']
+                bubble: false
+
 when@prod:
     monolog:
         handlers:
@@ -23,10 +19,5 @@ when@prod:
                 max_files: 360
                 level: info
                 formatter: monolog.formatter.line
-                date_format: 'Y-m-d'  # Format de la date utilisé dans le nom de fichier (Année-Mois-Jour)
-                channels: [ "!event" ]
-            nested:
-                type: rotating_file
-                path: '%kernel.logs_dir%/app.log'
-                level: notice
-                formatter: monolog.formatter.line
+                channels: ['!event']
+                bubble: false

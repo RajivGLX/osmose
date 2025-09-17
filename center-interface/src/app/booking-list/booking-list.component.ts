@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { AgGridAngular } from 'ag-grid-angular';
 import { localeTextFr } from '../utils/translation/localTextFr';
-import { GridApi } from './../../../node_modules/ag-grid-community/dist/types/core/api/gridApi.d';
-import { ColDef } from './../../../node_modules/ag-grid-community/dist/types/core/entities/colDef.d';
-import { GridReadyEvent, RowDoubleClickedEvent } from './../../../node_modules/ag-grid-community/dist/types/core/events.d';
+import { GridReadyEvent, RowDoubleClickedEvent, ColDef, GridApi } from 'ag-grid-community';
 import { BookingListService } from './services/booking-list.service';
 import { GridOptions } from 'ag-grid-community';
 import { Booking } from '../interface/booking.interface';
@@ -17,6 +15,9 @@ import { BehaviorSubject } from 'rxjs';
 import { SlotPipe } from '../utils/pipe/slot.pipe';
 import { CellActionBookingComponent } from '../shared/custom-cell/cell-action-booking/cell-action-booking.component';
 import { FormatageDatePipe } from '../utils/pipe/date-format.pipe';
+import {User} from "../interface/user.interface";
+import {MatDialog} from "@angular/material/dialog";
+import {ConfirmationDialogComponent} from "../shared/confirmation-dialog/confirmation-dialog.component";
 
 
 @Component({
@@ -37,47 +38,34 @@ export class BookingListComponent implements OnInit {
 
     bookingSelect!: Booking;
     centerSelect!: Center
+    userAdmin!: User
     searchCtrl: FormControl = new FormControl('')
     loaderAgGrid$: BehaviorSubject<boolean> = this.bookingListService.loaderAgGrid$
     switchView: 'bookingList' | 'bookingView' = 'bookingList'
     currentView: 'futur' | 'past' = 'futur'
+    selectedBookings: Set<number> = new Set();
+    isSelectionMode = false;
 
     rowData!: any[]
     paginationPageSize = 20;
     localeTextFr = localeTextFr
     gridBookingList!: GridApi;
-    defaultColDef: ColDef = {
-        sortable: true,
-        filter: true,
-        resizable: true,
-    }
+    defaultColDef: ColDef = {sortable: true, filter: true, resizable: true}
     gridOptions: GridOptions = {
-        autoSizeStrategy: {
-            type: 'fitGridWidth',
-        },
-        context: {
-            componentParent: this
-        }
+        autoSizeStrategy: {type: 'fitGridWidth',},
+        context: {componentParent: this},
+        rowSelection: {mode: 'multiRow'},
+        onSelectionChanged: () => this.onSelectionChanged()
     }
 
     colDefs: ColDef[] = [
-        { field: "id", headerName: "id", lockPosition: "left", width: 100 },
-        { field: "patient", headerName: "Patient", lockPosition: "left",
-            cellRenderer: (value: any) => {
-                return `<span>${value.value.user.firstname} ${value.value.user.lastname}</span>`
-            }
-        },
-        { field: "dateReserve", headerName: "Date reservation", lockPosition: "left",
-            minWidth: 200,
-            cellRenderer: (value: any) => {
-                sort:'desc'
-                return `<span >${value.value} </span>`
-            }
-        },
-        { field: "slotName", headerName: "Créneaux", lockPosition: "left" },
-        { field: "reason", headerName: "Raison", lockPosition: "left" },
+        { field: "id", headerName: "id", width: 70 },
+        { field: "patient", headerName: "Patient"},
+        { field: "dateReserve", headerName: "Date reservation"},
+        { field: "slotName", headerName: "Créneaux" },
+        { field: "reason", headerName: "Raison" },
         {
-            field: "lastStatus", headerName: "Statut", lockPosition: "left",
+            field: "lastStatus", headerName: "Statut",
             cellRenderer: (value: any) => {
                 return `
                     <span class='booking status'>
@@ -96,7 +84,7 @@ export class BookingListComponent implements OnInit {
             },
             headerClass: 'custom-header-last'
         },
-        { field: "action", headerName: "Action", lockPosition: "left", cellClass: 'justify-content-center', width: 120,
+        { field: "action", headerName: "Action", cellClass: 'justify-content-center', width: 120,
             cellRenderer: CellActionBookingComponent
         },
     ]
@@ -105,13 +93,18 @@ export class BookingListComponent implements OnInit {
         private bookingListService: BookingListService,
         private loginService: LoginService,
         private slotPipe: SlotPipe,
-        private formatageDate: FormatageDatePipe
+        private formatageDate: FormatageDatePipe,
+        private dialog: MatDialog,
     ) { }
 
     ngOnInit(): void {
         this.loginService._userConnected$.subscribe(user => {
-            if (user){
+            if (user && !user.adminOsmose) {
                 this.centerSelect = user.administrator.centers[0]
+                this.userAdmin = user
+            }else if (user && user.adminOsmose) {
+                this.userAdmin = user
+                this.colDefs = this.colDefs.filter(col => col.field !== "reason");
             }
         })
         this.loadBookings()
@@ -122,7 +115,7 @@ export class BookingListComponent implements OnInit {
         for (const value of bookings) {
             this.rowData.push({
                 id: value.id,
-                patient: value.patient,
+                patient: value.patient.user.firstname + ' ' + value.patient.user.lastname,
                 center: this.centerSelect,
                 slotName: this.slotPipe.transform(value.availability.slot.name),
                 availability: value.availability,
@@ -132,6 +125,7 @@ export class BookingListComponent implements OnInit {
                 reason: value.reason,
                 statusBookings: value.statusBookings,
                 lastStatus: value.statusBookings[value.statusBookings.length - 1].status.name,
+                userAdmin: this.userAdmin,
                 allDataBooking: value,
             })
         }
@@ -149,6 +143,66 @@ export class BookingListComponent implements OnInit {
             this.bookingListService.listAllPastBookings$.subscribe(allBookings => {
                 this.setRowData(allBookings)
             })
+        }
+    }
+
+    onSelectionChanged(): void {
+        if (!this.gridBookingList) return;
+
+        const selectedRows = this.gridBookingList.getSelectedRows();
+        this.selectedBookings = new Set(selectedRows.map(row => row.id));
+    }
+
+    deleteSelectedBookings(): void {
+        if (this.selectedBookings.size === 0) return;
+
+        this.dialog.open(ConfirmationDialogComponent, {
+            data: {
+                title: "Suppression multiple de réservations",
+                message: `Êtes-vous certain de vouloir supprimer ${this.selectedBookings.size} réservation(s) ?`,
+                btnOkText: "Supprimer",
+                btnCancelText: "Annuler",
+            }
+        }).afterClosed().subscribe((confirm: boolean) => {
+            if (confirm) {
+                const selectedIds = Array.from(this.selectedBookings);
+                this.loaderAgGrid$.next(true);
+                this.bookingListService.deleteMultipleBookings(selectedIds).then(() => {
+                    this.selectedBookings.clear();
+                    this.gridBookingList?.deselectAll();
+                    this.loadBookingsAfterDelete();
+                }).catch(error => {
+                    this.loaderAgGrid$.next(false);
+                    console.error('Erreur lors de la suppression des réservations:', error);
+                });
+            }
+        });
+    }
+
+    deleteBooking(idBooking: number): Promise<void> {
+        return this.bookingListService.deleteBooking(idBooking).then(() => {
+            // Mettre à jour les données localement
+            this.removeBookingFromLocalData(idBooking);
+        });
+    }
+
+    private removeBookingFromLocalData(deletedId: number): void {
+        if (this.currentView === 'futur') {
+            const currentBookings = this.bookingListService['_listAllFuturBookings$'].value;
+            const updatedBookings = currentBookings.filter(booking => booking.id !== deletedId);
+            this.bookingListService['_listAllFuturBookings$'].next(updatedBookings);
+        } else {
+            const currentBookings = this.bookingListService['_listAllPastBookings$'].value;
+            const updatedBookings = currentBookings.filter(booking => booking.id !== deletedId);
+            this.bookingListService['_listAllPastBookings$'].next(updatedBookings);
+        }
+    }
+
+    private loadBookingsAfterDelete(): void {
+        if (this.currentView === 'futur') {
+            this.bookingListService.getAllFuturBooking(true); // forceReload = true
+        } else {
+            this.bookingListService.getAllPastBooking(true); // forceReload = true
         }
     }
 
@@ -172,6 +226,7 @@ export class BookingListComponent implements OnInit {
     onFilterTextBoxChanged(event: any) {
         this.gridBookingList.setGridOption('quickFilterText', this.searchCtrl.value);
     }
+
 
     rowDoubleClicked(event: RowDoubleClickedEvent) {
         this.bookingSelect = event.data

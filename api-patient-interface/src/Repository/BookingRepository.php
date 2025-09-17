@@ -80,6 +80,17 @@ class BookingRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function findAllFutureBookings(): array
+    {
+        $dateNow = new \DateTime();
+        $qb = $this->createQueryBuilder('b')
+            ->where('b.dateReserve > :dateNow')
+            ->setParameter('dateNow', $dateNow)
+            ->orderBy('b.dateReserve', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function findFuturBookingsByCenter($centers): array
     {
         $dateNow = new \DateTime();
@@ -101,6 +112,16 @@ class BookingRepository extends ServiceEntityRepository
             ->setParameter('patient', $patient)
             ->andWhere('b.dateReserve < :dateNow')
             ->setParameter('dateNow', new \DateTime());
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findAllPastBookings(): array
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->where('b.dateReserve < :dateNow')
+            ->setParameter('dateNow', new \DateTime())
+            ->orderBy('b.dateReserve', 'DESC');
 
         return $qb->getQuery()->getResult();
     }
