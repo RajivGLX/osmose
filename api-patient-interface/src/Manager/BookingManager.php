@@ -64,7 +64,7 @@ class BookingManager
             $booking = new Booking();
             $status = $this->statusRepository->findOneBy(['status_wait' => true]);
             $resultBooking = $this->addNewStatusBooking($status, $booking);
-            if (!$resultBooking) return false;
+            if ($resultBooking['success'] == false) return false;
 
             $booking->setCenter($center);
             $booking->setPatient($patient);
@@ -102,12 +102,15 @@ class BookingManager
         }
     }
 
-    public function addNewStatusBooking(Status $status, Booking $booking): bool
+    public function addNewStatusBooking(Status $status, Booking $booking): array
     {
         try {
             if ($this->checkStatusExist($booking, $status) === false) {
                 $resultStatus = $this->disabledStatus($booking);
-                if (!$resultStatus) return false;
+                if (!$resultStatus){
+                    $this->logger->error('Problème lors de la désactivation des anciens statuts idBooking : '. $booking->getId());
+                    return ['success' => false, 'message' => 'Problème lors de la désactivation des anciens statuts', 'data' => null];
+                }
                 $statusBooking = new StatusBooking();
                 $statusBooking->setBooking($booking);
                 $statusBooking->setStatus($status);
@@ -124,53 +127,88 @@ class BookingManager
 
                 $this->entityManager->persist($statusBooking);
                 $this->logger->info('Le nouveau statut a bien été ajouté à la réservation id : ' . $booking->getId());
-                return true;
+                return ['success' => true, 'message' => 'Le nouveau statut a bien été ajouté à la réservation', 'data' => $statusBooking];
             } else {
                 $this->logger->warning('La tentative d\'ajout du nouveau statut à échoué car il existe déjà');
-                return false;
+                return ['success' => false, 'message' => 'Le status existe déjà pour cette réservation', 'data' => null];
             }
         } catch (\Exception $e) {
             $this->logger->error('Problémes lors de l\'enregistrement de l\'ajout du nouveau statut : ' . $e->getMessage());
-            return false;
+            return ['success' => false, 'message' => 'Problème lors de l\'enregistrement du nouveau statut', 'data' => $e->getMessage()];
         }
     }
 
-    public function changeStatusBooking(Status $status, UserInterface $user, Booking $booking, bool $flush = true): bool
+    public function changeStatusBooking(Status $status, UserInterface $user, Booking $booking): array
     {
-        if ($this->isUserAuthorizedToChangeStatus($user, $booking, $status)) {
-            $result = $this->addNewStatusBooking($status, $booking);
-            if ($result && $flush) {
-                $this->entityManager->flush();
+        try {
+            if ($this->isUserAuthorizedToChangeStatus($user, $booking, $status)) {
+                $result = $this->addNewStatusBooking($status, $booking);
+                if ($result['success'] == false) {
+                    $this->logger->error($result['message'] . ' / idBooking : ' . $booking->getId());
+                    return ['message' => $result['message'], 'data' => null, 'code' => 400];
+                }else {
+                    $this->entityManager->flush();
+                    return ['message' => 'Le status de la réservation a bien été modifié', 'data' => $result, 'code' => 200];
+                }
+            } else {
+                $this->logger->error('Status de reservation echec  : l\'utilisateur n\'a pas les droits pour changer le status de la réservation');
+                return ['message' => 'Vous n\'avez pas les droits pour changer le status de la réservation', 'data' => null, 'code' => 403];
             }
-            
-            return $result;
+        } catch (\Exception $e) {
+            $this->logger->error('Status de reservation echec  : ' . $e->getMessage());
+            return ['message' => 'Une erreur est survenue lors du changement de status de la réservation', 'data' => $e->getMessage(), 'code' => 500];
         }
-        return false;
+
     }
 
-    public function changeStatusBookingBatch(UserInterface $user, Status $status, $bookingsToChange): bool
+    public function replaceStatusBooking(StatusBooking $oldStatus, Status $newStatus, Booking $booking): array
+    {
+        try {
+            $oldStatus->setStatus($newStatus);
+            $this->entityManager->persist($oldStatus);
+            $this->entityManager->flush();
+            $this->logger->info('Le statut de la réservation id : ' . $booking->getId() . ' a bien été remplacé');
+
+            return ['success' => true, 'message' => 'Le statut a bien été remplacé', 'data' => $oldStatus->getBooking(), 'code' => 200];
+
+        } catch (\Exception $e) {
+            $this->logger->error('Problème lors du remplacement du statut : ' . $e->getMessage());
+            return ['success' => false, 'message' => 'Problème lors du remplacement du statut', 'data' => $e->getMessage(), 'code' => 500];
+        }
+    }
+
+
+    public function changeStatusBookingBatch(UserInterface $user, Status $status, $bookingsToChange): array
     {
         try {
             if ($this->identifier->isadminOsmose($user)) {
                 foreach ($bookingsToChange as $booking) {
-                    $this->changeStatusBooking($status, $user, $booking);
+                    $result = $this->changeStatusBooking($status, $user, $booking);
+                    if ($result['code'] != 200) {
+                        $this->logger->error('Echec du changement de status pour la réservation id : ' . $booking->getId() . ' / Message : ' . $result['message']);
+                        return ['message' => 'Echec du changement de status pour la réservation id : ' . $booking->getId() . ' / Message : ' . $result['message'], 'data' => null, 'code' => 500];
+                    }
                 }
-                return true;
+                return ['message' => 'Le status de toutes les réservations a bien été modifié', 'data' => null, 'code' => 200];
             } else {
                 foreach ($bookingsToChange as $booking) {
                     if ($this->checkAdminAuthorisationChangeStatus($user, $booking, $status)) {
-                        $this->changeStatusBooking($status, $user, $booking);
+                        $result = $this->changeStatusBooking($status, $user, $booking);
+                        if ($result['code'] != 200) {
+                            $this->logger->error('Echec du changement de status pour la réservation id : ' . $booking->getId() . ' / Message : ' . $result['message']);
+                            return ['message' => 'Echec du changement de status pour la réservation id : ' . $booking->getId() . ' / Message : ' . $result['message'], 'data' => null, 'code' => 500];
+                        }
                     } else {
                         $this->logger->error('Status de reservation echec  : l\'utilisateur n\'a pas les droits pour changer le status de la réservation');
-                        return false;
+                        return ['message' => 'Vous n\'avez pas les droits pour changer le status de cet réservation', 'data' => null, 'code' => 403];
                     }
                 }
                 $this->entityManager->flush();
-                return true;
+                return ['message' => 'Le status de toutes les réservations a bien été modifié', 'data' => null, 'code' => 200];
             }
         } catch (\Exception $e) {
             $this->logger->error('Status de reservation echec  : ' . $e->getMessage());
-            return false;
+            return ['message' => 'Une erreur est survenue lors du changement de status des réservations', 'data' => $e->getMessage(), 'code' => 500];
         }
     }
 

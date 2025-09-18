@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Booking } from '../interface/booking.interface';
 import { Status } from '../interface/status.interface';
 import { BookingViewService } from './services/booking-view.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {ErrorHandler} from "../shared/handlers/error.handler";
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -13,6 +13,9 @@ import { LoaderComponent } from '../loader/loader.component';
 import { FormatageDatePipe } from '../utils/pipe/date-format.pipe';
 import { SlotPipe } from '../utils/pipe/slot.pipe';
 import { FolderPatientComponent } from './folder-patient/folder-patient.component';
+import {User} from "../interface/user.interface";
+import {FormErrorDirective} from "../shared/directives/form-error.directive";
+import {FormErrorService} from "../shared/services/forms-error.service";
 
 @Component({
     selector: 'app-booking-view',
@@ -26,7 +29,8 @@ import { FolderPatientComponent } from './folder-patient/folder-patient.componen
         OtherBookingComponent,
         FolderPatientComponent,
         FormatageDatePipe,
-        SlotPipe
+        SlotPipe,
+        FormErrorDirective,
     ],
     templateUrl: './booking-view.component.html',
     styleUrl: './booking-view.component.sass'
@@ -35,6 +39,7 @@ import { FolderPatientComponent } from './folder-patient/folder-patient.componen
 export class BookingViewComponent implements OnInit {
 
     @Input() booking !: Booking
+    @Input() userAdmin !: User
     @Output() closeVueDetaillee = new EventEmitter<boolean>(true)
     @Output() bookingUpdated = new EventEmitter<Booking>();
 
@@ -45,22 +50,27 @@ export class BookingViewComponent implements OnInit {
     loaderOneStatus: Observable<boolean> = this.bookingViewService.loaderOneStatus$
     statusIsUpdated: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true)
 
-    statusForm: FormGroup;
+    statusForm = this.bookingViewService.statusForm
+    statusFormReplace = this.bookingViewService.statusFormReplace
+
+    errors: any = {}
+
     constructor(
         private bookingViewService: BookingViewService,
-        private fb: FormBuilder,
-        private errorHandler : ErrorHandler
+        private errorHandler : ErrorHandler,
+        private formErrorService: FormErrorService,
     ) { 
-        this.statusForm = this.fb.group({
-            idStatus: ['', Validators.required], // Initialisation du champ 'status'
-            idBooking: [''] // Initialisation du champ 'bookingId'
-        });
     }
 
     ngOnInit(): void {
-        console.log(this.booking)
         this.checkIfStatusIsUpdatable(this.booking)
         this.statusForm.patchValue({ idBooking: this.booking.id });
+
+        if(this.userAdmin.adminOsmose){
+            this.statusFormReplace.patchValue({ idBooking: this.booking.id });
+            this.errorHandler.handleErrors(this.statusFormReplace, this.messageErrors);
+        }
+
         this.bookingViewService.getStatuses()
         this.bookingViewService.status$.subscribe({
             next: (value: Status[]) => {
@@ -69,21 +79,34 @@ export class BookingViewComponent implements OnInit {
         })
     }
 
-    initialiseForm() {
-        this.changeOneStatusForm = this.fb.group({
-            status: [null, [Validators.required]],
-        })
-        this.errorHandler.handleErrors(this.changeOneStatusForm,this.messageErrors);
+    onSubmitAddStatus(): void {
+        if (this.statusForm.valid) {
+            this.bookingViewService.addNewStatus(this.statusForm)
+            this.refreshBooking()
+        }else{
+            this.formErrorService.markFormGroupTouchedAndUpdate(this.statusForm);
+            this.errors = this.formErrorService.getFormErrors(this.statusForm);
+        }
     }
 
-    onSubmit(): void {
-        this.bookingViewService.addNewStatus(this.statusForm.value)
+    onSubmitReplaceStatus(): void {
+        if (this.statusFormReplace.valid) {
+            this.bookingViewService.replaceStatus(this.statusFormReplace).then(() => {
+                this.refreshBooking()
+            })
+        }else{
+            this.formErrorService.markFormGroupTouchedAndUpdate(this.statusFormReplace);
+            this.errors = this.formErrorService.getFormErrors(this.statusFormReplace);
+        }
+    }
 
+    refreshBooking(){
         this.bookingViewService.bookingByPatient$.subscribe({
             next: (value: Booking) => {
                 this.booking = value
                 this.bookingUpdated.emit(value);
-                this.statusForm.patchValue({ idStatus: '' });
+                this.statusForm.patchValue({ idStatus: 0 });
+                this.statusFormReplace.patchValue({ idStatus: 0 });
                 this.checkIfStatusIsUpdatable(value);
             }
         })
@@ -96,7 +119,7 @@ export class BookingViewComponent implements OnInit {
 
     checkIfStatusIsUpdatable(booking: Booking) {
         if(new Date(booking.availability.date) > new Date()){
-            const statusActive = booking.statusBookings.find(item => item.status_active === true);
+            const statusActive = booking.statusBookings.find(item => item.status_active);
             if (statusActive && (statusActive.status.name === 'confirmé' || statusActive.status.name === 'annulé' || statusActive.status.name === 'refusé')
             ) {
                 return this.statusIsUpdated.next(false)
@@ -108,13 +131,13 @@ export class BookingViewComponent implements OnInit {
 
     // Retourne la liste des statuts disponibles en excluant le statut actuel
     getAvailableStatuses(): Status[] {
-        if (!this.booking || !this.allStatus || !this.booking.statusBookings.length) {
+        if (this.userAdmin.adminOsmose || !this.booking || !this.allStatus || !this.booking.statusBookings.length) {
             return this.allStatus;
         }
         
         // Récupérer l'ID du statut actuel (celui qui est actif)
         const currentStatusId = this.booking.statusBookings
-            .find(statusBooking => statusBooking.status_active === true)?.status.id;
+            .find(statusBooking => statusBooking.status_active)?.status.id;
             
         // Filtrer les statuts pour exclure celui qui est déjà attribué
         return this.allStatus.filter(status => status.id !== currentStatusId);

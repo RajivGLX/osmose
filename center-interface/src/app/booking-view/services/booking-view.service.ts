@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Status } from '../../interface/status.interface';
 import { environment } from '../../../environment/environment';
 import { BehaviorSubject } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { FormGroup } from '@angular/forms';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Booking } from '../../interface/booking.interface';
 import { ToolsService } from '../../shared/services/tools.service';
 
@@ -32,15 +32,33 @@ export class BookingViewService {
             return this._loaderOneStatus$.asObservable()
         } 
     
-    public loaderAllStatus$ = new BehaviorSubject<boolean>(false)   
-
+    public loaderAllStatus$ = new BehaviorSubject<boolean>(false)
     public listBookingsByPatientLoaded$ = new BehaviorSubject<number>(0)
+    public statusForm!: FormGroup
+    public statusFormReplace!: FormGroup
     public listStatusLoaded = 0
 
     constructor(
         private http: HttpClient,
+        private fb: FormBuilder,
         private toolsService: ToolsService
-    ) { }
+    ) {
+        this.initializeFormGroup()
+    }
+
+    initializeFormGroup() {
+        this.statusForm = this.fb.group({
+            idStatus: [null, Validators.required],
+            idBooking: [null]
+        });
+
+        this.statusFormReplace = this.fb.group({
+            idStatusBookingReplace: [null, Validators.required],
+            idStatusNew: [null, Validators.required],
+            idBooking: [null]
+        });
+
+    }
 
     getStatuses(forceReload: boolean = false) {
         if (Date.now() - this.listStatusLoaded <= 1200000 && !forceReload) {
@@ -61,31 +79,50 @@ export class BookingViewService {
 
     addNewStatus(statusForm: FormGroup) {
         this._loaderOneStatus$.next(true)
-        this.http.post<Booking>(environment.apiURL + '/api/add-status-admin', statusForm).subscribe({
-            next: (booking: Booking) => {
-                this.toolsService.openSnackBar('success','Le statut a bien été ajouté')
-                this._bookingByPatient$.next(booking)
+        this.http.post<{data: Booking, message: string}>(environment.apiURL + '/api/add-status-booking', statusForm.value).subscribe({
+            next: (response : {data:Booking, message:string}) => {
+                this.toolsService.openSnackBar('success',response.message)
+                this._bookingByPatient$.next(response.data)
                 this._loaderOneStatus$.next(false)
             },
-            error: () => {
-                this.toolsService.openSnackBar('error','Une erreur est survenue lors de l\'ajout du statut')
+            error: (response: HttpErrorResponse) => {
+                console.log('response error :',response)
+                this.toolsService.openSnackBar('error',response.error.message ?? 'Une erreur est survenue')
                 this._loaderOneStatus$.next(false)
             }
         })
     }
 
+    replaceStatus(statusFormReplace: FormGroup): Promise<void> {
+        this._loaderOneStatus$.next(true)
+        return new Promise<void>((resolve, reject) => {
+            this.http.post<{data: Booking, message: string}>(environment.apiURL + '/api/replace-status-booking', statusFormReplace.value).subscribe({
+                next: (response : {data:Booking, message:string}) => {
+                    this.toolsService.openSnackBar('success',response.message)
+                    this._bookingByPatient$.next(response.data)
+                    this._loaderOneStatus$.next(false)
+                    resolve()
+                },
+                error: (response: HttpErrorResponse) => {
+                    console.log('response error :',response)
+                    this.toolsService.openSnackBar('error',response.error.message ?? 'Une erreur est survenue')
+                    this._loaderOneStatus$.next(false)
+                    reject(response)
+                }
+            })
+        })
+    }
+
     addMultipleNewStatus(statusForm: FormGroup) {
         console.log('statusForm :',statusForm.value)
-        this.http.post<Booking[]>(environment.apiURL + '/api/add-multiple-status-admin', statusForm.value).subscribe({
-            next: (booking: Booking[]) => {
-                console.log('return :',booking)
-                this.toolsService.openSnackBar('success','Les statuts ont bien été ajouter')
-                this._allBookingsByPatient$.next(booking)
+        this.http.post<{data: Booking[], message: string}>(environment.apiURL + '/api/add-multiple-status-booking', statusForm.value).subscribe({
+            next: (response : {data:Booking[], message:string}) => {
+                this.toolsService.openSnackBar('success',response.message)
+                this._allBookingsByPatient$.next(response.data)
                 this.loaderAllStatus$.next(false)
             },
-            error: (e: Error) => {
-                console.log('error', e.message)
-                this.toolsService.openSnackBar('error','Une erreur est survenue lors de l\'ajout des statuts')
+            error: (response: HttpErrorResponse) => {
+                this.toolsService.openSnackBar('error',response.error.message)
                 this.loaderAllStatus$.next(false)
             }
         })

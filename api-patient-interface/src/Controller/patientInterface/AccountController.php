@@ -175,7 +175,7 @@ class AccountController extends AbstractController
         $patient = $this->patientRepository->findOneBy(['user' => $this->getUser()]);
         if ($booking->getPatient() === $patient){
             $requestResult = $this->bookingManager->changeStatusBooking($this->statusRepository->findOneBy(['status_canceled' => true]),$this->getUser(),$booking);
-            if ($requestResult){
+            if ($requestResult['code'] === 200){
                 $this->addFlash('notice',['nature' => 'success', 'message' => 'Votre annulation a bien été prise en compte']);
             }else{
                 $this->addFlash('notice',['nature' => 'danger', 'message' => 'Une erreur est survenue lors de l\'annulation de votre réservation']);

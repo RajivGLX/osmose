@@ -4,6 +4,7 @@ namespace App\Controller\centerInterface;
 
 use App\Entity\Patient;
 use App\Repository\SlotsRepository;
+use App\Repository\StatusBookingRepository;
 use App\Services\Tools;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,6 +33,7 @@ class BookingController extends AbstractController
         private AvailabilityRepository $availabilityRepository,
         private SlotsRepository $slotsRepository,
         private StatusRepository $statusRepository,
+        private StatusBookingRepository $statusBookingRepository,
         private AvailabilityManager $availabilityManager,
         private BookingManager $bookingManager,
         private LoggerInterface $logger,
@@ -142,38 +144,69 @@ class BookingController extends AbstractController
         
     }
 
-    #[Route('/api/add-status-admin', name: 'api_add_status_admin', methods: ['POST'])]
-    public function addStatusAdmin(Request $request): Response
+    #[Route('/api/add-status-booking', name: 'api_add_status_booking', methods: ['POST'])]
+    public function addStatusBooking(Request $request): Response
     {
         $data = json_decode($request->getContent());
         $user = $this->getUser();
         $booking = $this->bookingRepository->find($data->idBooking);
         $status = $this->statusRepository->find($data->idStatus);
 
+        if (!$booking) {
+            $this->logger->error('Erreur lors de la modification du status du booking avec l\'id numéro : '. $data->idBooking);
+            return $this->json(['message' => 'Une erreur et survenue', 'error' => 'booking not found'], 404);
+        }
+        if (!$status) {
+            $this->logger->error('Erreur lors de la modification du status du booking avec l\'id numéro : '
+                . $data->idBooking . ' le status avec l\'id : ' . $data->idStatus . ' est introuvable');
+            return $this->json(['message' => 'Une erreur et survenue', 'error' => 'status not found'], 404);
+        }
+
         $response = $this->bookingManager->changeStatusBooking($status, $user, $booking);
 
-        if ($response) {
-            return $this->json($booking,200, [], ['groups' => 'info_booking']);
-        } else {
-            return $this->json($response, 500);
-        }
+        return $this->json(['data' => $booking, 'message' => $response['message']],$response['code'], [], ['groups' => 'info_booking']);
+
     }
 
-    #[Route('/api/add-multiple-status-admin', name: 'api_add_multiple_status_admin', methods: ['POST'])]
-    public function addMultipleStatusAdmin(Request $request): Response
+    #[Route('/api/replace-status-booking', name: 'api_replace_status_booking', methods: ['POST'])]
+    public function replaceStatusBooking(Request $request): Response
+    {
+        $data = json_decode($request->getContent());
+        $user = $this->getUser();
+        $booking = $this->bookingRepository->find($data->idBooking);
+        $statusReplace = $this->statusBookingRepository->find($data->idStatusBookingReplace);
+        $statusNew = $this->statusRepository->find($data->idStatusNew);
+
+        if (!$booking) {
+            $this->logger->error('Erreur lors de la modification du status du booking avec l\'id numéro : '. $data->idBooking);
+            return $this->json(['message' => 'Une erreur et survenue', 'error' => 'booking not found'], 404);
+        }
+        if (!$statusReplace) {
+            $this->logger->error('Erreur lors de la modification du status du booking le statut de remplacement est introuvable');
+            return $this->json(['message' => 'Une erreur et survenue', 'error' => 'status not found'], 404);
+        }
+        if (!$statusNew) {
+            $this->logger->error('Erreur lors de la modification du status du booking le nouveau statut est introuvable');
+            return $this->json(['message' => 'Une erreur et survenue', 'error' => 'status not found'], 404);
+        }
+
+        $response = $this->bookingManager->replaceStatusBooking($statusReplace, $statusNew, $booking);
+
+        return $this->json(['data' => $booking, 'message' => $response['message']],$response['code'], [], ['groups' => 'info_booking']);
+
+    }
+
+    #[Route('/api/add-multiple-status-booking', name: 'api_add_multiple_status_booking', methods: ['POST'])]
+    public function addMultipleStatusBooking(Request $request): Response
     {
         $data = json_decode($request->getContent());
         $user = $this->getUser();
         $bookingsdata = $this->bookingRepository->findBookingByArrayIdBooking($data->bookings);
         $status = $this->statusRepository->find($data->idStatus);
 
-        $response = $this->bookingManager->changeStatusBookingBatch($user, $status, $bookingsdata, true);
+        $response = $this->bookingManager->changeStatusBookingBatch($user, $status, $bookingsdata);
 
-        if ($response) {
-            return $this->json($bookingsdata, 200, [], ['groups' => 'info_booking']);
-        } else {
-            return $this->json($response, 500);
-        }
+        return $this->json(['data' => $bookingsdata, 'message' => $response['message']],$response['code'], [], ['groups' => 'info_booking']);
     }
 
     #[Route('/api/get-booking-by-patient/{id}', name: 'api_booking_patient', methods: ['GET'])]

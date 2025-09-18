@@ -57,7 +57,8 @@
     }@else if(switchView == 'bookingView') {
         <app-booking-view 
             [booking]="bookingSelect"
-            (closeVueDetaillee)="changeView('bookingList')" 
+            [userAdmin]="userAdmin"
+            (closeVueDetaillee)="changeView('bookingList')"
             (bookingUpdated)="onBookingUpdated($event)"
         />
     }

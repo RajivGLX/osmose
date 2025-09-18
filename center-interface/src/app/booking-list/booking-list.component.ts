@@ -229,7 +229,7 @@ export class BookingListComponent implements OnInit {
 
 
     rowDoubleClicked(event: RowDoubleClickedEvent) {
-        this.bookingSelect = event.data
+        this.bookingSelect = event.data.allDataBooking
         this.changeView('bookingView')
     }
 

@@ -1,4 +1,5 @@
 import { Center } from "./center.interface";
+import {User} from "./user.interface";
 export interface Patient {
     id: number,
     center: Center,

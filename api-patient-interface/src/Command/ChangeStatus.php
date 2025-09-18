@@ -71,7 +71,7 @@ class ChangeStatus extends Command {
 
             $numberBookings = count($bookings);
             $result = $this->bookingManager->changeStatusBookingBatch($adminOsmose, $statusFinish, $bookings);
-            if($result){
+            if($result == true){
                 $io->success(sprintf('Modification de "%d" status de reservation passé.', $numberBookings));
                 $this->logger->info(sprintf('Modification de "%d" status de reservation passé.', $numberBookings));
                 return Command::SUCCESS;
