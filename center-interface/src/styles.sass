@@ -69,9 +69,19 @@ body
                 background-color: $main-blue-hover !important
                 color: #fff !important
 
+        &.red
+            background-color: $error-color !important
+            border: 1px solid $error-color
+
+            &:not(.btn-disabled):hover
+                background-color: $error-color-middle !important
+                color: #fff !important
+
         &:not(.btn-disabled):hover
             background-color: $main-dore-hover
             color: #fff !important
+
+
     .btn-primary
         background-color: $main-blue
         color: #fff

@@ -126,7 +126,7 @@
                                             <span>{{booking.comment ? booking.comment : 'Aucun commentaire'}}</span>
                                         </div>
                                         <div class="col-4 mt-3">
-                                            <button class="btn btn-secondary" (click)="switchOnglet(3)">Informations sur le patient</button>
+                                            <button class="btn btn-primary" (click)="switchOnglet(3)">Informations sur le patient</button>
                                         </div>
                                     </div>
                                 </div>
@@ -190,6 +190,26 @@
 
                                             <button class="btn custom-btn" type="submit">
                                                 Remplacer le statut
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="wrapper-box action">
+                                        <span class="title">Supprimer un statut de la demande</span>
+                                        <form [formGroup]="statusFormReplace" (ngSubmit)="onSubmitReplaceStatus()" class=" d-flex justify-content-between">
+                                            <div class="wrapper-input">
+                                                <mat-form-field appearance="outline" class="bg-input-white">
+                                                    <mat-label>Sélectionner le statut</mat-label>
+                                                    <mat-select formControlName="idStatusBookingReplace">
+                                                        @for (status of booking.statusBookings; track status.id){
+                                                            <mat-option [value]="status.id">{{status.status.name}}</mat-option>
+                                                        }
+                                                    </mat-select>
+                                                    <mat-error appFormError="idStatusBookingReplace"/>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <button class="btn custom-btn red" type="submit">
+                                                supprimer le statut
                                             </button>
                                         </form>
                                     </div>

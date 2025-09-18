@@ -77,19 +77,23 @@ export class BookingViewService {
         })
     }
 
-    addNewStatus(statusForm: FormGroup) {
+    addNewStatus(statusForm: FormGroup): Promise<void> {
         this._loaderOneStatus$.next(true)
-        this.http.post<{data: Booking, message: string}>(environment.apiURL + '/api/add-status-booking', statusForm.value).subscribe({
-            next: (response : {data:Booking, message:string}) => {
-                this.toolsService.openSnackBar('success',response.message)
-                this._bookingByPatient$.next(response.data)
-                this._loaderOneStatus$.next(false)
-            },
-            error: (response: HttpErrorResponse) => {
-                console.log('response error :',response)
-                this.toolsService.openSnackBar('error',response.error.message ?? 'Une erreur est survenue')
-                this._loaderOneStatus$.next(false)
-            }
+        return new Promise<void>((resolve, reject) => {
+            this.http.post<{data: Booking, message: string}>(environment.apiURL + '/api/add-status-booking', statusForm.value).subscribe({
+                next: (response : {data:Booking, message:string}) => {
+                    this.toolsService.openSnackBar('success',response.message)
+                    this._bookingByPatient$.next(response.data)
+                    this._loaderOneStatus$.next(false)
+                    resolve()
+                },
+                error: (response: HttpErrorResponse) => {
+                    console.log('response error :',response)
+                    this.toolsService.openSnackBar('error',response.error.message ?? 'Une erreur est survenue')
+                    this._loaderOneStatus$.next(false)
+                    reject(response)
+                }
+            })
         })
     }
 
